@@ -14,6 +14,8 @@ public interface CardService {
 
     ApiResponseDto deleteCard(Long id, User user);
 
+    ApiResponseDto saveWorker(Long cardId, Long userId);
+
     Card findCard(Long id);
 
 }

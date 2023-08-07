@@ -4,6 +4,4 @@ public enum BoardRoleEnum {
     USER,
     EDITER,
     OWNER
-
-
 }

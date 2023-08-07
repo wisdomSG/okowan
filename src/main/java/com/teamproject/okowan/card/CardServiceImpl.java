@@ -4,9 +4,11 @@ import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
 import com.teamproject.okowan.user.User;
+import com.teamproject.okowan.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +20,8 @@ public class CardServiceImpl implements CardService {
     private final CardRepository cardRepository;
 
     private final CategoryService categoryService;
+
+    private final UserService userService;
 
     @Override
     public ApiResponseDto createCard(User user, CardRequestDto requestDto) {
@@ -42,6 +46,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @Transactional
     public ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto) {
         Card card = findCard(id);
 
@@ -66,6 +71,19 @@ public class CardServiceImpl implements CardService {
         cardRepository.delete(card);
 
         return new ApiResponseDto("카드 삭제 완료", HttpStatus.OK.value());
+    }
+
+    @Override
+    @Transactional
+    public ApiResponseDto saveWorker(Long cardId,Long userId) {
+        Card card = findCard(cardId);
+        User user = userService.findUserById(userId);
+
+        // if문 user가 card에 있는 board에 권한이 있는지 한번더 확인
+
+        card.setUser(user);
+
+        return new ApiResponseDto("작업자 등록완료", HttpStatus.OK.value());
     }
 
     @Override

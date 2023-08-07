@@ -26,5 +26,11 @@ public class CardController {
         return ResponseEntity.ok().body(result);
     }
 
+    @PostMapping("/worker")
+    public ResponseEntity<ApiResponseDto> saveWorker(@RequestParam("cardId") Long cardId,@RequestParam("worker") Long userId) {
+        ApiResponseDto result = cardService.saveWorker(cardId, userId);
+        return ResponseEntity.ok().body(result);
+    }
+
 
 }

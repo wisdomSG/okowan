@@ -3,6 +3,7 @@ package com.teamproject.okowan.card;
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,10 @@ public class Card {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Card(String title, String description, ColorEnum color, LocalDateTime deadline, Category category) {
         this.title = title;
         this.description = description;
@@ -64,5 +69,9 @@ public class Card {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
