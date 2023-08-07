@@ -48,6 +48,11 @@ public class CardServiceImpl implements CardService {
         card.setTitle(requestDto.getTitle());
         card.setDescription(requestDto.getDescription());
         card.setColor(requestDto.getColor());
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
+        LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
+        card.setDeadline(deadline);
+
         Category category = categoryService.findCategory(requestDto.getCategoryId());
         card.setCategory(category);
 
