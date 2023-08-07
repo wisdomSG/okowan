@@ -1,4 +1,19 @@
 package com.teamproject.okowan.card;
 
-public class CardService {
+import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.category.Category;
+import com.teamproject.okowan.user.User;
+
+public interface CardService {
+
+    ApiResponseDto createCard(User user, CardRequestDto requestDto);
+
+    CardResponseDto getCard(Long id, User user);
+
+    ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto);
+
+    ApiResponseDto deleteCard(Long id, User user);
+
+    Card findCard(Long id);
+
 }

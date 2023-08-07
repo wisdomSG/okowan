@@ -37,4 +37,32 @@ public class Card {
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
+
+    public Card(String title, String description, ColorEnum color, LocalDateTime deadline, Category category) {
+        this.title = title;
+        this.description = description;
+        this.color = color;
+        this.deadline = deadline;
+        this.category = category;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setColor(ColorEnum color) {
+        this.color = color;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
