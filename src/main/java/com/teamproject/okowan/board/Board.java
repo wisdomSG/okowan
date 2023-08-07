@@ -35,7 +35,7 @@ public class Board extends TimeStamped {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Category> categoryList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Card> cardList = new ArrayList<>();
 
     @Builder

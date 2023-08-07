@@ -2,6 +2,7 @@ package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.alert.Alert;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +32,14 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Alert> alertList = new ArrayList<>();
 
+    @Builder
     public User(String username, String password, String introduction) {
         this.username = username;
         this.password = password;
+        this.introduction = introduction;
+    }
+
+    public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
 }
