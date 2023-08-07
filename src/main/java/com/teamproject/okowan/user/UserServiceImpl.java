@@ -1,6 +1,8 @@
 package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.jwt.JwtUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     private final String DEFAULT_INTRODUCTION = "안녕하세요.";
 
@@ -20,7 +23,7 @@ public class UserServiceImpl implements UserService {
     public ApiResponseDto signup(UserRequestDto userRequestDto) {
         String username = userRequestDto.getUsername();
 
-        if(userRepository.existsByUsername(username)){
+        if (userRepository.existsByUsername(username)) {
             throw new IllegalArgumentException("중복된 이메일입니다.");
         }
 
@@ -38,14 +41,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(UserRequestDto userRequestDto) {
+    public ApiResponseDto login(UserRequestDto userRequestDto, HttpServletResponse response) {
         String username = userRequestDto.getUsername();
         User user = findUserByUsername(username);
         String rawPassword = userRequestDto.getPassword();
         if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
             throw new IllegalArgumentException("비밀번호 오류입니다.");
         }
-        return user;
+        String token = jwtUtil.createToken(user.getUsername());
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+        return new ApiResponseDto("로그인 성공", HttpStatus.OK.value());
     }
 
     @Override
@@ -62,7 +67,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public ApiResponseDto updateProfile(ProfileRequestDto profileRequestDto, User loginUser) {
-        User user = findUserById(loginUser.getId());
+        User user = findUserByUsername(loginUser.getUsername());
         user.setIntroduction(profileRequestDto.getIntroduction());
         return new ApiResponseDto("프로필 수정 성공", HttpStatus.OK.value());
     }
@@ -70,14 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() ->
-                new IllegalArgumentException("존재하지 않는 이메일?입니다.")
-        );
-    }
-
-    @Override
-    public User findUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() ->
-                new IllegalArgumentException("존재하지 않는 이메일입니다.")
+                new IllegalArgumentException("존재하지 않는 유저입니다.")
         );
     }
 }

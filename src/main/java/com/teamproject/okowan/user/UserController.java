@@ -5,7 +5,6 @@ import com.teamproject.okowan.jwt.JwtUtil;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,12 +26,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponseDto> login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response) {
-        User user = userService.login(userRequestDto);
-        String token = jwtUtil.createToken(user.getUsername());
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
-        return ResponseEntity.ok().body(
-                new ApiResponseDto("로그인 성공", HttpStatus.OK.value())
-        );
+        ApiResponseDto apiResponseDto = userService.login(userRequestDto, response);
+        return ResponseEntity.ok().body(apiResponseDto);
     }
 
     @PostMapping("/logout")
