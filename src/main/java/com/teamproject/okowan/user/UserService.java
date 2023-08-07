@@ -31,10 +31,10 @@ public interface UserService {
     /**
      * 프로필 조회
      *
-     * @param username 조회할 유저의 이메일
+     * @param userId 조회할 유저의 ID
      * @return 조회한 유저의 이메일, 자기소개
      */
-    ProfileResponseDto getProfile(String username);
+    ProfileResponseDto getProfile(Long userId);
 
     /**
      * 프로필 수정
@@ -52,4 +52,12 @@ public interface UserService {
      * @return 조회한 유저
      */
     User findUserByUsername(String username);
+
+    /**
+     * ID로 유저 조회
+     *
+     * @param userId 조회할 유저 ID
+     * @return 조회한 유저
+     */
+    User findUserById(Long userId);
 }

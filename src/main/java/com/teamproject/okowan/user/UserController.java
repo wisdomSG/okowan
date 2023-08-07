@@ -1,7 +1,6 @@
 package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
-import com.teamproject.okowan.jwt.JwtUtil;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
 
     @PostMapping("/signup")
     public ResponseEntity<ApiResponseDto> signup(@RequestBody UserRequestDto userRequestDto) {
@@ -36,9 +34,9 @@ public class UserController {
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
-    @GetMapping("/profile/{username}")
-    public ResponseEntity<ProfileResponseDto> getProfile(@PathVariable String username) {
-        ProfileResponseDto profileResponseDto = userService.getProfile(username);
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<ProfileResponseDto> getProfile(@PathVariable Long userId) {
+        ProfileResponseDto profileResponseDto = userService.getProfile(userId);
         return ResponseEntity.ok().body(profileResponseDto);
     }
 
