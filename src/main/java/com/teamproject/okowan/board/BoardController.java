@@ -57,11 +57,11 @@ public class BoardController {    // 전체 보드 조회
     }
 
     // 보드 초대
-    @PostMapping("/{boardId}/invite")
-    public ResponseEntity<ApiResponseDto> inviteUserToBoard(
-            @PathVariable Long BoardId,
-            @RequestBody BoardInviteRequestDto boardInviteRequestDto) {
-        ApiResponseDto responseDto = boardService.inviteUserToBoard(BoardId, boardInviteRequestDto);
-        return ResponseEntity.ok().body(responseDto);
-    }
+//    @PostMapping("/{boardId}/invite")
+//    public ResponseEntity<ApiResponseDto> inviteUserToBoard(
+//            @PathVariable Long BoardId,
+//            @RequestBody BoardInviteRequestDto boardInviteRequestDto) {
+//        ApiResponseDto responseDto = boardService.inviteUserToBoard(BoardId, boardInviteRequestDto);
+//        return ResponseEntity.ok().body(responseDto);
+//    }
 }
