@@ -6,6 +6,8 @@ import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.board.BoardRepository;
 import com.teamproject.okowan.board.BoardService;
 import com.teamproject.okowan.board.BoardServiceImpl;
+import com.teamproject.okowan.card.CardRepository;
+import com.teamproject.okowan.comment.CommentRepository;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import com.teamproject.okowan.user.User;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -44,15 +47,25 @@ public class CategoryServiceImpl implements CategoryService {
 
         if (move.equals("up")) {
             if (pos + 1 >= board.getCategoryList().size()) {
-                categoryList.add(0, categoryList.remove((int) pos));
+                categoryList.get(pos).setOrderStand(0L);
+                categoryList.stream().forEach((categoryElement -> {
+                    categoryElement.setOrderStand(categoryElement.getOrderStand() + 1);
+                }));
             } else {
-                categoryList.add(pos + 1, categoryList.remove((int) pos));
+                Long orderStand = categoryList.get(pos).getOrderStand();
+                categoryList.get(pos).setOrderStand(categoryList.get(pos+1).getOrderStand());
+                categoryList.get(pos+1).setOrderStand(orderStand);
             }
         } else if (move.equals("down")) {
             if (pos <= 0) {
-                categoryList.add(categoryList.remove((int) pos));
+                categoryList.get(pos).setOrderStand(categoryList.get(categoryList.size()-1).getOrderStand()+1);
+                categoryList.stream().forEach((categoryElement -> {
+                    categoryElement.setOrderStand(categoryElement.getOrderStand() - 1);
+                }));
             } else {
-                categoryList.add(pos - 1, categoryList.remove((int) pos));
+                Long orderStand = categoryList.get(pos).getOrderStand();
+                categoryList.get(pos).setOrderStand(categoryList.get(pos-1).getOrderStand());
+                categoryList.get(pos-1).setOrderStand(orderStand);
             }
         } else {
             throw new IllegalArgumentException("올바르지 않은 명령어입니다.");
@@ -69,6 +82,12 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category(categoryRequestDto);
         Board board = boardService.findBoard(boardId);
         category.setBoard(board);
+
+        category.setOrderStand(board.getCategoryList().size() == 0 ? 1 : board.getCategoryList()
+                .stream()
+                .max(Comparator.comparing((Category::getOrderStand)))
+                .get()
+                .getOrderStand() + 1);
 
         categoryRepository.save(category);
 
@@ -90,8 +109,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         category.setTitle(categoryRequestDto.getTitle());
-
-        board.getCategoryList().set(pos,category);
 
         return new ApiResponseDto("카테고리 수정 성공", HttpStatus.OK.value());
     }

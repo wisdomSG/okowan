@@ -39,6 +39,9 @@ public class Card {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
