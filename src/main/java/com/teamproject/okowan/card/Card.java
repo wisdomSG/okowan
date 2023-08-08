@@ -2,12 +2,15 @@ package com.teamproject.okowan.card;
 
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
+import com.teamproject.okowan.comment.Comment;
 import com.teamproject.okowan.entity.ColorEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,4 +40,7 @@ public class Card {
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
+
+    @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList = new ArrayList<>();
 }

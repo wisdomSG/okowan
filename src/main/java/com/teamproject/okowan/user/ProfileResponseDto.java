@@ -6,11 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProfileResponseDto {
-    private String username;
+    private String nickname;
     private String introduction;
+    private String address;
 
     ProfileResponseDto(User user) {
-        this.username = user.getUsername();
+        this.nickname = user.getNickname();
         this.introduction = user.getIntroduction();
+        this.address = user.getAddress();
     }
 }

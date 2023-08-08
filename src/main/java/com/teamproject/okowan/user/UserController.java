@@ -1,32 +1,33 @@
 package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
-import com.teamproject.okowan.jwt.JwtUtil;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/okw/user")
+@RequestMapping("/okw/users")
 public class UserController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
 
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponseDto> signup(@RequestBody UserRequestDto userRequestDto) {
-        ApiResponseDto apiResponseDto = userService.signup(userRequestDto);
+    public ResponseEntity<ApiResponseDto> signup(@Valid @RequestBody SignupRequestDto signupRequestDto,
+                                                 BindingResult bindingResult) {
+        ApiResponseDto apiResponseDto = userService.signup(signupRequestDto);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponseDto> login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response) {
-        ApiResponseDto apiResponseDto = userService.login(userRequestDto, response);
+    public ResponseEntity<ApiResponseDto> login(@RequestBody LoginRequestDto loginRequestDto, HttpServletResponse response) {
+        ApiResponseDto apiResponseDto = userService.login(loginRequestDto, response);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
@@ -36,14 +37,15 @@ public class UserController {
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
-    @GetMapping("/profile/{username}")
-    public ResponseEntity<ProfileResponseDto> getProfile(@PathVariable String username) {
-        ProfileResponseDto profileResponseDto = userService.getProfile(username);
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<ProfileResponseDto> getProfile(@PathVariable Long userId) {
+        ProfileResponseDto profileResponseDto = userService.getProfile(userId);
         return ResponseEntity.ok().body(profileResponseDto);
     }
 
     @PutMapping("/profile")
-    public ResponseEntity<ApiResponseDto> updateProfile(@RequestBody ProfileRequestDto profileRequestDto,
+    public ResponseEntity<ApiResponseDto> updateProfile(@Valid @RequestBody ProfileRequestDto profileRequestDto,
+                                                        BindingResult bindingResult,
                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponseDto apiResponseDto = userService.updateProfile(profileRequestDto, userDetails.getUser());
         return ResponseEntity.ok().body(apiResponseDto);
