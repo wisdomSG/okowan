@@ -1,11 +1,15 @@
 package com.teamproject.okowan.category;
 
 import com.teamproject.okowan.board.Board;
+import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.entity.TimeStamped;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,12 +24,14 @@ public class Category extends TimeStamped {
     private String title;
 
     @Column
-    @GeneratedValue
     private Long orderStand;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
+
+    @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
+    private List<Card> cardList = new ArrayList<>();
 
     @Builder
     public Category(CategoryRequestDto categoryRequestDto) {
@@ -38,6 +44,10 @@ public class Category extends TimeStamped {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setOrderStand(Long orderStand) {
+        this.orderStand = orderStand;
     }
 
 }
