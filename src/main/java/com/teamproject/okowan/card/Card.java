@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long card_id;
+    private Long cardId;
 
     @Column(nullable = false, unique = true)
     private String title;
