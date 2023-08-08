@@ -2,6 +2,7 @@ package com.teamproject.okowan.card;
 
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
+import com.teamproject.okowan.comment.Comment;
 import com.teamproject.okowan.entity.ColorEnum;
 import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
@@ -9,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter

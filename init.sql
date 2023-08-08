@@ -5,7 +5,9 @@ create table okowan.users
     id           bigint auto_increment primary key,
     username     varchar(50)  not null unique,
     password     varchar(255) not null,
-    introduction varchar(100) not null
+    nickname     varchar(50)  not null,
+    introduction varchar(255) not null,
+    address      varchar(255)
 );
 
 insert into okowan.users(username, password, nickname, introduction, address) VALUES ('user1@email.com', 1234, 'nickname1', '안녕하세요1', 'XX시 XX구');
