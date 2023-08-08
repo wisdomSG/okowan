@@ -12,4 +12,7 @@ public interface CommentSerivce {
 
     /* 댓글 삭제 */
     ApiResponseDto deleteComment(Long commentId, UserDetailsImpl userDetails);
+
+    /* 댓글 찾기 */
+    Comment findComment(Long commentId);
 }
