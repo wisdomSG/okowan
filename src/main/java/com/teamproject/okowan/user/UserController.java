@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/okw/user")
+@RequestMapping("/okw/users")
 public class UserController {
 
     private final UserService userService;
