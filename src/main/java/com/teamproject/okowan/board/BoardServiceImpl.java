@@ -2,8 +2,8 @@ package com.teamproject.okowan.board;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.entity.BoardRoleEnum;
-import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.user.User;
+import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -95,4 +95,3 @@ public class BoardServiceImpl implements BoardService {
         return boardRepository.findById(BoardId).orElseThrow(() -> new IllegalArgumentException("선택한 보드는 존재하지 않습니다."));
     }
 }
-
