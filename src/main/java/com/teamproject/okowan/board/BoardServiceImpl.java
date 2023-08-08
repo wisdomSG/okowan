@@ -60,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
         Board board = findBoard(BoardId);
 
         try {
-            userBoardRepository.findByUserIdAndBoardIdAndRole(user.getId(), BoardId, BoardRoleEnum.OWNER);
+            userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER);
         } catch (RejectedExecutionException e) {
             throw new RejectedExecutionException("해당 보드의 소유주가 아닙니다.");
         }
@@ -76,10 +76,10 @@ public class BoardServiceImpl implements BoardService {
     public ApiResponseDto deleteBoard(Long BoardId, User user) {
         // 보드가 있는지
         Board board = findBoard(BoardId);
-        // 보드 작성자인지
 
+        // 보드 작성자인지
         try {
-            userBoardRepository.findByUserIdAndBoardIdAndRole(user.getId(), BoardId, BoardRoleEnum.OWNER);
+            userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER);;
         } catch (RejectedExecutionException e) {
             throw new RejectedExecutionException("해당 보드의 소유주가 아닙니다.");
         }

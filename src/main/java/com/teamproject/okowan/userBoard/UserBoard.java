@@ -25,7 +25,7 @@ public class UserBoard {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "board_id")
+    @JoinColumn(name = "board_id", referencedColumnName = "board_id")
     private Board board;
 
     public UserBoard(BoardRoleEnum role, User user, Board board) {

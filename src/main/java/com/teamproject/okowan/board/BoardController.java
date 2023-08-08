@@ -14,11 +14,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/okw")
-public class BoardController {
-
-    private final BoardService boardService;
-
-    // 전체 보드 조회
+public class BoardController {    // 전체 보드 조회
     @GetMapping("/boards")
     public ResponseEntity<List<BoardResponseDto>> getBoardList() {
         List<BoardResponseDto> responseDto = boardService.getBoardList();
@@ -31,6 +27,10 @@ public class BoardController {
         BoardResponseDto responseDto = boardService.getBoard(BoardId);
         return ResponseEntity.ok().body(responseDto);
     }
+
+    private final BoardService boardService;
+
+//
 
     // 보드 작성
     @PostMapping("/board")
