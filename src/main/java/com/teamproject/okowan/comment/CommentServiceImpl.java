@@ -18,9 +18,9 @@ public class CommentServiceImpl implements CommentSerivce {
 
     /* 댓글 등록 */
     @Override
-    public ApiResponseDto registComment(Long card_id, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails) {
+    public ApiResponseDto registComment(Long cardId, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
-        Card card = findByIdCard(card_id);
+        Card card = findByIdCard(cardId);
 
         Comment comment = new Comment(commentRequestDto);
 
@@ -35,10 +35,10 @@ public class CommentServiceImpl implements CommentSerivce {
     /* 댓글 수정 */
     @Override
     @Transactional
-    public ApiResponseDto updateComment(Long comment_id, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails) {
+    public ApiResponseDto updateComment(Long commentId, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
 
-        Comment comment = findByIdComment(comment_id);
+        Comment comment = findByIdComment(commentId);
 
         checkUserCommentOwner(comment, user);
 
@@ -50,10 +50,10 @@ public class CommentServiceImpl implements CommentSerivce {
     /* 댓글 삭제 */
     @Override
     @Transactional
-    public ApiResponseDto deleteComment(Long comment_id, UserDetailsImpl userDetails) {
+    public ApiResponseDto deleteComment(Long commentId, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
 
-        Comment comment = findByIdComment(comment_id);
+        Comment comment = findByIdComment(commentId);
 
         checkUserCommentOwner(comment, user);
 
@@ -72,13 +72,13 @@ public class CommentServiceImpl implements CommentSerivce {
     }
 
     /* Find Card By Id */
-    public Card findByIdCard(Long card_id) {
-        return cardRepository.findById(card_id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카드입니다."));
+    public Card findByIdCard(Long cardId) {
+        return cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카드입니다."));
     }
 
     /* Find Comment by Id */
-    public Comment findByIdComment(Long comment_id) {
-        return commentRepository.findById(comment_id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+    public Comment findByIdComment(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
     }
 
     /* check same user - comment */

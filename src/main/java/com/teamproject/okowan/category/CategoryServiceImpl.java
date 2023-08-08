@@ -21,9 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     /* 카테고리 전체 조회 */
     @Override
-    public List<CategoryResponseDto> getCategorys(Long board_id, UserDetailsImpl userDetails) {
+    public List<CategoryResponseDto> getCategories(Long boardId, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
-        Board board = findByIdBoard(board_id);
+        Board board = findByIdBoard(boardId);
 
         List<CategoryResponseDto> categoryResponseDtoList = board.getCategoryList().stream().map(CategoryResponseDto::new).toList();
 
@@ -33,10 +33,10 @@ public class CategoryServiceImpl implements CategoryService {
     /* 카테고리 순서 이동 */
     @Transactional
     @Override
-    public ApiResponseDto moveCategory(Long category_id, Long boardId, String move, UserDetailsImpl userDetails) {
+    public ApiResponseDto moveCategory(Long categoryId, Long boardId, String move, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
         Board board = findByIdBoard(boardId);
-        Category category = findByIdCategory(category_id);
+        Category category = findByIdCategory(categoryId);
 
         List<Category> categoryList = board.getCategoryList();
 
@@ -63,11 +63,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     /* 카테고리 등록 */
     @Override
-    public ApiResponseDto registCategory(Long board_id, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails) {
+    public ApiResponseDto registCategory(Long boardId, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
 
         Category category = new Category(categoryRequestDto);
-        Board board = findByIdBoard(board_id);
+        Board board = findByIdBoard(boardId);
         category.setBoard(board);
 
         categoryRepository.save(category);
@@ -78,10 +78,10 @@ public class CategoryServiceImpl implements CategoryService {
     /* 카테고리 수정 */
     @Transactional
     @Override
-    public ApiResponseDto updateCategory(Long category_id, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails) {
+    public ApiResponseDto updateCategory(Long categoryId, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
 
-        Category category = findByIdCategory(category_id);
+        Category category = findByIdCategory(categoryId);
         Board board = category.getBoard();
 
         Integer pos = board.getCategoryList().indexOf(category);
@@ -99,10 +99,10 @@ public class CategoryServiceImpl implements CategoryService {
     /* 카테고리 삭제 */
     @Transactional
     @Override
-    public ApiResponseDto deleteCategory(Long category_id, UserDetailsImpl userDetails) {
+    public ApiResponseDto deleteCategory(Long categoryId, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
 
-        Category category = findByIdCategory(category_id);
+        Category category = findByIdCategory(categoryId);
 
         categoryRepository.delete(category);
 
@@ -119,14 +119,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /* Find Category By Id */
-    public Category findByIdCategory(Long category_id) {
-        return categoryRepository.findById(category_id).orElseThrow(() ->
+    public Category findByIdCategory(Long categoryId) {
+        return categoryRepository.findById(categoryId).orElseThrow(() ->
                 new IllegalArgumentException("카테고리가 존재하지 않습니다."));
     }
 
     /* Find Board By Id */
-    public Board findByIdBoard(Long board_id) {
-        return boardRepository.findById(board_id).orElseThrow(() ->
+    public Board findByIdBoard(Long boardId) {
+        return boardRepository.findById(boardId).orElseThrow(() ->
                 new IllegalArgumentException("보드가 존재하지 않습니다."));
     }
 }

@@ -2,8 +2,8 @@ package com.teamproject.okowan.board;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.entity.BoardRoleEnum;
-import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.user.User;
+import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

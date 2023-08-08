@@ -8,26 +8,26 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/okw")
+@RequestMapping("/okw/comments")
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentServiceImpl commentService;
 
-    @PostMapping("/comments/{card_id}")
-    public ResponseEntity<ApiResponseDto> registComment(@PathVariable Long card_id, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto apiResponseDto = commentService.registComment(card_id, commentRequestDto, userDetails);
+    @PostMapping("/{cardId}")
+    public ResponseEntity<ApiResponseDto> registComment(@PathVariable Long cardId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ApiResponseDto apiResponseDto = commentService.registComment(cardId, commentRequestDto, userDetails);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
-    @PutMapping("/comments/{comment_id}")
-    public ResponseEntity<ApiResponseDto> updateComment(@PathVariable Long comment_id, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto apiResponseDto = commentService.updateComment(comment_id, commentRequestDto, userDetails);
+    @PutMapping("/{commentId}")
+    public ResponseEntity<ApiResponseDto> updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ApiResponseDto apiResponseDto = commentService.updateComment(commentId, commentRequestDto, userDetails);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
-    @DeleteMapping("/comments/{comment_id}")
-    public ResponseEntity<ApiResponseDto> deleteComment(@PathVariable Long comment_id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto apiResponseDto = commentService.deleteComment(comment_id, userDetails);
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<ApiResponseDto> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ApiResponseDto apiResponseDto = commentService.deleteComment(commentId, userDetails);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 }
