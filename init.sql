@@ -7,3 +7,10 @@ create table okowan.users
     password     varchar(255) not null,
     introduction varchar(100) not null
 );
+
+create table okowan.cards
+(
+    id bigint auto_increment primary key,
+
+
+)
