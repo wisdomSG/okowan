@@ -27,19 +27,32 @@ public class User {
     private String password;
 
     @Column(nullable = false)
+    private String nickname;
+
+    @Column(nullable = false)
     private String introduction;
+    private String address;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Alert> alertList = new ArrayList<>();
 
     @Builder
-    public User(String username, String password, String introduction) {
+    public User(String username, String password, String nickname, String introduction) {
         this.username = username;
         this.password = password;
+        this.nickname = nickname;
         this.introduction = introduction;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
