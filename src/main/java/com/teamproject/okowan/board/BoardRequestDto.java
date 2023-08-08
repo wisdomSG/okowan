@@ -12,6 +12,6 @@ public class BoardRequestDto {
     private ColorEnum color;
 
     @NotBlank(message = "내용이 입력이 안되었습니다.")
-    private String content;
+    private String description;
 
 }

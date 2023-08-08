@@ -1,6 +1,7 @@
-package com.teamproject.okowan.entity;
+package com.teamproject.okowan.userBoard;
 
 import com.teamproject.okowan.board.Board;
+import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,7 +16,6 @@ public class UserBoard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_board_id;
 
-
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private BoardRoleEnum role;
@@ -27,4 +27,10 @@ public class UserBoard {
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
+
+    public UserBoard(BoardRoleEnum role, User user, Board board) {
+        this.role = role;
+        this.user = user;
+        this.board = board;
+    }
 }

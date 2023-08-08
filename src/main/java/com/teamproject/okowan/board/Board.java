@@ -44,4 +44,17 @@ public class Board extends TimeStamped {
         this.description = description;
         this.color = color;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setColor(ColorEnum color) {
+        this.color = color;
+    }
+//    public BoardRequestDto
 }

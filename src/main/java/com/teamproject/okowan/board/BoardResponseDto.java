@@ -2,23 +2,23 @@ package com.teamproject.okowan.board;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-@Slf4j
 @Getter
 @Setter
 public class BoardResponseDto {
 
-    private Long id;
+    private Long boardId;
     private String title;
-    private String content;
-    private String username;
-    private String nickname;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
-//    private List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
+    private String description;
+    private String createdAt;
+    private String modifiedAt;
+
+    public BoardResponseDto(Board board) {
+        this.title = board.getTitle();
+        this.description = board.getDescription();
+        this.createdAt = board.getCreatedAtFormatted();
+        this.modifiedAt = board.getModifiedAtFormatted();
+    }
+//    private List<CategoryResponseDto> categoryResponseDtoList = new ArrayList<>();
+//    private List<CardResponseDto> cardResponseDtoList = new ArrayList<>();
 }
