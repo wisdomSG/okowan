@@ -13,16 +13,16 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/okw")
+@RequestMapping("/okw/boards")
 public class BoardController {    // 전체 보드 조회
-    @GetMapping("/boards")
+    @GetMapping
     public ResponseEntity<List<BoardResponseDto>> getBoardList() {
         List<BoardResponseDto> responseDto = boardService.getBoardList();
         return ResponseEntity.ok().body(responseDto);
     }
 
     // 상세 보드 조회
-    @GetMapping("/board/{BoardId}")
+    @GetMapping("/{BoardId}")
     public ResponseEntity<BoardResponseDto> getBoard(@PathVariable Long BoardId) {
         BoardResponseDto responseDto = boardService.getBoard(BoardId);
         return ResponseEntity.ok().body(responseDto);
@@ -30,17 +30,15 @@ public class BoardController {    // 전체 보드 조회
 
     private final BoardService boardService;
 
-//
-
     // 보드 작성
-    @PostMapping("/board")
+    @PostMapping
     public ResponseEntity<ApiResponseDto> createBoard(@RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponseDto responseDto = boardService.createBoard(requestDto,userDetails.getUser());
         return ResponseEntity.ok().body(responseDto);
     }
 
     // 보드 수정
-    @PutMapping("/board/{BoardId}")
+    @PutMapping("/{BoardId}")
     public @ResponseBody ResponseEntity<ApiResponseDto> updateBoard(
             @PathVariable Long BoardId,
             @Valid @RequestBody BoardRequestDto requestDto,
@@ -50,7 +48,7 @@ public class BoardController {    // 전체 보드 조회
     }
 
     // 보드 삭제
-    @DeleteMapping("/board/{BoardId}")
+    @DeleteMapping("/{BoardId}")
     public @ResponseBody ResponseEntity<ApiResponseDto> deleteBoard(
             @PathVariable Long BoardId,
             @AuthenticationPrincipal UserDetailsImpl userDetails) {

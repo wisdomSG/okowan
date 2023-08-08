@@ -14,7 +14,7 @@ public class BoardResponseDto {
     private String modifiedAt;
 
     public BoardResponseDto(Board board) {
-        this.boardId = board.getBoard_id();
+        this.boardId = board.getBoardId();
         this.title = board.getTitle();
         this.description = board.getDescription();
         this.createdAt = board.getCreatedAtFormatted();
