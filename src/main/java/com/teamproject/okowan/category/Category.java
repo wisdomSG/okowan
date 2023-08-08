@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Category extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long column_id;
+    private Long categoryId;
 
     @Column
     private String title;
