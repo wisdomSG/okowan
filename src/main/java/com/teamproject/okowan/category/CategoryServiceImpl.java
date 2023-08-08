@@ -4,6 +4,7 @@ package com.teamproject.okowan.category;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.board.BoardRepository;
+import com.teamproject.okowan.board.BoardService;
 import com.teamproject.okowan.board.BoardServiceImpl;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import com.teamproject.okowan.user.User;

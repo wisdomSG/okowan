@@ -1,10 +1,14 @@
 package com.teamproject.okowan.card;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
+import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
+import com.teamproject.okowan.userBoard.UserBoard;
+import com.teamproject.okowan.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,15 +29,17 @@ public class CardServiceImpl implements CardService {
 
     private final UserService userService;
 
+    private final UserBoardRepository userBoardRepository;
+
     @Override
     public ApiResponseDto createCard(User user, CardRequestDto requestDto) {
-        Category category = categoryService.findByIdCategory(requestDto.getCategoryId());
+        Category category = categoryService.findCategory(requestDto.getCategoryId());
 
         // "yyyy-MM-dd HH:mm"과 같은 형식의 문자열을 deadlineStr 필드로 요청하면, 서버에서는 deadlineStr을 LocalDateTime으로 변환하여 Card 엔티티의 deadline 필드에 저장
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
         LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
 
-        Card card = new Card(requestDto.getTitle(), requestDto.getDescription(), requestDto.getColor(), deadline, category);
+        Card card = new Card(requestDto.getTitle(), requestDto.getDescription(), requestDto.getColor(), deadline, category, user);
 
         cardRepository.save(card);
 
@@ -60,6 +67,12 @@ public class CardServiceImpl implements CardService {
     public ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto) {
         Card card = findCard(id);
 
+        userBoardRepository.getRoleFindByUserId(user.getId(), card.getBoard().getBoardId())
+                .ifPresent(role -> {
+                    if (role != BoardRoleEnum.OWNER) {
+                        throw new IllegalArgumentException("안됨");
+                    }
+                });
         card.setTitle(requestDto.getTitle());
         card.setDescription(requestDto.getDescription());
         card.setColor(requestDto.getColor());
@@ -68,7 +81,7 @@ public class CardServiceImpl implements CardService {
         LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
         card.setDeadline(deadline);
 
-        Category category = categoryService.findByIdCategory(requestDto.getCategoryId());
+        Category category = categoryService.findCategory(requestDto.getCategoryId());
         card.setCategory(category);
 
         return new ApiResponseDto("카드 수정 완료", HttpStatus.OK.value());
@@ -85,7 +98,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
-    public ApiResponseDto saveWorker(Long cardId,Long userId) {
+    public ApiResponseDto saveWorker(Long cardId, Long userId) {
         Card card = findCard(cardId);
         User user = userService.findUserById(userId);
 

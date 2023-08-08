@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/okw/card")
+@RequestMapping("/okw/cards")
 @RequiredArgsConstructor
 public class CardController {
 

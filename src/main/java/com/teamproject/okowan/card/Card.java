@@ -43,12 +43,15 @@ public class Card {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Card(String title, String description, ColorEnum color, LocalDateTime deadline, Category category) {
+
+    public Card(String title, String description, ColorEnum color, LocalDateTime deadline, Category category, User user) {
         this.title = title;
         this.description = description;
         this.color = color;
         this.deadline = deadline;
         this.category = category;
+        this.user = user;
+        this.board = category.getBoard();
     }
 
     public void setTitle(String title) {
