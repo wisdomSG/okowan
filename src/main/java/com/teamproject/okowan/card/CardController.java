@@ -35,7 +35,7 @@ public class CardController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponseDto> updateCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails, CardRequestDto requestDto) {
+    public ResponseEntity<ApiResponseDto> updateCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CardRequestDto requestDto) {
         ApiResponseDto result = cardService.updateCard(id, userDetails.getUser(), requestDto);
         return ResponseEntity.ok().body(result);
     }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,7 @@ public class CardServiceImpl implements CardService {
                         throw new IllegalArgumentException("안됨");
                     }
                 });
+
         card.setTitle(requestDto.getTitle());
         card.setDescription(requestDto.getDescription());
         card.setColor(requestDto.getColor());
@@ -90,6 +92,13 @@ public class CardServiceImpl implements CardService {
     @Override
     public ApiResponseDto deleteCard(Long id, User user) {
         Card card = findCard(id);
+
+        userBoardRepository.getRoleFindByUserId(user.getId(), card.getBoard().getBoardId())
+                .ifPresent(role -> {
+                    if (role != BoardRoleEnum.OWNER) {
+                        throw new IllegalArgumentException("안됨");
+                    }
+                });
 
         cardRepository.delete(card);
 
