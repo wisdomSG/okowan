@@ -4,6 +4,7 @@ package com.teamproject.okowan.category;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.board.BoardRepository;
+import com.teamproject.okowan.board.BoardService;
 import com.teamproject.okowan.board.BoardServiceImpl;
 import com.teamproject.okowan.card.CardRepository;
 import com.teamproject.okowan.comment.CommentRepository;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    private final BoardServiceImpl boardService;
+    private final BoardService boardService;
     private final CategoryRepository categoryRepository;
 
     /* 카테고리 전체 조회 */
@@ -136,6 +137,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (userDetails == null) {
             throw new IllegalArgumentException("올바른 사용자가 아닙니다");
         }
+
         return userDetails.getUser();
     }
 }
