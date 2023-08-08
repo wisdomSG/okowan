@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Alert {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long alert_id;
+    private Long alertId;
 
     private String board_title;
 
