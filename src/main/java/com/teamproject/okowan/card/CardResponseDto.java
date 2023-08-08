@@ -17,7 +17,7 @@ public class CardResponseDto {
     private String deadline; // 문자열로 저장하기 위한 필드
 
     public CardResponseDto(Card card) {
-        this.cardId = card.getCard_id();
+        this.cardId = card.getCardId();
         this.title = card.getTitle();
         this.description = card.getDescription();
         this.color = card.getColor();

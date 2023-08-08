@@ -4,13 +4,15 @@ import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.user.User;
 
+import java.util.List;
+
 public interface CardService {
 
     ApiResponseDto createCard(User user, CardRequestDto requestDto);
 
     CardResponseDto getCard(Long id, User user);
 
-    CardResponseDto getCardFindByTitleList(String keyword);
+    List<CardResponseDto> getCardFindByTitleList(String keyword);
 
     ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto);
 

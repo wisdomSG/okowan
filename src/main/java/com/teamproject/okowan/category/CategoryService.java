@@ -22,5 +22,7 @@ public interface CategoryService {
     /* 카테고리 삭제 */
     ApiResponseDto deleteCategory(Long categoryId, UserDetailsImpl userDetails);
 
+    Category findByIdCategory(Long categoryId);
+
 
 }

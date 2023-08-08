@@ -119,6 +119,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /* Find Category By Id */
+    @Override
     public Category findByIdCategory(Long categoryId) {
         return categoryRepository.findById(categoryId).orElseThrow(() ->
                 new IllegalArgumentException("카테고리가 존재하지 않습니다."));

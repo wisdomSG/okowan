@@ -47,12 +47,12 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardResponseDto getCardFindByTitleList(String keyword) {
+    public List<CardResponseDto> getCardFindByTitleList(String keyword) {
         List<CardResponseDto> cardList = cardRepository.getCardFindByTitleList(keyword)
                 .stream()
                 .map(CardResponseDto::new)
                 .toList();
-        return new CardResponseDto()
+        return cardList;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class CardServiceImpl implements CardService {
         LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
         card.setDeadline(deadline);
 
-        Category category = categoryService.findByIdCategory((requestDto.getCategoryId());
+        Category category = categoryService.findByIdCategory(requestDto.getCategoryId());
         card.setCategory(category);
 
         return new ApiResponseDto("카드 수정 완료", HttpStatus.OK.value());

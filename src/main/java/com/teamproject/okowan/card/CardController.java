@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/okw/card")
 @RequiredArgsConstructor
@@ -27,8 +29,8 @@ public class CardController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<CardResponseDto> getCardFindByTitleList(@RequestParam("keyword") String keyword) {
-        CardResponseDto result = cardService.getCardFindByTitleList(keyword);
+    public ResponseEntity<List<CardResponseDto>> getCardFindByTitleList(@RequestParam("keyword") String keyword) {
+        List<CardResponseDto> result = cardService.getCardFindByTitleList(keyword);
         return ResponseEntity.ok().body(result);
     }
 
