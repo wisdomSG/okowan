@@ -5,6 +5,7 @@ import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -95,6 +96,23 @@ public class BoardServiceImpl implements BoardService {
            boardRepository.delete(board);
         return new ApiResponseDto("보드 삭제 성공.", HttpStatus.OK.value());
     }
+
+//    @Override
+//    public ApiResponseDto inviteUserToBoard(Long BoardId, BoardInviteRequestDto boardInviteRequestDto) {
+//        Board board = findBoard(BoardId)
+//                .orElseThrow(() -> new EntityNotFoundException("선택한 보드는 존재하지 않습니다."));
+//
+//        User user = userRepository.findById(boardInviteRequestDto.getUserId())
+//                .orElseThrow(() -> new EntityNotFoundException("선택한 사용자가 존재하지 않습니다."));
+//
+//        UserBoard InvitedMember = new BoardMember();
+//        InvitedMember.setBoard(board);
+//        InvitedMember.setUser(user);
+//        InvitedMember.setRole(boardInviteRequestDto.getRole());
+//
+//        board.getMembers().add(newMember);
+//        boardRepository.save(board);
+//    }
 
     @Override
     public Board findBoard(Long BoardId) {
