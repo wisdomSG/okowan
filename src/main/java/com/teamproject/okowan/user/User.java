@@ -33,8 +33,8 @@ public class User {
     private String introduction;
     private String address;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Alert> alertList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+//    private List<Alert> alertList = new ArrayList<>();
 
     @Builder
     public User(String username, String password, String nickname, String introduction) {

@@ -12,6 +12,8 @@ public interface BoardService {
 
     BoardResponseDto getBoard(Long BoardId);
 
+    BoardResponseDto getBoardWorkerList(Long BoardId);
+
     ApiResponseDto createBoard(BoardRequestDto requestDto, User user);
 
 
