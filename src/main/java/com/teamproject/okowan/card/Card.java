@@ -1,5 +1,6 @@
 package com.teamproject.okowan.card;
 
+import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.entity.ColorEnum;
 import jakarta.persistence.*;
@@ -32,4 +33,8 @@ public class Card {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 }

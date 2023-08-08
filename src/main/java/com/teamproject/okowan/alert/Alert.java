@@ -1,11 +1,10 @@
 package com.teamproject.okowan.alert;
 
-import com.teamproject.okowan.entity.TimeStamped;
+import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -30,5 +29,7 @@ public class Alert {
     @Column(updatable = false) //최초 생성시간만 초기화 되고 그 뒤 수정될 수 없음
     private LocalDateTime alert_at;
 
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
