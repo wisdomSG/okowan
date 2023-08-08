@@ -10,6 +10,8 @@ public interface CardService {
 
     CardResponseDto getCard(Long id, User user);
 
+    CardResponseDto getCardFindByTitleList(String keyword);
+
     ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto);
 
     ApiResponseDto deleteCard(Long id, User user);

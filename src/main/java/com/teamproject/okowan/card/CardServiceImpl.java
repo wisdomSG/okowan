@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public ApiResponseDto createCard(User user, CardRequestDto requestDto) {
-        Category category = categoryService.findCategory(requestDto.getCategoryId());
+        Category category = categoryService.findByIdCategory(requestDto.getCategoryId());
 
         // "yyyy-MM-dd HH:mm"과 같은 형식의 문자열을 deadlineStr 필드로 요청하면, 서버에서는 deadlineStr을 LocalDateTime으로 변환하여 Card 엔티티의 deadline 필드에 저장
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
@@ -46,6 +47,15 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    public CardResponseDto getCardFindByTitleList(String keyword) {
+        List<CardResponseDto> cardList = cardRepository.getCardFindByTitleList(keyword)
+                .stream()
+                .map(CardResponseDto::new)
+                .toList();
+        return new CardResponseDto()
+    }
+
+    @Override
     @Transactional
     public ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto) {
         Card card = findCard(id);
@@ -58,7 +68,7 @@ public class CardServiceImpl implements CardService {
         LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
         card.setDeadline(deadline);
 
-        Category category = categoryService.findCategory(requestDto.getCategoryId());
+        Category category = categoryService.findByIdCategory((requestDto.getCategoryId());
         card.setCategory(category);
 
         return new ApiResponseDto("카드 수정 완료", HttpStatus.OK.value());
