@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_board_id;
+    private Long userBoardId;
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)

@@ -20,7 +20,7 @@ public class Board extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long board_id;
+    private Long boardId;
 
     @Column(nullable = false, unique = true)
     private String title;
