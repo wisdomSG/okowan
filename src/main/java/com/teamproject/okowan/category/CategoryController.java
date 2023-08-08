@@ -24,7 +24,7 @@ public class CategoryController {
     /*
         카테고리 순서 이동
         - Board > CategoryList의 index 조정
-        api : /okw/category/{category_id}/move?boardId=?&move="up" or "down"
+        api : /okw/category/{categoryId}/move?boardId=?&move="up" or "down"
      */
     @PostMapping("/{categoryId}/move")
     public ResponseEntity<ApiResponseDto> moveCategory(@PathVariable Long categoryId, @RequestParam Long boardId, @RequestParam String move, @AuthenticationPrincipal UserDetailsImpl userDetails) {

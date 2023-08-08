@@ -36,7 +36,7 @@ public class Board extends TimeStamped {
     private ColorEnum color;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    //@OrderBy("orderPosition asc")
+    @OrderBy("orderStand asc")
     private List<Category> categoryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
