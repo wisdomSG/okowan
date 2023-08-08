@@ -15,7 +15,6 @@ public class UserBoard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_board_id;
 
-
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private BoardRoleEnum role;

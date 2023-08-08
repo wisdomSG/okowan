@@ -1,7 +1,9 @@
 package com.teamproject.okowan.comment;
 
 import com.teamproject.okowan.card.Card;
+import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment_id;
+    private Long commentId;
 
     @Column
     private String content;
@@ -20,4 +22,25 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Builder
+    public Comment(CommentRequestDto commentRequestDto) {
+        this.content = commentRequestDto.getContent();
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
 }
