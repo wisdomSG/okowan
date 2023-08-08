@@ -3,6 +3,8 @@ package com.teamproject.okowan.comment;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.card.CardRepository;
+import com.teamproject.okowan.card.CardService;
+import com.teamproject.okowan.card.CardServiceImpl;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import com.teamproject.okowan.user.User;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +40,7 @@ public class CommentServiceImpl implements CommentSerivce {
     public ApiResponseDto updateComment(Long commentId, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
 
-        Comment comment = findByIdComment(commentId);
+        Comment comment = findComment(commentId);
 
         checkUserCommentOwner(comment, user);
 
@@ -53,7 +55,7 @@ public class CommentServiceImpl implements CommentSerivce {
     public ApiResponseDto deleteComment(Long commentId, UserDetailsImpl userDetails) {
         User user = checkUser(userDetails);
 
-        Comment comment = findByIdComment(commentId);
+        Comment comment = findComment(commentId);
 
         checkUserCommentOwner(comment, user);
 
@@ -62,13 +64,10 @@ public class CommentServiceImpl implements CommentSerivce {
         return new ApiResponseDto("댓글 삭제 성공" , HttpStatus.OK.value());
     }
 
-    /* Jwt UserDetails Null Check */
-    public User checkUser(UserDetailsImpl userDetails) {
-        if(userDetails == null) {
-            throw new IllegalArgumentException("올바른 사용자가 아닙니다");
-        }
-
-        return userDetails.getUser();
+    /* 댓글 찾기 */
+    @Override
+    public Comment findComment(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
     }
 
     /* Find Card By Id */
@@ -76,9 +75,12 @@ public class CommentServiceImpl implements CommentSerivce {
         return cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카드입니다."));
     }
 
-    /* Find Comment by Id */
-    public Comment findByIdComment(Long commentId) {
-        return commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+    /* Jwt UserDetails Null Check */
+    public User checkUser(UserDetailsImpl userDetails) {
+        if(userDetails == null) {
+            throw new IllegalArgumentException("올바른 사용자가 아닙니다");
+        }
+        return userDetails.getUser();
     }
 
     /* check same user - comment */

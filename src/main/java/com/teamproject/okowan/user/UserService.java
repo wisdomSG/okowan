@@ -7,19 +7,19 @@ public interface UserService {
     /**
      * 회원가입
      *
-     * @param userRequestDto 회원가입 요청 데이터
+     * @param signupRequestDto 회원가입 요청 데이터
      * @return 요청 처리 결과
      */
-    ApiResponseDto signup(UserRequestDto userRequestDto);
+    ApiResponseDto signup(SignupRequestDto signupRequestDto);
 
     /**
      * 로그인
      *
-     * @param userRequestDto 로그인 요청 데이터
-     * @param response       Http 반환(헤더 추가용)
+     * @param loginRequestDto 로그인 요청 데이터
+     * @param response        Http 반환(헤더 추가용)
      * @return 요청 처리 결과
      */
-    ApiResponseDto login(UserRequestDto userRequestDto, HttpServletResponse response);
+    ApiResponseDto login(LoginRequestDto loginRequestDto, HttpServletResponse response);
 
     /**
      * 로그아웃

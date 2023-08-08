@@ -25,4 +25,6 @@ public interface CategoryService {
     Category findByIdCategory(Long categoryId);
 
 
+    /* 카테고리 찾기 */
+    Category findCategory(Long categoryId);
 }
