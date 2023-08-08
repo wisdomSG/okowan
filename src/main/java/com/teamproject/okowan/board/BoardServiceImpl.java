@@ -93,7 +93,7 @@ public class BoardServiceImpl implements BoardService {
             return new ApiResponseDto("삭제가 불가합니다.", HttpStatus.BAD_REQUEST.value());
         }
            boardRepository.delete(board);
-        return new ApiResponseDto("보드 삭제 성공.", HttpStatus.BAD_REQUEST.value());
+        return new ApiResponseDto("보드 삭제 성공.", HttpStatus.OK.value());
     }
 
     @Override
