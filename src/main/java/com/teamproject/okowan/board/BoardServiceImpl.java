@@ -3,6 +3,7 @@ package com.teamproject.okowan.board;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
+import com.teamproject.okowan.user.UserService;
 import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.crypto.BadPaddingException;
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
@@ -20,6 +22,7 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
     private final UserBoardRepository userBoardRepository;
+    private final UserService userService;
 
     @Override
     public List<BoardResponseDto> getBoardList() {
@@ -103,6 +106,19 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Board findBoard(Long BoardId) {
         return boardRepository.findById(BoardId).orElseThrow(() -> new IllegalArgumentException("선택한 보드는 존재하지 않습니다."));
+    }
+
+    // create
+    @Override
+    public ApiResponseDto inviteUserToBoard(Long BoardId, BoardInvitationRequestDto requestDto, User user) {
+
+        Board board = findBoard(BoardId);
+        User inviteToUser = userService.findUserByUsername(requestDto.getUsername());
+        UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteToUser, board);
+        userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
+                .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다."));
+        userBoardRepository.save(userBoard);
+        return new ApiResponseDto("초대 성공", HttpStatus.OK.value());
     }
 }
 

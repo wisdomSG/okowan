@@ -22,6 +22,8 @@ public interface BoardService {
 
     ApiResponseDto deleteBoard(Long BoardId, User user);
 
-//    ApiResponseDto inviteUserToBoard(Long boardId, BoardInviteRequestDto boardInviteRequestDto);
+    //    ApiResponseDto inviteUserToBoard(Long boardId, BoardInviteRequestDto boardInviteRequestDto);
     Board findBoard(Long BoardId);
+
+    ApiResponseDto inviteUserToBoard(Long BoardId, BoardInvitationRequestDto requestDto, User user);
 }
