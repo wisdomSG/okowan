@@ -2,15 +2,18 @@ package com.teamproject.okowan.alert;
 
 import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor // 기본생성자
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "alerts")
 public class Alert {
     @Id
@@ -19,7 +22,7 @@ public class Alert {
 
     private String board_title;
 
-    private String column_title;
+    private String category_title;
 
     private String card_title;
 
@@ -32,4 +35,18 @@ public class Alert {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Builder
+    public Alert(AlertRequestDto alertRequestDto) {
+        this.board_title = alertRequestDto.getBoard_title();
+        this.category_title = alertRequestDto.getCategory_title();
+        this.card_title = alertRequestDto.getCard_title();
+        this.card_description = alertRequestDto.getCard_description();
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }

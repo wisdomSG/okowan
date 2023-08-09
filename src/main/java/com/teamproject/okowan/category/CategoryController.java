@@ -34,15 +34,15 @@ public class CategoryController {
 
     /* 카테고리 등록 */
     @PostMapping("/{boardId}")
-    public ResponseEntity<ApiResponseDto> registCategory(@PathVariable Long boardId, @RequestBody CategoryRequestDto categoryRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto apiResponseDto = categoryService.registCategory(boardId, categoryRequestDto, userDetails);
+    public ResponseEntity<ApiResponseDto> registCategory(@PathVariable Long boardId, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CategoryRequestDto categoryRequestDto) {
+        ApiResponseDto apiResponseDto = categoryService.registCategory(boardId, userDetails, categoryRequestDto);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
     /* 카테고리 수정 */
     @PutMapping("/{categoryId}")
-    public ResponseEntity<ApiResponseDto> updateCategory(@PathVariable Long categoryId, @RequestBody CategoryRequestDto categoryRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto apiResponseDto = categoryService.updateCategory(categoryId, categoryRequestDto, userDetails);
+    public ResponseEntity<ApiResponseDto> updateCategory(@PathVariable Long categoryId, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CategoryRequestDto categoryRequestDto) {
+        ApiResponseDto apiResponseDto = categoryService.updateCategory(categoryId, userDetails, categoryRequestDto);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
