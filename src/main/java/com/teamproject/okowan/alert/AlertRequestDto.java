@@ -8,5 +8,5 @@ public class AlertRequestDto {
     private String category_title;
     private String card_title;
     private String card_description;
-    private String workername;
+    private Long workerId;
 }

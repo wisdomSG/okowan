@@ -15,7 +15,7 @@ public class UserBoardRepositoryQueryImpl implements UserBoardRepositoryQuery{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Optional<BoardRoleEnum> getRoleFindByUserId(Long userId, Long boardId) {
+    public Optional<BoardRoleEnum> getRoleFindByUserIdAndBoardId(Long userId, Long boardId) {
         QUserBoard userBoard = QUserBoard.userBoard;
 
         return Optional.ofNullable(jpaQueryFactory
