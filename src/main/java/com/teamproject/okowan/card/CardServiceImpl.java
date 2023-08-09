@@ -68,20 +68,9 @@ public class CardServiceImpl implements CardService {
     public ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto) {
         Card card = findCard(id);
 
-        userBoardRepository.getRoleFindByUserId(user.getId(), card.getBoard().getBoardId())
-                .ifPresent(role -> {
-                    if (role != BoardRoleEnum.OWNER) {
-                        throw new IllegalArgumentException("안됨");
-                    }
-                });
-
         card.setTitle(requestDto.getTitle());
         card.setDescription(requestDto.getDescription());
         card.setColor(requestDto.getColor());
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
-        LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
-        card.setDeadline(deadline);
 
         Category category = categoryService.findCategory(requestDto.getCategoryId());
         card.setCategory(category);
@@ -90,15 +79,20 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public ApiResponseDto deleteCard(Long id, User user) {
+    @Transactional
+    public ApiResponseDto updateDeadLine(Long id, User user, CardRequestDto requestDto) {
         Card card = findCard(id);
 
-        userBoardRepository.getRoleFindByUserId(user.getId(), card.getBoard().getBoardId())
-                .ifPresent(role -> {
-                    if (role != BoardRoleEnum.OWNER) {
-                        throw new IllegalArgumentException("안됨");
-                    }
-                });
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
+        LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
+        card.setDeadline(deadline);
+
+        return new ApiResponseDto("데드라인 수정 완료", HttpStatus.OK.value());
+    }
+
+    @Override
+    public ApiResponseDto deleteCard(Long id, User user) {
+        Card card = findCard(id);
 
         cardRepository.delete(card);
 

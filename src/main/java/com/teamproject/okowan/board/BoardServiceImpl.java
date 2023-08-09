@@ -38,8 +38,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardResponseDto getBoardWorkerList(Long BoardId) {
-        return null;
+    public List<BoardWorkerResponseDto> getBoardWorkerList(Long BoardId) {
+
+        List<BoardWorkerResponseDto> boardWorkerList = userBoardRepository.getAllFindByBoardId(BoardId).stream()
+                .map(BoardWorkerResponseDto::new)
+                .toList();
+        return boardWorkerList;
     }
 
     @Override

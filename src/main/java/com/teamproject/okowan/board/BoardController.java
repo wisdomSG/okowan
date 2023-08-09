@@ -30,6 +30,13 @@ public class BoardController {    // 전체 보드 조회
 
     private final BoardService boardService;
 
+    // 보드 작업자 조회
+    @GetMapping("/worker/{BoardId}")
+    public ResponseEntity<List<BoardWorkerResponseDto>> getBoardWorkerList(@PathVariable Long BoardId) {
+        List<BoardWorkerResponseDto> result = boardService.getBoardWorkerList(BoardId);
+        return ResponseEntity.ok().body(result);
+    }
+
     // 보드 작성
     @PostMapping
     public ResponseEntity<ApiResponseDto> createBoard(@RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
