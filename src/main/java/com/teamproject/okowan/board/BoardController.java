@@ -63,11 +63,16 @@ public class BoardController {    // 전체 보드 조회
         return ResponseEntity.ok().body(responseDto);
     }
 
-    // UserBoard 안에 사용자를 BoardId번째 보드의 user 또는 editor로 추가(초대)하기
+    // UserBoard 안에 사용자를 BoardId번째 보드의 view 또는 editor로 추가(초대)하기
     @PostMapping("/{BoardId}/invite")
     public @ResponseBody ResponseEntity<ApiResponseDto> inviteUserToBoard(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponseDto responseDto = boardService.inviteUserToBoard(BoardId, requestDto, userDetails.getUser());
         return ResponseEntity.ok().body(responseDto);
-
+        // userDetails.getUsername()이 안되는 이유??
+    }
+    @PutMapping("/{BoardId}/invite/update")
+    public @ResponseBody ResponseEntity<ApiResponseDto> updateUser(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ApiResponseDto responseDto = boardService.inviteUserToBoard(BoardId, requestDto, userDetails.getUser());
+        return ResponseEntity.ok().body(responseDto);
     }
 }
