@@ -76,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     /* 카테고리 등록 */
     @Override
-    public ApiResponseDto registCategory(Long boardId, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails) {
+    public ApiResponseDto registCategory(Long boardId, UserDetailsImpl userDetails, CategoryRequestDto categoryRequestDto) {
         User user = checkUser(userDetails);
 
         Category category = new Category(categoryRequestDto);
@@ -97,7 +97,7 @@ public class CategoryServiceImpl implements CategoryService {
     /* 카테고리 수정 */
     @Transactional
     @Override
-    public ApiResponseDto updateCategory(Long categoryId, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails) {
+    public ApiResponseDto updateCategory(Long categoryId, UserDetailsImpl userDetails, CategoryRequestDto categoryRequestDto) {
         User user = checkUser(userDetails);
 
         Category category = findCategory(categoryId);

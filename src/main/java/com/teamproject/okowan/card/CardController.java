@@ -40,6 +40,12 @@ public class CardController {
         return ResponseEntity.ok().body(result);
     }
 
+    @PutMapping("/deadLine/{id}")
+    public ResponseEntity<ApiResponseDto> updateDeadLine(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CardRequestDto requestDto) {
+        ApiResponseDto result = cardService.updateDeadLine(id, userDetails.getUser(), requestDto);
+        return ResponseEntity.ok().body(result);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponseDto> deleteCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponseDto result = cardService.deleteCard(id, userDetails.getUser());
