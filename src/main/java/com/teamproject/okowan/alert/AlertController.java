@@ -15,21 +15,13 @@ import java.util.List;
 public class AlertController {
     private final AlertServiceImpl alertService;
 
-    /* 알림 전체 조회 */
+    /*알림 전체 조회*/
     @GetMapping("")
     public List<AlertResponseDto> getAlerts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return alertService.getAlerts(userDetails);
     }
 
-
-    /* 알림 등록 */
-    @PostMapping("")
-    public ResponseEntity<ApiResponseDto> registAlerts(@RequestBody AlertRequestDto alertRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto apiResponseDto = alertService.registAlerts(alertRequestDto, userDetails);
-        return ResponseEntity.ok().body(apiResponseDto);
-    }
-
-    /* 알림 삭제 */
+    /*알림 삭제*/
     @DeleteMapping("/{alertId}")
     public ResponseEntity<ApiResponseDto> deleteAlerts(@PathVariable Long alertId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponseDto apiResponseDto = alertService.deleteAlerts(alertId, userDetails);

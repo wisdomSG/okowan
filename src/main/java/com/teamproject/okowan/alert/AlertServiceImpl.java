@@ -27,7 +27,7 @@ public class AlertServiceImpl implements AlertService{
 
     /* 알림 등록 */
     @Override
-    public ApiResponseDto registAlerts(AlertRequestDto alertRequestDto, UserDetailsImpl userDetails) {
+    public ApiResponseDto registAlerts(AlertRequestDto alertRequestDto) {
         User user = userService.findUserById(alertRequestDto.getWorkerId());
 
         Alert alert = new Alert(alertRequestDto);

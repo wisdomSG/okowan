@@ -3,7 +3,7 @@ package com.teamproject.okowan.comment;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.security.UserDetailsImpl;
 
-public interface CommentSerivce {
+public interface CommentService {
     /* 댓글 등록 */
     ApiResponseDto registComment(Long cardId, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails);
 
