@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Slf4j(topic = "RoleCheckAop")
 @Component
 @Aspect // AOP를 가능하게하는 어노테이션
-public class RoleChecckAop {
+public class RoleCheckAop {
 
     @Autowired
     private CardService cardService;
@@ -45,11 +45,10 @@ public class RoleChecckAop {
 
         userBoardRepository.getRoleFindByUserId(user.getId(),card.getBoard().getBoardId())
                 .ifPresent(role -> { // ifPresent를 사용하여 값이 있는경우에만 람다식을 실행하게 함
-                    if(role != BoardRoleEnum.OWNER) {
+                    if(role != BoardRoleEnum.OWNER && role != BoardRoleEnum.EDITER) {
                         throw new IllegalArgumentException("Card의 관한 권한이 없습니다.");
                     }
                 });
-
 
         // board에 권한이 아예 없는 유저가 카드를 생성하려고 할 때의 예외처리
         if (!userBoardRepository.getRoleFindByUserId(user.getId(), card.getBoard().getBoardId()).isPresent()) {
@@ -58,6 +57,5 @@ public class RoleChecckAop {
 
         //핵심기능 수행
         return joinPoint.proceed();
-
     }
 }
