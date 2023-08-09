@@ -16,6 +16,8 @@ public interface CardService {
 
     ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto);
 
+    ApiResponseDto updateDeadLine(Long id, User user, CardRequestDto requestDto);
+
     ApiResponseDto deleteCard(Long id, User user);
 
     ApiResponseDto saveWorker(Long cardId, Long userId);
