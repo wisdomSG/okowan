@@ -1,6 +1,7 @@
 package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserService {
@@ -24,9 +25,11 @@ public interface UserService {
     /**
      * 로그아웃
      *
+     * @param request  로그아웃 요청
+     * @param response 로그아웃 응답(쿠키 제거)
      * @return 요청 처리 결과
      */
-    ApiResponseDto logout();
+    ApiResponseDto logout(HttpServletRequest request, HttpServletResponse response);
 
     /**
      * 프로필 조회
