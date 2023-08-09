@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -37,6 +38,12 @@ public class CardController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponseDto> updateCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CardRequestDto requestDto) {
         ApiResponseDto result = cardService.updateCard(id, userDetails.getUser(), requestDto);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @PutMapping("/files/{id}")
+    public ResponseEntity<ApiResponseDto> updateFileUpload(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails, @RequestPart("fileName") List<MultipartFile> multipartFiles) {
+        ApiResponseDto result = cardService.updateFileUpload(id, userDetails.getUser(), multipartFiles);
         return ResponseEntity.ok().body(result);
     }
 

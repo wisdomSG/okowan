@@ -3,6 +3,7 @@ package com.teamproject.okowan.card;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.user.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface CardService {
     List<CardResponseDto> getCardFindByTitleList(String keyword);
 
     ApiResponseDto updateCard(Long id, User user, CardRequestDto requestDto);
+
+    ApiResponseDto updateFileUpload(Long id, User user, List<MultipartFile> multipartFiles);
 
     ApiResponseDto updateDeadLine(Long id, User user, CardRequestDto requestDto);
 

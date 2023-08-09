@@ -1,5 +1,6 @@
 package com.teamproject.okowan.card;
 
+import com.teamproject.okowan.awsS3.S3File;
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.comment.Comment;
@@ -44,6 +45,9 @@ public class Card {
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<S3File> s3FileList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
