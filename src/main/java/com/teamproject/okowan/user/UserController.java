@@ -2,6 +2,7 @@ package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.security.UserDetailsImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,8 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponseDto> logout() {
-        ApiResponseDto apiResponseDto = userService.logout();
+    public ResponseEntity<ApiResponseDto> logout(HttpServletRequest request, HttpServletResponse response) {
+        ApiResponseDto apiResponseDto = userService.logout(request, response);
         return ResponseEntity.ok().body(apiResponseDto);
     }
 

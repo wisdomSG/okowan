@@ -2,12 +2,17 @@ package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.jwt.JwtUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +21,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final RedisTemplate<String, String> redisTemplate;
 
     private final String DEFAULT_INTRODUCTION = "안녕하세요.";
 
@@ -34,8 +40,9 @@ public class UserServiceImpl implements UserService {
                 .username(username)
                 .password(encodedPassword)
                 .nickname(nickname)
-                .introduction(DEFAULT_INTRODUCTION)
                 .build();
+        user.setIntroduction(DEFAULT_INTRODUCTION);
+        user.setAddress("");
         userRepository.save(user);
 
         return new ApiResponseDto("회원가입 성공", HttpStatus.OK.value());
@@ -51,14 +58,20 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("비밀번호 오류입니다.");
         }
 
-        String token = jwtUtil.createToken(user.getUsername());
-        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, token);
+        // Access Token 생성 및 헤더에 추가
+        String accessToken = jwtUtil.createAccessToken(user.getUsername());
+        response.addHeader(JwtUtil.AUTHORIZATION_HEADER, accessToken);
+
         return new ApiResponseDto("로그인 성공", HttpStatus.OK.value());
     }
 
     @Override
-    public ApiResponseDto logout() {
-        return null;
+    public ApiResponseDto logout(HttpServletRequest request, HttpServletResponse response) {
+        deleteAllCookies(request, response);
+        String accessToken = jwtUtil.getJwtFromHeader(request);
+        redisTemplate.opsForValue().set(accessToken, "logout", Duration.ofMinutes(30));
+
+        return new ApiResponseDto("로그아웃 성공", HttpStatus.OK.value());
     }
 
     @Override
@@ -89,5 +102,17 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId).orElseThrow(() ->
                 new IllegalArgumentException("존재하지 않는 유저입니다.")
         );
+    }
+
+    // 모든 쿠키 삭제 메서드
+    public void deleteAllCookies(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies(); // 모든 쿠키 가져오기
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0); // 쿠키의 유효 기간을 0으로 설정하여 삭제
+                cookie.setPath("/"); // 쿠키의 경로를 설정
+                response.addCookie(cookie); // 응답에 쿠키를 추가하여 삭제
+            }
+        }
     }
 }

@@ -37,11 +37,10 @@ public class User {
 //    private List<Alert> alertList = new ArrayList<>();
 
     @Builder
-    public User(String username, String password, String nickname, String introduction) {
+    public User(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-        this.introduction = introduction;
     }
 
     public void setNickname(String nickname) {
