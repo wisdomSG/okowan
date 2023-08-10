@@ -1,5 +1,9 @@
 package com.teamproject.okowan.card;
 
+import com.teamproject.okowan.alert.Alert;
+import com.teamproject.okowan.alert.AlertRepository;
+import com.teamproject.okowan.alert.AlertRequestDto;
+import com.teamproject.okowan.alert.AlertService;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
@@ -31,6 +35,8 @@ public class CardServiceImpl implements CardService {
     private final UserService userService;
 
     private final UserBoardRepository userBoardRepository;
+
+    private final AlertService alertService;
 
     @Override
     public ApiResponseDto createCard(User user, CardRequestDto requestDto) {
@@ -102,12 +108,29 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public ApiResponseDto saveWorker(Long cardId, Long userId) {
+        User user = userService.findUserById(userId);   //worker
         Card card = findCard(cardId);
-        User user = userService.findUserById(userId);
 
         // if문 user가 card에 있는 board에 권한이 있는지 한번더 확인
+        Optional<BoardRoleEnum> roleEnum = userBoardRepository.getRoleFindByUserIdAndBoardId(user.getId(), card.getBoard().getBoardId());
+        roleEnum.ifPresent(role -> {
+            if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITER))) {
+                throw new IllegalArgumentException("Board 관리권한이 없습니다.");
+            }
+        });
+        if (!roleEnum.isPresent()) {
+            throw new IllegalArgumentException("Board에 초대되지 않은 사용자입니다.");
+        }
 
         card.setUser(user);
+
+        // regist Alert
+        alertService.registAlerts(new AlertRequestDto(
+                card.getBoard().getTitle(),
+                card.getCategory().getTitle(),
+                card.getTitle(),
+                card.getDescription(),
+                user.getId()));
 
         return new ApiResponseDto("작업자 등록완료", HttpStatus.OK.value());
     }

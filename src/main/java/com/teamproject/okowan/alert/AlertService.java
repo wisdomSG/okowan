@@ -11,7 +11,7 @@ public interface AlertService {
     List<AlertResponseDto> getAlerts(UserDetailsImpl userDetails);
 
     /* 알림 등록 */
-    ApiResponseDto registAlerts(AlertRequestDto alertRequestDto, UserDetailsImpl userDetails);
+    ApiResponseDto registAlerts(AlertRequestDto alertRequestDto);
 
     /* 알림 삭제 */
     ApiResponseDto deleteAlerts(Long alertId, UserDetailsImpl userDetails);

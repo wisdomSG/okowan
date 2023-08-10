@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/okw/comments")
 @RequiredArgsConstructor
 public class CommentController {
-    private final CommentServiceImpl commentService;
+    private final CommentService commentService;
 
     @PostMapping("/{cardId}")
     public ResponseEntity<ApiResponseDto> registComment(@PathVariable Long cardId, @RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
