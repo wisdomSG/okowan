@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserBoardRepositoryQuery {
-    Optional<BoardRoleEnum> getRoleFindByUserId(Long userId, Long boardId);
+    Optional<BoardRoleEnum> getRoleFindByUserIdAndBoardId(Long userId, Long boardId);
 
     List<UserBoard> getAllFindByBoardId(Long boardId);
 }

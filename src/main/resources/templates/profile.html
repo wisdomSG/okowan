@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="/css/profile.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    <!-- js Cookie -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+</head>
+<body>
+<script src="/js/profile.js"></script>
+<div class="container">
+    <div id="logo"><h1 class="logo">OKOWAN</h1>
+    </div>
+    <div class="rightbox">
+        <div class="profile">
+            <h1>Profile Info</h1>
+<!--            <h2>Email</h2>-->
+<!--            <p>-->
+<!--                <input type="email" id="email" value="example@email.com" disabled>-->
+<!--                <button class="btn">update</button>-->
+<!--            </p>-->
+<!--            <h2>Password </h2>-->
+<!--            <p>-->
+<!--                <input type="password" id="password" value="password" disabled>-->
+<!--                <button class="btn">update</button>-->
+<!--            </p>-->
+            <h2>nickname</h2>
+            <p>
+                <input type="text" id="nickname" value="nickname" disabled>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+            <h2>introduction</h2>
+            <p>
+                <input type="text" id="introduction" placeholder="자기소개를 입력해주세요." disabled>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+            <h2>address</h2>
+            <p>
+                <input type="text" id="address" placeholder="주소를 입력해주세요." disabled>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -14,10 +14,10 @@ public interface CategoryService {
     ApiResponseDto moveCategory(Long categoryId, Long boardId, String move, UserDetailsImpl userDetails);
 
     /* 카테고리 등록 */
-    ApiResponseDto registCategory(Long boardId, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails);
+    ApiResponseDto registCategory(Long boardId, UserDetailsImpl userDetails, CategoryRequestDto categoryRequestDto);
 
     /* 카테고리 수정 */
-    ApiResponseDto updateCategory(Long categoryId, CategoryRequestDto categoryRequestDto, UserDetailsImpl userDetails);
+    ApiResponseDto updateCategory(Long categoryId, UserDetailsImpl userDetails, CategoryRequestDto categoryRequestDto);
 
     /* 카테고리 삭제 */
     ApiResponseDto deleteCategory(Long categoryId, UserDetailsImpl userDetails);
