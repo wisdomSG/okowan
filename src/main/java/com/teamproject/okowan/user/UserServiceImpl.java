@@ -2,6 +2,7 @@ package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.jwt.JwtUtil;
+import com.teamproject.okowan.oauth.OAuthProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,8 +23,9 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final RedisTemplate<String, String> redisTemplate;
-
     private final String DEFAULT_INTRODUCTION = "안녕하세요.";
+
+    private final OAuthProvider DEFAULT_OAUTH = OAuthProvider.ORIGIN;
 
     @Override
     public ApiResponseDto signup(SignupRequestDto signupRequestDto) {
@@ -43,6 +45,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         user.setIntroduction(DEFAULT_INTRODUCTION);
         user.setAddress("");
+        user.setoAuthProvider(DEFAULT_OAUTH);
         userRepository.save(user);
 
         return new ApiResponseDto("회원가입 성공", HttpStatus.OK.value());
