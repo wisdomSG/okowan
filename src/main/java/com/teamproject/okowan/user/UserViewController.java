@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserViewController {
 
     @GetMapping("/login-signup")
-    public String board() {
+    public String loginSignup() {
         return "login-signup";
     }
 
