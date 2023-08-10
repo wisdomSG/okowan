@@ -1,7 +1,5 @@
 package com.teamproject.okowan.card;
 
-import com.teamproject.okowan.alert.Alert;
-import com.teamproject.okowan.alert.AlertRepository;
 import com.teamproject.okowan.alert.AlertRequestDto;
 import com.teamproject.okowan.alert.AlertService;
 import com.teamproject.okowan.aop.ApiResponseDto;
@@ -10,8 +8,10 @@ import com.teamproject.okowan.awsS3.S3FileRepository;
 import com.teamproject.okowan.awsS3.S3Service;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
+import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
+import com.teamproject.okowan.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,8 @@ public class CardServiceImpl implements CardService {
     private final S3FileRepository s3FileRepository;
 
     private final AlertService alertService;
+
+    private final UserBoardRepository userBoardRepository;
 
     @Override
     public ApiResponseDto createCard(User user, CardRequestDto requestDto) {

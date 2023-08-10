@@ -3,8 +3,6 @@ package com.teamproject.okowan.comment;
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.card.CardRepository;
-import com.teamproject.okowan.card.CardService;
-import com.teamproject.okowan.card.CardServiceImpl;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import com.teamproject.okowan.user.User;
 import lombok.RequiredArgsConstructor;

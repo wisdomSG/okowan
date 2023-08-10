@@ -1,7 +1,11 @@
 package com.teamproject.okowan.aop;
 
+import com.teamproject.okowan.board.Board;
+import com.teamproject.okowan.board.BoardService;
 import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.card.CardService;
+import com.teamproject.okowan.category.Category;
+import com.teamproject.okowan.category.CategoryService;
 import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import com.teamproject.okowan.user.User;
@@ -10,10 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
