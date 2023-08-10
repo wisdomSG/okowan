@@ -15,6 +15,7 @@ public class S3File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fileId;
 
+    @Column(length = 255)
     private String fileName;
 
     @ManyToOne(fetch= FetchType.LAZY)

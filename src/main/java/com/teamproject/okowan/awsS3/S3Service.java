@@ -29,6 +29,7 @@ public class S3Service {
         List<String> fileNames = new ArrayList<>();
 
         for (MultipartFile file : files) {
+//            String fileName = file.getOriginalFilename();
             String fileName = UUID.randomUUID() + file.getOriginalFilename(); // fileName을 난수와 함께 저장
             String fileUrl = S3FileUpload(file,fileName);
             fileNames.add(fileUrl);
@@ -58,8 +59,26 @@ public class S3Service {
                 amazonS3.deleteObject(bucket, fileName);
             }
         } catch (SdkClientException e) {
-            throw new IllegalArgumentException("S3 파일을 업로드 중 문제 발생", e);
+            throw new IllegalArgumentException("S3 파일을 삭제 중 문제 발생", e);
         }
+    }
+
+
+    public void deleteFile(String originalFilename)  {
+        String fileName = originalFilename.substring(originalFilename.lastIndexOf("/") + 1);
+        amazonS3.deleteObject(bucket, fileName);
+    }
+
+    public ResponseEntity<UrlResource> downloadFile(String originalFilename) {
+        UrlResource urlResource = new UrlResource(amazonS3.getUrl(bucket, originalFilename));
+
+        String contentDisposition = "attachment; filename=\"" +  originalFilename + "\"";
+
+        // header에 CONTENT_DISPOSITION 설정을 통해 클릭 시 다운로드 진행
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                .body(urlResource);
+
     }
 
 }

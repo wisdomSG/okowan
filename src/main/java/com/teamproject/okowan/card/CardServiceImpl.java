@@ -4,14 +4,10 @@ import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.awsS3.S3File;
 import com.teamproject.okowan.awsS3.S3FileRepository;
 import com.teamproject.okowan.awsS3.S3Service;
-import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
-import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
-import com.teamproject.okowan.userBoard.UserBoard;
-import com.teamproject.okowan.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -113,18 +106,35 @@ public class CardServiceImpl implements CardService {
         return new ApiResponseDto("데드라인 수정 완료", HttpStatus.OK.value());
     }
 
+    // 카드 삭제 (파일 삭제 포함)
     @Override
+    @Transactional
     public ApiResponseDto deleteCard(Long id, User user) {
         Card card = findCard(id);
 
-        // 등록된 이미지 삭제
-        List<String> imgPaths = new ArrayList<>();
-        for(S3File postImage : card.getS3FileList()) {
-            imgPaths.add(postImage.getFileName());
+
+        for(S3File s3File : card.getS3FileList()) {
+            s3Service.deleteFile(s3File.getFileName());
         }
-        s3Service.deleteFiles(imgPaths);
+
+        cardRepository.delete(card);
 
         return new ApiResponseDto("카드 삭제 완료", HttpStatus.OK.value());
+    }
+
+    // 파일 삭제
+    @Override
+    public ApiResponseDto deleteFile(Long cardId, User user, Long fileId) {
+        Card card = findCard(cardId);
+
+        S3File s3File = s3FileRepository.findById(fileId).orElseThrow(() -> {
+            throw new IllegalArgumentException("삭제할 파일이 없음");
+        });
+
+        s3FileRepository.delete(s3File);
+        s3Service.deleteFile(s3File.getFileName());
+
+        return new ApiResponseDto("첨부 파일 삭제 완료", HttpStatus.OK.value());
     }
 
     @Override

@@ -46,7 +46,7 @@ public class Card {
     @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "card", cascade = CascadeType.REMOVE)
     private List<S3File> s3FileList = new ArrayList<>();
 
     @ManyToOne
