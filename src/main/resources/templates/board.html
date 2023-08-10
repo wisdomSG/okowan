@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="/css/board.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette:400,700">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Masthead -->
+    <header class="masthead">
+
+        <div class="boards-menu">
+
+            <button class="boards-btn btn"><i class="fab fa-trello boards-btn-icon"></i>Boards</button>
+
+            <div class="board-search">
+                <input type="search" class="board-search-input" aria-label="Board Search">
+                <i class="fas fa-search search-icon" aria-hidden="true"></i>
+            </div>
+
+        </div>
+
+        <div class="logo">
+
+            <h1><i class="fab fa-trello logo-icon" aria-hidden="true"></i>Okowan</h1>
+
+        </div>
+
+        <div class="user-settings">
+
+            <button class="user-settings-btn btn" aria-label="Create">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+            </button>
+
+            <button class="user-settings-btn btn" aria-label="Information">
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+            </button>
+
+            <button class="user-settings-btn btn" aria-label="Notifications">
+                <i class="fas fa-bell" aria-hidden="true"></i>
+            </button>
+
+            <button class="user-settings-btn btn" aria-label="User Settings">
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+    </header>
+    <!-- End of masthead -->
+
+    <!-- Board info bar -->
+    <section class="board-info-bar">
+
+        <div class="board-controls">
+
+            <button class="board-title btn">
+                <h2>Web Development</h2>
+            </button>
+
+            <button class="star-btn btn" aria-label="Star Board">
+                <i class="far fa-star" aria-hidden="true"></i>
+            </button>
+
+            <button class="personal-btn btn">Personal</button>
+
+            <button class="private-btn btn"><i class="fas fa-briefcase private-btn-icon"
+                    aria-hidden="true"></i>Private</button>
+
+        </div>
+
+        <button class="menu-btn btn"><i class="fas fa-ellipsis-h menu-btn-icon" aria-hidden="true"></i>Show
+            Menu</button>
+
+    </section>
+    <!-- End of board info bar -->
+
+    <!-- Lists container -->
+    <section class="lists-container">
+
+        <div class="list">
+
+            <h3 class="list-title">Tasks to Do</h3>
+
+            <ul class="list-items">
+                <li class="card__item">
+                    <span class="card__tag card__tag--browser">Browser</span>
+                    <h6 class="card__title">Lightbox loading issue on Safari</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-align-left"></i>
+                        </li>
+                    </ol>
+                    <span class="card__tag card__tag--date">2023-08-10 18:00</span>
+                </li>
+                <li class="card__item">
+                    <span class="card__tag card__tag--high">High Priority</span>
+                    <h6 class="card__title">Notifications Not Sending #4</h6>
+                    <span class="card__tag card__tag--date">2023-08-07 18:00</span>
+                </li>
+                <li class="card__item">
+                    <span class="card__tag card__tag--browser">Browser</span>
+                    <h6 class="card__title">Multiple Select Broken</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-align-left"></i>
+                        </li>
+                    </ol>
+                    <span class="card__tag card__tag--date">2023-08-07 22:00</span>
+                </li>
+                <li class="card__item">
+                    <span class="card__tag card__tag--browser">Browser</span>
+                    <h6 class="card__title">Drag and drop issues in Chrome</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-align-left"></i>
+                        </li>
+                    </ol>
+                    <span class="card__tag card__tag--date">2023-08-07 18:00</span>
+                </li>
+                <li class="card__item">
+                    <span class="card__tag card__tag--design">Design</span>
+                    <span class="card__tag card__tag--high">High Priority</span>
+                    <h6 class="card__title">Download icon rendering issue</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-align-left"></i>
+                        </li>
+                    </ol>
+                    <span class="card__tag card__tag--date">2023-08-07 18:00</span>
+                </li>
+            </ul>
+
+            <button class="add-card-btn btn">Add a card</button>
+
+        </div>
+
+        <div class="list">
+
+            <h3 class="list-title">Topics/Concepts to Revise</h3>
+
+            <ul class="list-items">
+                <li class="card__item">
+                    <span class="card__tag card__tag--high">High Priotity</span>
+                    <h6 class="card__title">Localization</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="far fa-check-square"></i><span class="card__actions--text">1/4</span>
+                        </li>
+                        <ol class="card__avatars">
+                            <li class="card__avatars--item">
+                                <!-- Photo by Philip Martin on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80"
+                                    alt="Man standing near balcony" class="avatar__image">
+                            </li>
+                        </ol>
+                    </ol>
+                </li>
+                <li class="card__item">
+                    <span class="card__tag card__tag--design">Design</span>
+                    <img src="https://trello-attachments.s3.amazonaws.com/5501f5265b23195e950742e9/300x300/5a2bf59113b7211315c399c8b9814e9d/Thumbs_Up_Icons.jpg"
+                        class="card__image">
+                    <h6 class="card__title">"Like" button in comments</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-paperclip"></i><span class="card__actions--text">1</span>
+                        </li>
+                        <ol class="card__avatars">
+                            <li class="card__avatars--item">
+                                <!-- Photo by Michael Alfonso on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                    alt="Woman, Lady, Female" class="avatar__image">
+                            </li>
+                            <li class="card__avatars--item">
+                                <!-- Photo by Toa Heftiba on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                    alt="Woman standing near blue steel gate" class="avatar__image">
+                            </li>
+                        </ol>
+                    </ol>
+                </li>
+            </ul>
+
+            <button class="add-card-btn btn">Add a card</button>
+
+        </div>
+
+        <div class="list">
+
+            <h3 class="list-title">Topics/Concepts to Learn</h3>
+
+            <ul class="list-items">
+                <li class="card__item">
+                    <span class="card__tag card__tag--browser">Browser</span>
+                    <h6 class="card__title">Embed all the things</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-align-left"></i>
+                        </li>
+                        <ol class="card__avatars">
+                            <li class="card__avatars--item">
+                                <!-- Photo by Philip Martin on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80"
+                                    alt="Man standing near balcony" class="avatar__image">
+                            </li>
+                        </ol>
+                    </ol>
+                </li>
+                <li class="card__item">
+                    <span class="card__tag card__tag--mobile">Mobile</span>
+                    <span class="card__tag card__tag--high">High Priority</span>
+                    <h6 class="card__title">Pop-over max width issue on mobile</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-align-left"></i>
+                            <i class="far fa-comment"></i><span class="card__actions--text">1</span>
+                        </li>
+                        <ol class="card__avatars">
+                            <li class="card__avatars--item">
+                                <!-- Photo by Michael Alfonso on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                    alt="Woman, Lady, Female" class="avatar__image">
+                            </li>
+                            <li class="card__avatars--item">
+                                <!-- Photo by Toa Heftiba on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                    alt="Woman standing near blue steel gate" class="avatar__image">
+                            </li>
+                        </ol>
+                    </ol>
+                </li>
+                <li class="card__item">
+                    <span class="card__tag card__tag--mobile">Mobile</span>
+                    <span class="card__tag card__tag--browser">Browser</span>
+                    <h6 class="card__title">Animated gif support</h6>
+                    <ol class="card__actions">
+                        <li class="card__actions--wrapper">
+                            <i class="fas fa-paperclip"></i><span class="card__actions--text">1</span>
+                        </li>
+                        <ol class="card__avatars">
+                            <li class="card__avatars--item">
+                                <!-- Photo by Toa Heftiba on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                    alt="Woman standing near blue steel gate" class="avatar__image">
+                            </li>
+                            <li class="card__avatars--item">
+                                <!-- Photo by Michael Alfonso on Unsplash -->
+                                <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                    alt="Woman, Lady, Female" class="avatar__image">
+                            </li>
+                        </ol>
+                    </ol>
+                </li>
+            </ul>
+
+            <button class="add-card-btn btn">Add a card</button>
+
+        </div>
+
+        <div class="list">
+
+            <h3 class="list-title">Useful Websites for Learning</h3>
+
+            <ul class="list-items">
+                <li>Code Academy</li>
+                <li>CodePen</li>
+                <li>Codrops</li>
+                <li>CSS-Tricks</li>
+                <li>Free Code Camp</li>
+                <li>Khan Academy</li>
+                <li>Lynda</li>
+                <li>Medium</li>
+                <li>Mozilla Developer Network</li>
+                <li>Stack Overflow</li>
+                <li>Team Treehouse</li>
+                <li>Tuts Plus</li>
+                <li>Udemy</li>
+                <li>WPSessions</li>
+                <li>YouTube</li>
+            </ul>
+
+            <button class="add-card-btn btn">Add a card</button>
+
+        </div>
+
+        <button class="add-list-btn btn">Add a column</button>
+
+    </section>
+    <!-- End of lists container -->
+</body>
+
+</html>
