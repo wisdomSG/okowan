@@ -72,7 +72,7 @@ public class BoardController {    // 전체 보드 조회
     }
     @PutMapping("/{BoardId}/invite/update")
     public @ResponseBody ResponseEntity<ApiResponseDto> updateUser(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto responseDto = boardService.inviteUserToBoard(BoardId, requestDto, userDetails.getUser());
+        ApiResponseDto responseDto = boardService.updateUser(BoardId, requestDto, userDetails.getUser());
         return ResponseEntity.ok().body(responseDto);
     }
 }

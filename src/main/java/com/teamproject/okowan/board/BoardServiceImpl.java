@@ -6,13 +6,11 @@ import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
 import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.crypto.BadPaddingException;
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
 
@@ -114,8 +112,8 @@ public class BoardServiceImpl implements BoardService {
     // BoardInvitationRequestDto requestDto 초대되는 사람의 정보
     // User user 초대하는 사람의 정보
         Board board = findBoard(BoardId); // 몇 번째 보드인지 찾기
-        User inviteToUser = userService.findUserByUsername(requestDto.getUsername()); // 초대되는 사람의 정보를 USER 디비에서 찾기
-        UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteToUser, board); // 초대되는 사람의 정보를 userBoard로 저장
+        User inviteUser = userService.findUserByUsername(requestDto.getUsername()); // 초대되는 사람의 정보를 USER 디비에서 찾기
+        UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteUser, board); // 초대되는 사람의 정보를 userBoard로 저장
         userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
                 .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다.")); // 초대하는 사람의 role이 OWNER인지 확
         userBoardRepository.save(userBoard); // UserBoard에 초대되는 사람의 정보를 저장
@@ -124,10 +122,13 @@ public class BoardServiceImpl implements BoardService {
 
     //초대된 사용자의 권한 수정
     @Override
+    @Transactional
     public ApiResponseDto updateUser(Long BoardId, BoardInvitationRequestDto requestDto, User user) {
         Board board = findBoard(BoardId); // 몇 번째 보드인지 찾기
-        User inviteToUser = userService.findUserByUsername(requestDto.getUsername()); // 초대되는 사람의 정보를 USER 디비에서 찾기
-        UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteToUser, board); // 초대되는 사람의 정보를 userBoard로 저장
+        User inviteUser = userService.findUserByUsername(requestDto.getUsername()); // 초대되는 사람의 정보를 USER 디비에서 찾기
+        UserBoard userBoard = userBoardRepository.findByBoardAndUser(board, inviteUser)
+                .orElseThrow(() -> new RejectedExecutionException("사용자가 존재하지 않습니다."));  // 초대된 사용자와 관련된 UserBoard 엔티티 찾기
+//
         userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
                 .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다.")); // 초대하는 사람의 role이 OWNER인지 확인
 
