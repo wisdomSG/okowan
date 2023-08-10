@@ -12,4 +12,5 @@ import java.util.Optional;
 @Repository
 public interface UserBoardRepository extends JpaRepository<UserBoard, Long>, UserBoardRepositoryQuery {
     Optional<UserBoard> findByBoardAndUserAndRole(Board board, User user, BoardRoleEnum role);
+    Optional<UserBoard> findByBoardAndUser(Board board, User inviteToUser);
 }
