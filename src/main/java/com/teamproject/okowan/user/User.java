@@ -1,6 +1,7 @@
 package com.teamproject.okowan.user;
 
 import com.teamproject.okowan.alert.Alert;
+import com.teamproject.okowan.oauth.OAuthProvider;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -31,16 +32,23 @@ public class User {
 
     @Column(nullable = false)
     private String introduction;
+
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private OAuthProvider oAuthProvider;
+
     private String address;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Alert> alertList = new ArrayList<>();
 
     @Builder
-    public User(String username, String password, String nickname) {
+    public User(String username, String password,String nickname, String introduction, OAuthProvider oAuthProvider) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        this.introduction = introduction;
+        this.oAuthProvider = oAuthProvider;
     }
 
     public void setNickname(String nickname) {
@@ -53,5 +61,9 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setoAuthProvider(OAuthProvider OauthProvider) {
+        this.oAuthProvider = OauthProvider;
     }
 }
