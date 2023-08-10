@@ -92,7 +92,7 @@ public class BoardController {    // 전체 보드 조회
         // userDetails.getUsername()이 안되는 이유??
     }
     @PutMapping("/{BoardId}/invite/update")
-    public @ResponseBody ResponseEntity<ApiResponseDto> updateUser(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, BindingResult bindingResult,@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public @ResponseBody ResponseEntity<ApiResponseDto> updateUser(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, BindingResult bindingResult, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder();
