@@ -18,6 +18,6 @@ public class SignupRequestDto {
     private String password;
 
     @Pattern(regexp = NICKNAME_REGEX,
-            message = "닉네임은 영문과 숫자만 사용 가능하고 20자 미만이어야 합니다.")
+            message = "닉네임은 영문과 숫자만 사용 가능하고 20자 미만이어야 합니다. ")
     private String nickname;
 }
