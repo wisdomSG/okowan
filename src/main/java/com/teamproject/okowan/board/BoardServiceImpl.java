@@ -111,6 +111,7 @@ public class BoardServiceImpl implements BoardService {
     public ApiResponseDto inviteUserToBoard(Long BoardId, BoardInvitationRequestDto requestDto, User user) {
     // BoardInvitationRequestDto requestDto 초대되는 사람의 정보
     // User user 초대하는 사람의 정보
+
         Board board = findBoard(BoardId); // 몇 번째 보드인지 찾기
         User inviteUser = userService.findUserByUsername(requestDto.getUsername()); // 초대되는 사람의 정보를 USER 디비에서 찾기
         UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteUser, board); // 초대되는 사람의 정보를 userBoard로 저장

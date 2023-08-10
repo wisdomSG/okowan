@@ -12,7 +12,7 @@ public class BoardInvitationRequestDto {
     private Long BoardId;
 
     @Pattern(regexp = EMAIL_REGEX,
-            message = "아이디는 이메일 형식이어야 합니다. ")
+            message = "아이디는 이메일 형식이어야 합니다.")
     private String username;
 
     private BoardRoleEnum role;
