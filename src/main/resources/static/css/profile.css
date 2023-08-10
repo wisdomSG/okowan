@@ -1,16 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
+
 body {
     background: linear-gradient(to right, #fff, #407fff);
 }
+
 .container {
     background: #fff;
-    width: 540px;
-    height: 420px;
+    width: 500px;
+    height: 400px;
     margin: 0 auto;
     position: relative;
     margin-top: 10%;
     box-shadow: 2px 5px 20px rgba(119, 119, 119, .5);
+    padding: 10px;
 }
+
 .logo {
     float: right;
     margin-right: 12px;
@@ -21,26 +25,31 @@ body {
     font-size: 1.5em;
     letter-spacing: 1px;
 }
+
 .active {
     color: #0ff;
 }
+
 .rightbox {
     float: right;
     width: 60%;
     height: 100%;
 }
+
 .profile, .payment, .subscription, .privacy, .settings {
     transition: opacity 0.5s ease-in;
     position: absolute;
     width: 70%;
 }
+
 h1 {
     font-family: 'Montserrat', sans-serif;
     color: #1e90ff;
     font-size: 1em;
     margin-top: 40px;
-    margin-bottom: 35px;
+    margin-bottom: 50px;
 }
+
 h2 {
     color: #777;
     font-family: 'Roboto', sans-serif;
@@ -50,6 +59,7 @@ h2 {
     letter-spacing: 1px;
     margin-left: 2px;
 }
+
 p {
     border-width: 1px;
     border-style: solid;
@@ -61,10 +71,12 @@ p {
     padding: 7px 0;
     color: #070707;
 }
+
 span {
     font-size: 0.5em;
     color: #777;
 }
+
 .btn {
     float: right;
     font-family: 'Roboto', sans-serif;
@@ -73,23 +85,37 @@ span {
     border: none;
     color: #777;
 }
+
 .btn:hover {
     text-decoration: underline;
     font-weight: 900;
 }
+
 input {
     border: 1px solid #ddd;
     font-family: 'Roboto', sans-serif;
     padding: 2px;
     margin: 0;
 }
+
 .privacy h2 {
     margin-top: 25px;
 }
+
 .settings h2 {
     margin-top: 25px;
 }
+
 .noshow {
     opacity: 0;
 }
- 
+
+input {
+
+}
+
+input:disabled {
+    border: none;
+    font-weight: bold;
+    background-color: transparent;
+}

@@ -43,10 +43,11 @@ public interface UserService {
      * 프로필 수정
      *
      * @param profileRequestDto 프로필 수정 요청 데이터
+     * @param userId            프로필 수정할 유저의 ID
      * @param user              프로필을 수정할 유저
      * @return 요청 처리 결과
      */
-    ApiResponseDto updateProfile(ProfileRequestDto profileRequestDto, User user);
+    ApiResponseDto updateProfile(ProfileRequestDto profileRequestDto, Long userId, User user);
 
     /**
      * 이메일로 유저 조회

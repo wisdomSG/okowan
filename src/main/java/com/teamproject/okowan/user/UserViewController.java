@@ -18,10 +18,4 @@ public class UserViewController {
     public String profile() {
         return "profile";
     }
-
-    // API 호출(토큰 검사)용 빈 메서드
-    @GetMapping("/check-token")
-    public ResponseEntity<String> checkToken() {
-        return ResponseEntity.ok("필터 통과");
-    }
 }
