@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         container.classList.remove("right-panel-active");
     });
 
-    // 로그인, 회원가입
+    // 로그인
     function signup() {
         let username = $('#signup-email').val();
         let password = $('#signup-password').val();
@@ -39,6 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     }
 
+    const realSignupButton = document.getElementById('signup-button');
+    realSignupButton.addEventListener('click', signup);
+
+    // 회원가입
     function login() {
         let username = $('#login-email').val();
         let password = $('#login-password').val();
@@ -72,15 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     }
 
-    const realSignupButton = document.getElementById('signup-button');
     const realLoginButton = document.getElementById('login-button');
-
-    realSignupButton.addEventListener('click', () => {
-        signup();
-    });
-
-    realLoginButton.addEventListener('click', () => {
-        login();
-    });
+    realLoginButton.addEventListener('click', login);
 });
 

@@ -107,6 +107,25 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    @Override
+    @Transactional
+    public ApiResponseDto updatePassword(PasswordRequestDto passwordRequestDto, User user) {
+        String currentPassword = passwordRequestDto.getCurrentPassword();
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
+        }
+        String newPassword = passwordRequestDto.getNewPassword();
+        String confirmNewPassword = passwordRequestDto.getConfirmNewPassword();
+        if (!newPassword.equals(confirmNewPassword)) {
+            throw new IllegalArgumentException("비밀번호 확인이 일치하지 않습니다.");
+        }
+
+        String newEncodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(newEncodedPassword);
+        userRepository.save(user);
+        return new ApiResponseDto("비밀번호 변경 완료", HttpStatus.OK.value());
+    }
+
     // 모든 쿠키 삭제 메서드
     public void deleteAllCookies(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies(); // 모든 쿠키 가져오기
