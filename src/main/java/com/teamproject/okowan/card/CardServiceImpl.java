@@ -1,26 +1,25 @@
 package com.teamproject.okowan.card;
 
-import com.teamproject.okowan.alert.Alert;
-import com.teamproject.okowan.alert.AlertRepository;
 import com.teamproject.okowan.alert.AlertRequestDto;
 import com.teamproject.okowan.alert.AlertService;
 import com.teamproject.okowan.aop.ApiResponseDto;
-import com.teamproject.okowan.board.Board;
+import com.teamproject.okowan.awsS3.S3File;
+import com.teamproject.okowan.awsS3.S3FileRepository;
+import com.teamproject.okowan.awsS3.S3Service;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
 import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
-import com.teamproject.okowan.userBoard.UserBoard;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,9 +33,13 @@ public class CardServiceImpl implements CardService {
 
     private final UserService userService;
 
-    private final UserBoardRepository userBoardRepository;
+    private final S3Service s3Service;
+
+    private final S3FileRepository s3FileRepository;
 
     private final AlertService alertService;
+
+    private final UserBoardRepository userBoardRepository;
 
     @Override
     public ApiResponseDto createCard(User user, CardRequestDto requestDto) {
@@ -86,6 +89,22 @@ public class CardServiceImpl implements CardService {
 
     @Override
     @Transactional
+    public ApiResponseDto updateFileUpload(Long id, User user, List<MultipartFile> multipartFiles) {
+        Card card = findCard(id);
+
+        // AWS에 파일 저장
+        List<String> filePaths = s3Service.uploadFile(multipartFiles);
+
+        for (String fileUrl : filePaths) {
+            S3File file = new S3File(fileUrl, card);
+            s3FileRepository.save(file);
+        }
+
+        return new ApiResponseDto("카드에 파일 추가 완료", HttpStatus.OK.value());
+    }
+
+    @Override
+    @Transactional
     public ApiResponseDto updateDeadLine(Long id, User user, CardRequestDto requestDto) {
         Card card = findCard(id);
 
@@ -96,13 +115,35 @@ public class CardServiceImpl implements CardService {
         return new ApiResponseDto("데드라인 수정 완료", HttpStatus.OK.value());
     }
 
+    // 카드 삭제 (파일 삭제 포함)
     @Override
+    @Transactional
     public ApiResponseDto deleteCard(Long id, User user) {
         Card card = findCard(id);
+
+
+        for(S3File s3File : card.getS3FileList()) {
+            s3Service.deleteFile(s3File.getFileName());
+        }
 
         cardRepository.delete(card);
 
         return new ApiResponseDto("카드 삭제 완료", HttpStatus.OK.value());
+    }
+
+    // 파일 삭제
+    @Override
+    public ApiResponseDto deleteFile(Long cardId, User user, Long fileId) {
+        Card card = findCard(cardId);
+
+        S3File s3File = s3FileRepository.findById(fileId).orElseThrow(() -> {
+            throw new IllegalArgumentException("삭제할 파일이 없음");
+        });
+
+        s3FileRepository.delete(s3File);
+        s3Service.deleteFile(s3File.getFileName());
+
+        return new ApiResponseDto("첨부 파일 삭제 완료", HttpStatus.OK.value());
     }
 
     @Override
