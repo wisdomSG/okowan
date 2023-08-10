@@ -34,7 +34,7 @@ public class BoardController {    // 전체 보드 조회
     private final BoardService boardService;
 
     // 보드 전체 멤버 조회
-    @GetMapping("/worker/{BoardId}")
+    @GetMapping("/member/{BoardId}")
     public ResponseEntity<List<BoardWorkerResponseDto>> getBoardMemberList(@PathVariable Long BoardId) {
         List<BoardWorkerResponseDto> result = boardService.getBoardMemberList(BoardId);
         return ResponseEntity.ok().body(result);
