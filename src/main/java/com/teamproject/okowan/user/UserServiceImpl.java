@@ -82,7 +82,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public ApiResponseDto updateProfile(ProfileRequestDto profileRequestDto, User loginUser) {
+    public ApiResponseDto updateProfile(ProfileRequestDto profileRequestDto, Long userId, User loginUser) {
+        if (!userId.equals(loginUser.getId())) {
+            throw new IllegalArgumentException("자신의 프로필만 수정 가능합니다.");
+        }
         loginUser.setNickname(profileRequestDto.getNickname());
         loginUser.setIntroduction(profileRequestDto.getIntroduction());
         loginUser.setAddress(profileRequestDto.getAddress());
