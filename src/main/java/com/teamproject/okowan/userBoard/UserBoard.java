@@ -28,6 +28,14 @@ public class UserBoard {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    public void setUserBoardId(Long userBoardId) {
+        this.userBoardId = userBoardId;
+    }
+
+    public void setRole(BoardRoleEnum role) {
+        this.role = role;
+    }
+
     public UserBoard(BoardRoleEnum role, User user, Board board) {
         this.role = role;
         this.user = user;

@@ -36,4 +36,7 @@ public interface BoardService {
 
     Board findBoard(Long BoardId);
 
+    ApiResponseDto inviteUserToBoard(Long BoardId, BoardInvitationRequestDto requestDto, User user);
+
+    ApiResponseDto updateUser(Long BoardId, BoardInvitationRequestDto requestDto, User user);
 }

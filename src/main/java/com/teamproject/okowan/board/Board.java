@@ -11,9 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -52,7 +50,6 @@ public class Board extends TimeStamped {
         this.description = description;
         this.color = color;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -64,5 +61,4 @@ public class Board extends TimeStamped {
     public void setColor(ColorEnum color) {
         this.color = color;
     }
-//    public BoardRequestDto
 }
