@@ -38,10 +38,22 @@ public class BoardServiceImpl implements BoardService {
         return new BoardResponseDto(board);
     }
 
+
+    @Override
+    public List<BoardWorkerResponseDto> getBoardMemberList(Long BoardId) {
+
+        List<BoardWorkerResponseDto> boardWorkerList = userBoardRepository.getAllFindByBoardId(BoardId).stream()
+                .map(BoardWorkerResponseDto::new)
+                .toList();
+        return boardWorkerList;
+    }
+
+
     @Override
     public List<BoardWorkerResponseDto> getBoardWorkerList(Long BoardId) {
 
         List<BoardWorkerResponseDto> boardWorkerList = userBoardRepository.getAllFindByBoardId(BoardId).stream()
+                .filter(userBoard -> BoardRoleEnum.OWNER.equals(userBoard.getRole()) || BoardRoleEnum.EDITER.equals(userBoard.getRole()) ) // 필터링: role이 "OWNER"인 경우만 선택
                 .map(BoardWorkerResponseDto::new)
                 .toList();
         return boardWorkerList;
