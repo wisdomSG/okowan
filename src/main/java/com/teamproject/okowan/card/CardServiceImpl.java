@@ -152,7 +152,6 @@ public class CardServiceImpl implements CardService {
         User user = userService.findUserById(userId);   //worker
         Card card = findCard(cardId);
 
-        // if문 user가 card에 있는 board에 권한이 있는지 한번더 확인
         Optional<BoardRoleEnum> roleEnum = userBoardRepository.getRoleFindByUserIdAndBoardId(user.getId(), card.getBoard().getBoardId());
         roleEnum.ifPresent(role -> {
             if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITER))) {

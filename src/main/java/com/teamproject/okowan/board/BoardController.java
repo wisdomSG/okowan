@@ -33,6 +33,13 @@ public class BoardController {    // 전체 보드 조회
 
     private final BoardService boardService;
 
+    // 보드 전체 멤버 조회
+    @GetMapping("/member/{BoardId}")
+    public ResponseEntity<List<BoardWorkerResponseDto>> getBoardMemberList(@PathVariable Long BoardId) {
+        List<BoardWorkerResponseDto> result = boardService.getBoardMemberList(BoardId);
+        return ResponseEntity.ok().body(result);
+    }
+
     // 보드 작업자 조회
     @GetMapping("/worker/{BoardId}")
     public ResponseEntity<List<BoardWorkerResponseDto>> getBoardWorkerList(@PathVariable Long BoardId) {
@@ -85,7 +92,7 @@ public class BoardController {    // 전체 보드 조회
         // userDetails.getUsername()이 안되는 이유??
     }
     @PutMapping("/{BoardId}/invite/update")
-    public @ResponseBody ResponseEntity<ApiResponseDto> updateUser(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, BindingResult bindingResult,@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public @ResponseBody ResponseEntity<ApiResponseDto> updateUser(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, BindingResult bindingResult, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         if (bindingResult.hasErrors()) {
             StringBuilder errorMessage = new StringBuilder();
