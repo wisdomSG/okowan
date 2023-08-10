@@ -14,10 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -40,12 +38,14 @@ public class RoleCheckAop {
     private BoardService boardService;
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.updateCard(..))")
-    private void updateCard() {
-    }
+    private  void updateCard() {}
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.updateDeadLine(..))")
-    private void updateDeadLine() {
-    }
+    private  void updateDeadLine() {}
+
+    @Pointcut("execution(* com.teamproject.okowan.card.CardService.updateFileUpload(..))")
+    private  void updateFileUpload() {}
+
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.deleteCard(..))")
     private void deleteCard() {
@@ -64,8 +64,11 @@ public class RoleCheckAop {
     }
 
 
-    @Around("updateCard() || deleteCard() || updateDeadLine()")
-    public Object executeCardRoleCheck(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Pointcut("execution(* com.teamproject.okowan.card.CardService.deleteFile(..))")
+    private  void deleteFile() {}
+
+    @Around("updateCard() || deleteCard() || updateDeadLine() || deleteFile() || updateFileUpload()")
+    public Object executeCardRoleCheck(ProceedingJoinPoint joinPoint) throws  Throwable {
 
         // 1,2 번째 매개변수로 id, user값 가져오기
         Long id = (Long) joinPoint.getArgs()[0];
