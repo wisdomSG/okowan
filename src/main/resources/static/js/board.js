@@ -128,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .fail(function (response, status, xhr) {
                 console.log(response);
             })
-
     })
 })
 
