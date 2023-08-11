@@ -72,6 +72,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // resources 접근 허용 설정
+                        .requestMatchers("/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/okw/users/**").permitAll()
                         .requestMatchers("/okw/oauths/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/okw/view/**").permitAll()
