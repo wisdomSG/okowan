@@ -148,6 +148,29 @@ document.addEventListener("DOMContentLoaded", function () {
         */
 })
 
+// cardDetails 가기
+$(".card__item").click(function () {
+    const cardId = this.id // 클릭된 요소의 id 값 가져오기
+    console.log(cardId);
+
+    // 카드 정보를 가져오기 위한 AJAX 요청
+    $.ajax({
+        url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
+        method: 'GET',
+        dataType: 'json',
+        success: function (cardDetails) {
+
+            window.location.href = `/okw/view/cards/${cardId}`;
+        },
+        error: function (xhr, status, error) {
+            console.error('카드 정보 가져오기 에러:', error);
+        }
+    });
+    }
+)
+
+
+
 function inviteMember(username, boardId) {
     console.log(username, boardId);
     const host = "http://" + window.location.host;
@@ -260,7 +283,17 @@ function loadBoardContent(boardJson) {
 
         let categoryContentFooter = `                        
                 </ul>
-                <button class="add-card-btn btn">Add a card</button>
+                    <div class="add-card-container">
+                        <button class="add-card-btn btn" id="category${categoryId}">Add a card</button>
+                        <!-- 폼 추가 -->
+                        <form class="cardForm" style="display: none;">
+                            <div>
+                                <input class="cardTitleInput" type="text" name="cardTitleInput" placeholder="Enter card title" required>
+                            </div>
+                            <button type="submit" class="createCardButton">Create Card</button>
+                            <button type="delete" class="deleteCardButton">X</button>
+                        </form>
+                    </div>
             </div>
             `;
         boardContentHtml += categoryContentHeader + categoryContentFooter;

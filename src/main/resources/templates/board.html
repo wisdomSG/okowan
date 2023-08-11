@@ -239,8 +239,17 @@
                 </li>
             </ul>
 
-            <button class="add-card-btn btn">Add a card</button>
-
+            <div class="add-card-container">
+                <button class="add-card-btn btn">Add a card</button>
+                <!-- 폼 추가 -->
+                <form id="cardForm" style="display: none;">
+                    <div>
+                        <input class="cardTitleInput" type="text" id="cardTitleInput" name="cardTitleInput" placeholder="Enter card title" required>
+                    </div>
+                    <button type="submit" id="createCardButton">Create Card</button>
+                    <button type="delete" id="deleteCardButton">X</button>
+                </form>
+            </div>
         </div>
 
         <div class="list">
