@@ -29,7 +29,7 @@ public class Board extends TimeStamped {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ColorEnum color;
 
