@@ -37,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("confirmBtn").addEventListener("click", postBoard);
 
-    /* -------- */
-
     showMemberButton.addEventListener("click", function () {
         offcanvasLabel.textContent = boardTitle + '에 초대된 맴버';
 
