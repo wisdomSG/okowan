@@ -116,7 +116,7 @@ public class RoleCheckAop {
 
     /* Check UpdateCategory, DeleteCategory User Role*/
     @Around("updateCategory() || deleteCategory()")
-    public Object executeUpdateAndDeleteCategoryRoleChcek(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object executeUpdateAndDeleteCategoryRoleCheck(ProceedingJoinPoint joinPoint) throws Throwable {
         Long categoryId = (Long) joinPoint.getArgs()[0];
         User user = ((UserDetailsImpl) joinPoint.getArgs()[1]).getUser();
 

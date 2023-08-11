@@ -64,4 +64,13 @@ public interface UserService {
      * @return 조회한 유저
      */
     User findUserById(Long userId);
+
+    /**
+     * 비밀번호 변경
+     *
+     * @param passwordRequestDto 비밀번호 변경 요청 데이터
+     * @param user               비밀번호를 변경할 유저
+     * @return 요청 처리 결과
+     */
+    ApiResponseDto updatePassword(PasswordRequestDto passwordRequestDto, User user);
 }
