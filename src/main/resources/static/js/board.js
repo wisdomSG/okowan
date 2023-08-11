@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .done(function (response) {
             document.getElementsByClassName("lists-container").innerHTML = "";
             loadBoardContent(response);
+            registerCardItemClickEvent();
         })
         .fail(function (response, status, xhr) {
             console.log(response.responseJSON);
@@ -147,29 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         */
 })
-
-// cardDetails 가기
-$(".card__item").click(function () {
-    const cardId = this.id // 클릭된 요소의 id 값 가져오기
-    console.log(cardId);
-
-    // 카드 정보를 가져오기 위한 AJAX 요청
-    $.ajax({
-        url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
-        method: 'GET',
-        dataType: 'json',
-        success: function (cardDetails) {
-
-            window.location.href = `/okw/view/cards/${cardId}`;
-        },
-        error: function (xhr, status, error) {
-            console.error('카드 정보 가져오기 에러:', error);
-        }
-    });
-    }
-)
-
-
 
 function inviteMember(username, boardId) {
     console.log(username, boardId);
@@ -306,3 +284,30 @@ function loadBoardContent(boardJson) {
     let boardContent = document.getElementById("board-content");
     boardContent.innerHTML = boardContentHtml;
 }
+
+// cardDetails 가기
+function registerCardItemClickEvent() {
+    $(".card__item").click(function () {
+            const token = Cookies.get('Authorization');
+            const cardId = this.id // 클릭된 요소의 id 값 가져오기
+            console.log(cardId);
+
+            // 카드 정보를 가져오기 위한 AJAX 요청
+            $.ajax({
+                url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
+                method: 'GET',
+                headers: {"Authorization": token},
+                dataType: 'json',
+                success: function (cardDetails) {
+
+                    window.location.href = `/okw/view/cards/${cardId}`;
+                },
+                error: function (xhr, status, error) {
+                    console.error('카드 정보 가져오기 에러:', error);
+                }
+            });
+        }
+    )
+}
+// 초기 페이지 로딩 시 클릭 이벤트 등록
+registerCardItemClickEvent();

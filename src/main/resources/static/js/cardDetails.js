@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    // 백엔드 연결 (U,D)
+
 
 
 
