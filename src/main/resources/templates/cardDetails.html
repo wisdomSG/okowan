@@ -90,13 +90,24 @@
                     <option value="0" selected>Hour</option>
                     <!-- 시간 옵션은 여기에 추가 -->
                 </select>
-                <button class="btn update-worker-btn">update</button>
+                <button class="btn update-deadline-btn">update</button>
+                <button class="btn done-deadline-btn" style="display: none">done</button>
+
             </p>
+
             <h2>Upload File</h2>
             <p class=line class="mb-3">
                 <input class="form-control" type="file" id="formFileMultiple" multiple>
-                <button class="btn des-btn">update</button>
+                <button class="btn done-file-btn">done</button>
             </p>
+            <p>
+                <a>다운로드된 파일</a>
+            </p>
+            <p>
+                <a>다운로드된 파일</a>
+            </p>
+            <p class=line></p>
+
             <br>
             <br>
             <br>
@@ -195,7 +206,6 @@
     // 선택한 작업자를 서버에 업데이트하는 함수
     function updateSelectedWorker() {
         const selectedWorkerId = workerChoiceSelect.value; // 선택한 작업자의 ID 가져오기
-        // 실제 카드 ID로 대체해주세요
 
         $.ajax({
             type: 'PATCH',
@@ -210,10 +220,80 @@
         })
             .done(function(data) {
                 alert('작업자가 업데이트되었습니다.');
+                window.reload();
                 // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
             })
             .fail(function(error) {
                 console.error('작업자 업데이트 오류:', error);
+            });
+    }
+
+    // "done-deadline-btn" 버튼에 대한 이벤트 리스너
+    const doneDeadlineButton = document.querySelector('.done-deadline-btn');
+    doneDeadlineButton.addEventListener('click', updateDeadline);
+
+    // 선택한 데드라인을 서버에 업데이트하는 함수
+    function updateDeadline() {
+        const selectedYear = document.getElementById('year').value;
+        const selectedMonth = document.getElementById('month').value;
+        const selectedDay = document.getElementById('day').value;
+        const selectedHour = document.getElementById('hour').value;
+
+        // 선택한 데드라인을 원하는 형식으로 조합 (예: "2023-08-11 15")
+        const selectedDeadline = `${selectedYear}-${selectedMonth}-${selectedDay} ${selectedHour}`;
+
+        $.ajax({
+            type: 'PUT',
+            url: '/okw/cards/deadLine/' + cardId,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                deadlineStr: selectedDeadline
+            }),
+            headers: {
+                'Authorization': token
+            }
+        })
+            .done(function(data) {
+                alert('데드라인이 업데이트되었습니다.');
+                window.reload();
+                // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+            })
+            .fail(function(error) {
+                console.error('데드라인 업데이트 오류:', error);
+            });
+    }
+
+    // "done-file-btn" 버튼에 대한 이벤트 리스너
+    const doneFileButton = document.querySelector('.done-file-btn');
+    doneFileButton.addEventListener('click', uploadFiles);
+
+    // 파일을 서버에 업로드하는 함수
+    function uploadFiles() {
+        const filesInput = document.getElementById('formFileMultiple');
+        const selectedFiles = filesInput.files;
+
+        const formData = new FormData();
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append('fileName', selectedFiles[i]);
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: '/okw/cards/files/' + cardId,
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .done(function(data) {
+                alert('파일 업로드 완료');
+                window.reload();
+                // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+            })
+            .fail(function(error) {
+                console.error('파일 업로드 오류:', error);
             });
     }
 

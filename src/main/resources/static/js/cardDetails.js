@@ -33,7 +33,21 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener('click', function () {
             const p = this.closest('p');
             const select = p.querySelector('select');
-            const doneButton = p.querySelector('.done-btn');
+            const doneButton = p.querySelector('.done-worker-btn');
+
+            this.style.display = 'none';
+            doneButton.style.display = 'block';
+
+            select.disabled = false;
+        });
+    });
+
+    const deadlineButtons = document.querySelectorAll('.update-deadline-btn');
+    deadlineButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            const p = this.closest('p');
+            const select = p.querySelector('select');
+            const doneButton = p.querySelector('.done-deadline-btn');
 
             this.style.display = 'none';
             doneButton.style.display = 'block';
