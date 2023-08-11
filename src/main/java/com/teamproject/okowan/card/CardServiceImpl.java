@@ -41,15 +41,13 @@ public class CardServiceImpl implements CardService {
 
     private final UserBoardRepository userBoardRepository;
 
+    //카드생성 (Title 저장)
     @Override
     public ApiResponseDto createCard(User user, CardRequestDto requestDto) { //Title 만 create
         Category category = categoryService.findCategory(requestDto.getCategoryId());
 
-        // "yyyy-MM-dd HH:mm"과 같은 형식의 문자열을 deadlineStr 필드로 요청하면, 서버에서는 deadlineStr을 LocalDateTime으로 변환하여 Card 엔티티의 deadline 필드에 저장
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
-        LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
 
-        Card card = new Card(requestDto.getTitle(), requestDto.getDescription(), requestDto.getColor(), deadline, category, user);
+        Card card = new Card(requestDto.getTitle(),category, user);
 
         cardRepository.save(card);
 
@@ -108,7 +106,7 @@ public class CardServiceImpl implements CardService {
     public ApiResponseDto updateDeadLine(Long id, User user, CardRequestDto requestDto) {
         Card card = findCard(id);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH"); // "yyyy-MM-dd HH:mm" 이러한 형식, 문자열로 deadline을 받아옴
         LocalDateTime deadline = LocalDateTime.parse(requestDto.getDeadlineStr(), formatter); // LocalDateTime으로 변환하여 데이터베이스에 저장할 예정
         card.setDeadline(deadline);
 

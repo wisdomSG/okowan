@@ -26,10 +26,8 @@ public class Card {
     @Column(nullable = false, unique = true)
     private String title;
 
-    @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ColorEnum color;
 
@@ -53,6 +51,11 @@ public class Card {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Card(String title, Category category, User user) {
+        this.title = title;
+        this.category = category;
+        this.user = user;
+    }
 
     public Card(String title, String description, ColorEnum color, LocalDateTime deadline, Category category, User user) {
         this.title = title;

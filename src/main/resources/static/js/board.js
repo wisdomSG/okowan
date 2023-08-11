@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {'Authorization': token},
         contentType: 'application/json',
         success: function (response) {
-            // $('#post-cards').empty();
+             $('#getboard').empty();
             for (let i = 0; i < response.length; i++) {
                 let boardTitle = response[i]['title'];
                 let boardId = response[i]['boardId'];
@@ -19,17 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error(error);
         }
     })
-})
 
-function setHtml(boardTitle, boardId) {
-    let html=`
-              <div>
+    function setHtml(boardTitle, boardId) {
+        let html=`
+              <div id="getboard">
                     <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
                     <span hidden="hidden">${boardId}</span>
               </div>
         `;
-    $('#boardList').append(html);
-}
+        $('#boardList').append(html);
+    }
+})
+
 
 
 // 보드 추가 모달창
