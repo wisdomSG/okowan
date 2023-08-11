@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
+
+body {
+    background: linear-gradient(to right, #fff, #407fff);
+
+}
+
+.container {
+    background: #fff;
+    width: 700px;
+    height: 1300px;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    box-shadow: 2px 5px 20px rgba(119, 119, 119, .5);
+    padding: 30px;
+}
+
+.logo {
+    float: right;
+    margin-right: 12px;
+    margin-top: 12px;
+    font-family: 'Nunito Sans', sans-serif;
+    color: #1e90ff;
+    font-weight: 900;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+}
+
+.active {
+    color: #0ff;
+}
+
+.rightbox {
+    /* float:right; */
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.profile, .payment, .subscription, .privacy, .settings {
+    transition: opacity 0.5s ease-in;
+    position: absolute;
+    width: 70%;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: #1e90ff;
+    font-size: 1.5em;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+h2 {
+    color: #777;
+    font-family: 'Roboto', sans-serif;
+    width: 80%;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-left: 2px;
+}
+
+p.line {
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(to right, #0ff, rgba(64, 127, 255, .5)) 1 0%;
+    border-top: 0;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.0em;
+    padding: 7px 0;
+    color: #070707;
+}
+
+p.comment {
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.0em;
+    padding: 7px 0;
+    color: #070707;
+}
+
+span {
+    font-size: 0.5em;
+    color: #777;
+}
+
+.author {
+    float: left; /* 왼쪽으로 부유(floating) */
+    margin-right: 10px; /* span과 다른 요소 사이의 간격을 조절합니다 */
+}
+
+.btn {
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size: 15px;
+    border: none;
+    color: #777;
+}
+
+.btn:hover {
+    text-decoration: underline;
+    font-weight: 900;
+}
+
+input.title {
+    border: 1px solid #ddd;
+    font-family: 'Roboto', sans-serif;
+    padding: 2px;
+    margin: 0;
+    font-size: 18px;
+}
+
+imput.comments {
+    font-family: 'Roboto', sans-serif;
+    padding: 2px;
+    margin: 0;
+    font-size: 14px;
+}
+
+textarea.form-control {
+    width: 80%; /* 또는 원하는 너비 값을 지정할 수 있습니다. */
+    border: none;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    resize: none; /* 크기 조절을 비활성화합니다. */
+
+}
+
+select {
+    width: 80%; /* 또는 원하는 너비 값을 지정할 수 있습니다. */
+    border: none;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+select.cal-select {
+    width: 20%;
+    border: none;
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+input.form-control {
+    width: 80%;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+}
+
+input.comment {
+    width: 80%;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.privacy h2 {
+    margin-top: 25px;
+}
+
+.settings h2 {
+    margin-top: 25px;
+}
+
+.noshow {
+    opacity: 0;
+}
+
+
+input:disabled {
+    border: none;
+    font-weight: bold;
+    background-color: transparent;
+}

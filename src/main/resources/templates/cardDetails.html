@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="/cardDetails.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    <!-- js Cookie -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+</head>
+<body>
+<script src="/cardDetails.js"></script>
+<div class="container">
+    <div id="logo"><h1 class="logo">OKOWAN</h1>
+    </div>
+    <div class="rightbox">
+        <div class="profile">
+            <h1>Card Details</h1>
+            <h2>Title</h2>
+            <p class=line>
+                <input class="title" type="text" id="cardTitle" value="cardTitle" disabled>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>description</h2>
+            <p class=line class="mb-3">
+                <textarea class="form-control" id="exampleFormControlTextarea1 description" rows="5" disabled></textarea>
+                <button class="btn des-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>Category</h2>
+            <p class=line>
+                <select class="form-select" aria-label="Default select example" id="workerChoice" disabled>
+                    <option selected>카테고리 변경</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <button class="btn update-worker-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+            <h2>Worker Choice</h2>
+            <p class=line>
+                <select class="form-select" aria-label="Default select example" id="workerChoice" disabled>
+                    <option selected>작업자를 선택해주세요</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <button class="btn update-worker-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>Color Choice</h2>
+            <p class=line>
+                <select class="form-select" aria-label="Default select example" id="cardChoice" disabled>
+                    <option selected>카드의 색상을 선택해주세요</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <button class="btn update-worker-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>DeadLine</h2>
+            <p class=line>
+                <select select class="form-select cal-select" aria-label="Default select example" id="year">
+                    <option value="0" selected>Year</option>
+                </select>
+                <select class="form-select cal-select" aria-label="Default select example" id="month">
+                    <option value="0" selected>Month</option>
+                    <!-- 월 옵션은 그대로 유지 -->
+                </select>
+                <select class="form-select cal-select" aria-label="Default select example" id="day">
+                    <option value="0" selected>Day</option>
+                </select>
+                <select class="form-select cal-select" aria-label="Default select example" id="hour">
+                    <option value="0" selected>Hour</option>
+                    <!-- 시간 옵션은 여기에 추가 -->
+                </select>
+                <button class="btn update-worker-btn">update</button>
+            </p>
+            <h2>Upload File</h2>
+            <p class=line class="mb-3">
+                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                <button class="btn des-btn">update</button>
+            </p>
+            <br>
+            <br>
+            <br>
+            <h2>Comments</h2>
+            <p class=line>
+                <input class="comment" type="text" id="comment">
+                <button class="btn">Add</button>
+            </p>
+
+            <p class=line>
+                <input type="text" id="comment-text" value="내용 작성" disabled>
+                <span class="author">작성자</span>
+                <button class="btn">X</button>
+                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+            </p>
+            <p class=line>
+                <input class="comments" type="text" id="comment-text" value="댓글" disabled>
+                <span class="author">작성자</span>
+                <button class="btn ">X</button>
+                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+            </p>
+            <p class=line>
+                <input class="comments" type="text" id="comment-text" value="댓글" disabled>
+                <span class="author">작성자</span>
+                <button class="btn ">X</button>
+                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
