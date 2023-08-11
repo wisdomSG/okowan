@@ -92,4 +92,3 @@ document.addEventListener("DOMContentLoaded", function () {
     const realLoginButton = document.getElementById('login-button');
     realLoginButton.addEventListener('click', login);
 });
-
