@@ -30,9 +30,7 @@ public class OAuthLoginService {
         User user = findOrCreateUser(oAuthInfoResponse);
         String accessToken = jwtUtil.createAccessToken(user.getUsername());
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, accessToken);
-        //jwtUtil.addJwtToCookie(accessToken,response);
 
-        //return new ApiResponseDto("OAuth 로그인 성공" , HttpStatus.OK.value());
         return accessToken;
     }
 
