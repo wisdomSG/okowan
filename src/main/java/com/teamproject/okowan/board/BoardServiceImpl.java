@@ -1,6 +1,10 @@
 package com.teamproject.okowan.board;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.card.Card;
+import com.teamproject.okowan.card.CardSimpleResponseDto;
+import com.teamproject.okowan.category.Category;
+import com.teamproject.okowan.category.CategoryDetailResponseDto;
 import com.teamproject.okowan.entity.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
@@ -13,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardWorkerResponseDto> getBoardWorkerList(Long BoardId) {
 
         List<BoardWorkerResponseDto> boardWorkerList = userBoardRepository.getAllFindByBoardId(BoardId).stream()
-                .filter(userBoard -> BoardRoleEnum.OWNER.equals(userBoard.getRole()) || BoardRoleEnum.EDITER.equals(userBoard.getRole()) ) // 필터링: role이 "OWNER"인 경우만 선택
+                .filter(userBoard -> BoardRoleEnum.OWNER.equals(userBoard.getRole()) || BoardRoleEnum.EDITER.equals(userBoard.getRole())) // 필터링: role이 "OWNER"인 경우만 선택
                 .map(BoardWorkerResponseDto::new)
                 .toList();
         return boardWorkerList;
@@ -121,8 +126,8 @@ public class BoardServiceImpl implements BoardService {
     // 보드에 사용자 초대
     @Override
     public ApiResponseDto inviteUserToBoard(Long BoardId, BoardInvitationRequestDto requestDto, User user) {
-    // BoardInvitationRequestDto requestDto 초대되는 사람의 정보
-    // User user 초대하는 사람의 정보
+        // BoardInvitationRequestDto requestDto 초대되는 사람의 정보
+        // User user 초대하는 사람의 정보
 
         Board board = findBoard(BoardId); // 몇 번째 보드인지 찾기
         User inviteUser = userService.findUserByUsername(requestDto.getUsername()); // 초대되는 사람의 정보를 USER 디비에서 찾기
@@ -148,6 +153,26 @@ public class BoardServiceImpl implements BoardService {
         userBoard.setRole(requestDto.getRole());
 
         return new ApiResponseDto("권한 수정 완료", HttpStatus.OK.value());
+    }
+
+    @Override
+    public BoardDetailResponseDto getBoardContents(Long boardId) {
+        Board board = findBoard(boardId);
+        return new BoardDetailResponseDto(board, getCategoryDetailResponseDtoList(board));
+    }
+
+    private List<CategoryDetailResponseDto> getCategoryDetailResponseDtoList(Board board) {
+        List<Category> categories = board.getCategoryList();
+        return categories.stream()
+                .map(category -> new CategoryDetailResponseDto(category, getCardSimpleResponseDtoList(category)))
+                .collect(Collectors.toList());
+    }
+
+    private List<CardSimpleResponseDto> getCardSimpleResponseDtoList(Category category) {
+        List<Card> cards = category.getCardList();
+        return cards.stream()
+                .map(card -> new CardSimpleResponseDto(card, card.getUser().getNickname()))
+                .collect(Collectors.toList());
     }
 }
 

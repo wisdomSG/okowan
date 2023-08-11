@@ -1,6 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
     const host = "http://" + window.location.host;
 
+    $(document).ready(function test() {
+        const token = Cookies.get('Authorization');
+
+        $.ajax({
+            type: "POST",
+            url: "/test/tokenTest",
+            headers: {'Authorization': token}
+        })
+            .done(function () {
+                window.location.href = "/okw/view/boards/board";
+            })
+    })
+
     // 로그인-회원가입 전환
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
