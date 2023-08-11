@@ -19,7 +19,11 @@ public class UserPatternAop {
     public void updateProfile() {
     }
 
-    @Around("signup()||updateProfile()")
+    @Pointcut("execution(* com.teamproject.okowan.user.UserController.updatePassword(..))")
+    public void updatePassword() {
+    }
+
+    @Around("signup()||updateProfile()||updatePassword()")
     public Object executePatternCheck(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] argument = joinPoint.getArgs();
         BindingResult bindingResult = (BindingResult) argument[1];

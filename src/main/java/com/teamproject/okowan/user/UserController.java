@@ -51,4 +51,12 @@ public class UserController {
         ApiResponseDto apiResponseDto = userService.updateProfile(profileRequestDto, userId, userDetails.getUser());
         return ResponseEntity.ok().body(apiResponseDto);
     }
+
+    @PutMapping("/password")
+    public ResponseEntity<ApiResponseDto> updatePassword(@Valid @RequestBody PasswordRequestDto passwordRequestDto,
+                                                         BindingResult bindingResult,
+                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ApiResponseDto apiResponseDto = userService.updatePassword(passwordRequestDto, userDetails.getUser());
+        return ResponseEntity.ok().body(apiResponseDto);
+    }
 }
