@@ -6,7 +6,7 @@
     <title>Profile</title>
 
     <!-- 스타일시트 -->
-    <link rel="stylesheet" href="/cardDetails.css">
+    <link rel="stylesheet" href="/css/cardDetails.css">
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<script src="/cardDetails.js"></script>
+<script src="/js/cardDetails.js"></script>
 <div class="container">
     <div id="logo"><h1 class="logo">OKOWAN</h1>
     </div>
@@ -25,21 +25,21 @@
         <div class="profile">
             <h1>Card Details</h1>
             <h2>Title</h2>
-            <p class=line>
+            <p class="line">
                 <input class="title" type="text" id="cardTitle" value="cardTitle" disabled>
                 <button class="btn update-btn">update</button>
                 <button class="btn done-btn" style="display: none">done</button>
             </p>
 
             <h2>description</h2>
-            <p class=line class="mb-3">
-                <textarea class="form-control" id="description exampleFormControlTextarea1" rows="5" disabled></textarea>
+            <p class="line mb-3">
+                <textarea class="form-control" id="cardDescription" rows="5" disabled></textarea>
                 <button class="btn update-btn">update</button>
                 <button class="btn done-btn" style="display: none">done</button>
             </p>
 
             <h2>Category</h2>
-            <p class=line>
+            <p class="line">
                 <select class="form-select" aria-label="Default select example" id="categoryChoice" disabled>
                     <option selected>카테고리 변경</option>
                     <option value="1">One</option>
@@ -51,7 +51,7 @@
             </p>
 
             <h2>Color Choice</h2>
-            <p class=line>
+            <p class="line">
                 <select class="form-select" aria-label="Default select example" id="cardChoice" disabled>
                     <option selected>카드의 색상을 선택해주세요</option>
                     <option value="RED">RED</option>
@@ -63,7 +63,7 @@
             </p>
 
             <h2>Worker Choice</h2>
-            <p class=line>
+            <p class="line">
                 <select class="form-select" aria-label="Default select example" id="workerChoice" disabled>
                     <option selected>작업자를 선택해주세요</option>
                     <option value="1">One</option>
@@ -75,7 +75,7 @@
             </p>
 
             <h2>DeadLine</h2>
-            <p class=line>
+            <p class="line">
                 <select select class="form-select cal-select" aria-label="Default select example" id="year">
                     <option value="0" selected>Year</option>
                 </select>
@@ -96,7 +96,7 @@
             </p>
 
             <h2>Upload File</h2>
-            <p class=line class="mb-3">
+            <p class="line mb-3">
                 <input class="form-control" type="file" id="formFileMultiple" multiple>
                 <button class="btn done-file-btn">done</button>
             </p>
@@ -106,30 +106,30 @@
             <p>
                 <a>다운로드된 파일</a>
             </p>
-            <p class=line></p>
+            <p class="line"></p>
 
             <br>
             <br>
             <br>
             <h2>Comments</h2>
-            <p class=line>
+            <p class="line">
                 <input class="comment" type="text" id="comment">
                 <button class="btn">Add</button>
             </p>
 
-            <p class=line>
+            <p class="line">
                 <input type="text" id="comment-text" value="내용 작성" disabled>
                 <span class="author">작성자</span>
                 <button class="btn">X</button>
                 <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
             </p>
-            <p class=line>
+            <p class="line">
                 <input class="comments" type="text" id="comment-text" value="댓글" disabled>
                 <span class="author">작성자</span>
                 <button class="btn ">X</button>
                 <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
             </p>
-            <p class=line>
+            <p class="line">
                 <input class="comments" type="text" id="comment-text" value="댓글" disabled>
                 <span class="author">작성자</span>
                 <button class="btn ">X</button>
@@ -152,7 +152,7 @@
 
         $.ajax({
             type: "PUT",
-            url:"okw/cards/" + cardId,
+            url: "okw/cards/" + cardId,
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
                 title: cardTitle,
@@ -161,13 +161,13 @@
                 categoryId: category
             })
         })
-        .done(function () {
-            alert("수정 완료");
-            window.location.reload();
-        })
-        .fail(function (response) {
-            alert("수정 오류: " + response.responseJSON.msg);
-        })
+            .done(function () {
+                alert("수정 완료");
+                window.location.reload();
+            })
+            .fail(function (response) {
+                alert("수정 오류: " + response.responseJSON.msg);
+            })
     }
 
     // 작업자 조회
@@ -185,7 +185,7 @@
                 'Authorization': token
             }
         })
-            .done(function(data) {
+            .done(function (data) {
                 // 서버에서 가져온 작업자 목록을 `<option>` 요소로 변환하여 추가
                 data.forEach(worker => {
                     const option = $('<option></option>');
@@ -194,7 +194,7 @@
                     workerChoiceSelect.append(option);
                 });
             })
-            .fail(function(error) {
+            .fail(function (error) {
                 console.error('Error fetching worker list:', error);
             });
     }
@@ -218,12 +218,12 @@
                 'Authorization': token
             }
         })
-            .done(function(data) {
+            .done(function (data) {
                 alert('작업자가 업데이트되었습니다.');
                 window.reload();
                 // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
             })
-            .fail(function(error) {
+            .fail(function (error) {
                 console.error('작업자 업데이트 오류:', error);
             });
     }
@@ -253,12 +253,12 @@
                 'Authorization': token
             }
         })
-            .done(function(data) {
+            .done(function (data) {
                 alert('데드라인이 업데이트되었습니다.');
                 window.reload();
                 // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
             })
-            .fail(function(error) {
+            .fail(function (error) {
                 console.error('데드라인 업데이트 오류:', error);
             });
     }
@@ -287,12 +287,12 @@
                 'Authorization': token
             }
         })
-            .done(function(data) {
+            .done(function (data) {
                 alert('파일 업로드 완료');
                 window.reload();
                 // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
             })
-            .fail(function(error) {
+            .fail(function (error) {
                 console.error('파일 업로드 오류:', error);
             });
     }

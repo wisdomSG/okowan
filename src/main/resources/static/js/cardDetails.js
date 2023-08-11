@@ -1,4 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const token = Cookies.get('Authorization');
+
+    let currentURL = window.location.href;
+
+    // URL을 "/"로 분할하여 배열로 저장합니다.
+    let urlParts = currentURL.split("/");
+
+    // 배열에서 마지막 요소를 가져옵니다.
+    let lastPart = urlParts[urlParts.length - 1];
+
+    $.ajax({
+        type: "GET",
+        url: "/okw/cards/" + lastPart,
+        headers: {"Authorization": token}
+    })
+        .done(function (response) {
+            alert("카드 정보 불러오기 성공");
+            console.log(response);
+            setCardData(response);
+        })
+        .fail(function (response, status, xhr) {
+            alert("카드 정보 불러오기 실패");
+            console.log(response);
+        })
+
 // 수정 버튼 클릭시 필드 값 변경 & 버튼 전환
     const updateButtons = document.querySelectorAll('.update-btn');
     updateButtons.forEach(function (button) {
@@ -113,10 +138,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
     // 백엔드 연결 (U,D)
 
 
-
-
 })
+
+// 카드 정보 불러오기
+function setCardData(response) {
+    document.getElementById("cardTitle").value=response.title;
+    document.getElementById("cardDescription").textContent=response.description;
+}
