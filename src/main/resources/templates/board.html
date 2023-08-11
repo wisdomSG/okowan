@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+//
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
         integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -18,6 +19,11 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
     <link rel="stylesheet" href="/css/board.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- js Cookie -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 </head>
 
 <body>
@@ -30,28 +36,49 @@
 <!--            <button class="boards-btn btn"><i class="fab fa-trello boards-btn-icon"></i>Boards</button>-->
 
             <button class="boards-btn btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fab fa-trello boards-btn-icon"></i>Boards</button>
-
             <div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <div class="offcanvas-header" style="padding:25px">
                     <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">My Boards</h1>
                     <div class="user-settings-btn">
-                        <button class="user-settings-btn btn" aria-label="Create">
+<!--                        <button class="user-settings-btn btn" aria-label="Create">-->
+                        <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn">
                             <i class="fas fa-plus" aria-hidden="true"></i>
                         </button>
+                        <div id="myModal" class="modal" style="justify-content: center;
+                        align-items: center;margin: 0;">
+                            <form id="boardForm">
+                            <div class="modal-content">
+                                <span class="close" style="margin-left: auto">&times;</span>
+                                <h1>Create Board</h1>
+                                <h3>Board  Title</h3>
+                                <input type="text" id="title" name="title" placeholder="Enter title">
+                                <h3>Content</h3>
+                                <input type="text" id="description" name="description" placeholder="Enter description">
+                                <div class="buttons-container">
+<!--                                <button class="cancelBtn" id="cancelBtn">Cancel</button>-->
+<!--                                <button class="close">Cancel</button>-->
+<!--                                <button type="confirmBtn" id="confirmBtn" onclick="postBoard()">Confirm</button>-->
+                                <button id="confirmBtn">Confirm</button>
+                                </div>
+                            </div>
+                            </form>
+<!--                            <div id="responseMessage"></div>-->
+                        </div>
                     </div>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
+                <div id="boardList" class="offcanvas-body boardList">
                     <h3>Board List</h3>
+                    <div>
+                        <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">boardTitle</button>
+                        <span hidden="hidden">boardId</span>
+                    </div>
                 </div>
-
             </div>
-
             <div class="board-search">
                 <input type="search" class="board-search-input" aria-label="Board Search">
                 <i class="fas fa-search search-icon" aria-hidden="true"></i>
             </div>
-
         </div>
 
         <div class="logo">
@@ -116,7 +143,7 @@
         <div class="board-controls">
 
             <button class="board-title btn">
-                <h2 id="board-title">Web Development</h2>
+                <h2>Web Development</h2>
             </button>
 
             <button class="star-btn btn" aria-label="Star Board">
@@ -369,5 +396,6 @@
     </section>
     <!-- End of lists container -->
 </body>
+<script src="/js/board.js"></script>
 
 </html>
