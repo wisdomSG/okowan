@@ -6,6 +6,7 @@ import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j(topic = "OAuth")
 @Service
 @RequiredArgsConstructor
 public class OAuthLoginService {
@@ -23,13 +25,15 @@ public class OAuthLoginService {
 
     private final String DEFAULT_INTRODUCE = "안녕하세요!";
 
-    public ApiResponseDto login(OAuthLoginParams params, HttpServletResponse response) {
+    public String login(OAuthLoginParams params, HttpServletResponse response) {
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
         User user = findOrCreateUser(oAuthInfoResponse);
         String accessToken = jwtUtil.createAccessToken(user.getUsername());
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER, accessToken);
+        //jwtUtil.addJwtToCookie(accessToken,response);
 
-        return new ApiResponseDto("OAuth 로그인 성공" , HttpStatus.OK.value());
+        //return new ApiResponseDto("OAuth 로그인 성공" , HttpStatus.OK.value());
+        return accessToken;
     }
 
     private User findOrCreateUser(OAuthInfoResponse oAuthInfoResponse) {
