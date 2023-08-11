@@ -617,6 +617,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 }
 
 .member-list-item-content {
+    margin-right: 5px;
     margin-left: 20px;
 }
 
@@ -632,6 +633,59 @@ Remove or comment-out the code block below to see how the browser will fall-back
 }
 
 .member-list-item-content p {
-    color: #aaa;
+    color: #121212;
     margin-top: 5px;
+}
+
+/* 보드 맴버 초대 */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.searchMember {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid #4d4c99;
+    border-right: none;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus{
+    color: #00B4CC;
+}
+
+.searchMemberButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #4d4c99;
+    background: #4d4c99;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.remove-member-setting-btn,
+.invite-member-setting-btn {
+    background-color: #8080ff;
+    width: 2rem;
+    height: 2rem;
+
+    border-radius: 35%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }

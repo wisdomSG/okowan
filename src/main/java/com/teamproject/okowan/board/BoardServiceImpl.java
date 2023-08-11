@@ -131,6 +131,7 @@ public class BoardServiceImpl implements BoardService {
 
         Board board = findBoard(BoardId); // 몇 번째 보드인지 찾기
         User inviteUser = userService.findUserByUsername(requestDto.getUsername()); // 초대되는 사람의 정보를 USER 디비에서 찾기
+        System.out.println(requestDto.getRole());
         UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteUser, board); // 초대되는 사람의 정보를 userBoard로 저장
         userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
                 .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다.")); // 초대하는 사람의 role이 OWNER인지 확

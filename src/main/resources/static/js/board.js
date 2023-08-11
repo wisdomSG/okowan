@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const offcanvasLabel = document.querySelector("#showMemberoffcanvasScrollingLabel");
     const boardId = 1 //어떤 board가 눌렸는지 해당 boardId 업데이트
     const boardTitle = document.querySelector('.board-title').textContent;  //Board Title
+    const userBoardRole = ['OWNER', 'EDITER','VIEWER'];
 
     // 보드의 내용(카테고리, 카드) 불러오는 함수
     $.ajax({
@@ -79,19 +80,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             <div class="member-list-item-content w-100">
                                 <h4>${user['username']}</h4>
                                 <h4>${user['nickname']}</h4>
-                                <p>@${user['role']}</p>
-                            </div>
-                            <div>
-                                <button class="upd-member-setting-btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-${user['UserId']}" aria-expanded="false" aria-controls="collapseExample">
-                                    <i class="fas fa-plus" aria-hidden="true"></i>
-                                </button>
+                                <select id="form-select-${user['userId']}" class="form-select" onchange="updateMember(${user['userId']},\'${user['username']}\',${boardId})" aria-label="Default select example" style="border:none">
+                                  <option selected style="background-color: #838c91">@${user['role']}</option>
+                                  <option value="1">@${userBoardRole[0]}</option>
+                                  <option value="2">@${userBoardRole[1]}</option>
+                                  <option value="3">@${userBoardRole[2]}</option>
+                                </select>
                             </div>
                     </li>
-                    <div class="collapse" id="collapseExample-${user['UserId']}">
-                            <div class="card card-body">
-                                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                            </div>
-                    </div>
                     `
                 })
                 $('#member-list').append(html);
@@ -101,55 +97,72 @@ document.addEventListener("DOMContentLoaded", function () {
             })
     }
 
-    /*
-        document.querySelector('.searchMemberButton').addEventListener('click',() => {
-            let search = $('.searchTerm').val();
+    document.querySelector('.searchMemberButton').addEventListener('click',() => {
+        let search = $('.searchTerm').val();
 
-            $.ajax({
-                type:'GET',
-                url:'/okw/users/search',
-                data: {
-                    keyword : search
-                },
-                headers: {'Authorization': token}
-            })
-                .done(function (response, status, xhr) {
-                    let users = response;
-                    if(users.length == 0) {
-                        alert("검색결과가 없습니다.");
-                        return;
-                    }
-
-                    $('#invite-member-list').empty();
-                    let html = ``;
-                    users.forEach((user) => {
-                        html += `
-                            <li class="member-list-item">
-                                <div>
-                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
-                                </div>
-                                <div class="member-list-item-content w-100">
-                                    <h4>${user['username']}</h4>
-                                    <p>${user['nickname']}</p>
-                                    <p>${user['introduce']}</p>
-                                </div>
-                                <button class="invite-member-setting-btn btn-primary" onclick="inviteMember(\'${user['username']}\',${boardId})" type="button">
-                                        <i class="fas fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </li>
-                        `;
-                    })
-                    $('#invite-member-list').append(html);
-                })
-                .fail(function (response, status, xhr) {
-                    console.log(response);
-                })
+        $.ajax({
+            type:'GET',
+            url:'/okw/users/search',
+            data: {
+                keyword : search
+            },
+            headers: {'Authorization': token}
         })
-        */
+            .done(function (response, status, xhr) {
+                let users = response;
+                if(users.length == 0) {
+                    alert("검색결과가 없습니다.");
+                    return;
+                }
+
+                $('#invite-member-list').empty();
+                let html = ``;
+                users.forEach((user) => {
+                    html += `
+                        <li class="member-list-item">
+                            <div>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                            </div>
+                            <div class="member-list-item-content w-100">
+                                <h4>${user['username']}</h4>
+                                <p>${user['nickname']}</p>
+                                <p>${user['introduce']}</p>
+                            </div>
+                            <button class="invite-member-setting-btn btn-primary" onclick="inviteMember(\'${user['username']}\',${boardId})" type="button">
+                                    <i class="fas fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </li>   
+                    `;
+                })
+                $('#invite-member-list').append(html);
+            })
+            .fail(function (response, status, xhr) {
+                console.log(response);
+            })
+    })
+
+    document.querySelector('.add-list-btn').addEventListener('click',addCategory(boardId));
+
+    function addCategory(boardId) {
+        $.ajax({
+            type:'POST',
+            url:`/okw/categories/${boardId}`,
+
+        })
+
+        let html = document.querySelector('.lists-container').innerHTML;
+
+        html = `
+            <div class="list">
+                <h3 class="list-title">Useful Websites for Learning</h3>
+                <button class="add-card-btn btn">Add a card</button>
+        </div>
+        ` + html;
+
+    }
 })
 
 function inviteMember(username, boardId) {
-    console.log(username, boardId);
     const host = "http://" + window.location.host;
     const token = Cookies.get('Authorization');
     let User = username;
@@ -174,6 +187,35 @@ function inviteMember(username, boardId) {
         .fail(function (response) {
             console.log(response);
         });
+}
+
+function updateMember(userId, username, boardId) {
+    const token = Cookies.get('Authorization');
+    var onSelect = document.getElementById('form-select-' + userId);
+
+    console.log(onSelect.options[onSelect.selectedIndex].value)
+    var selectValue = onSelect.options[onSelect.selectedIndex].text.substring(1,);
+    console.log(selectValue);
+
+    let data = {
+        "BoardId" : boardId,
+        "username" : username,
+        "role" : selectValue
+    }
+
+    $.ajax({
+        type:'PUT',
+        url:`/okw/boards/${boardId}/invite/update`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            alert("역할 업데이트 성공");
+        })
+        .fail(function (response) {
+            console.log(response);
+        })
 }
 
 function setHtml(boardTitle, boardId) {
@@ -266,7 +308,15 @@ function loadBoardContent(boardJson) {
         boardContentHtml += categoryContentHeader + categoryContentFooter;
     })
     let boardContentFooter = `
-        <button class="add-list-btn btn">Add a column</button>
+        <button class="add-list-btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#AddListCallapse" aria-expanded="false" aria-controls="collapseExample">
+            Add a column
+        </button>
+        <div class="collapse" id="AddListCallapse">
+          <div class="card card-body">
+            <input type="text" placeholder="Enter Category Title..."/>
+            <button class="btn btn-primary">Add Category</button>
+          </div>
+        </div>
     `;
     boardContentHtml += boardContentFooter;
 

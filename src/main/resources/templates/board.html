@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-//
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -98,13 +97,16 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <div class="member-list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
-                        <div class="input-group m-auto mt-3 mb-5">
-                            <input type="text" id="searchMember" class="form-control" style="border:1px solid black" placeholder="이메일을 입력하세요" aria-label="ico_search"
-                                   aria-describedby="button-addon2">
-                            <button class="btn btn-outline-secondary" type="button"
-                                    id="button-addon2" style="color:black; font-weight:bold; border:1px solid black">검색</button>
+                    <!-- search -->
+                    <div class="inviteMemberwrap">
+                        <div class="searchMember">
+                            <input type="text" class="searchTerm" placeholder="초대할 맴버의 이메일을 입력하세요">
+                            <button type="submit" class="searchMemberButton">
+                                <i class="fa fa-search"></i>
+                            </button>
                         </div>
+                    </div>
+                    <div class="member-list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
                         <ul class="member-list" id="invite-member-list">
                             <!--<li class="member-list-item">
                                 <div>
@@ -391,7 +393,7 @@
 
         </div>
 
-        <button class="add-list-btn btn">Add a column</button>
+        <button class="add-list-btn btn">Add a category</button>
 
     </section>
     <!-- End of lists container -->
