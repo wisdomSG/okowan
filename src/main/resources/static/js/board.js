@@ -63,7 +63,7 @@ function postBoard() {
 
     $.ajax({
         type: 'POST',
-        url: '/okw/boards/post',
+        url: '/okw/boards',
         headers: {'Authorization': token}, // 헤더에 토큰 주입
         contentType: "application/json", // 읽는 타입이 JSON이라는 뜻
         data: JSON.stringify(data), // JAVA -> JSON
