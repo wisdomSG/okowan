@@ -62,8 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showBoardMember(boardId) {
         $.ajax({
-            type:'GET',
-            url:`/okw/boards/member/${boardId}`,
+            type: 'GET',
+            url: `/okw/boards/member/${boardId}`,
             headers: {'Authorization': token}
         })
             .done(function (response, status, xhr) {
@@ -95,55 +95,57 @@ document.addEventListener("DOMContentLoaded", function () {
                     `
                 })
                 $('#member-list').append(html);
-        })
+            })
             .fail(function (response) {
                 alert(response.responseJSON.msg);
-        })
+            })
     }
 
-    document.querySelector('.searchMemberButton').addEventListener('click',() => {
-        let search = $('.searchTerm').val();
+    /*
+        document.querySelector('.searchMemberButton').addEventListener('click',() => {
+            let search = $('.searchTerm').val();
 
-        $.ajax({
-            type:'GET',
-            url:'/okw/users/search',
-            data: {
-                keyword : search
-            },
-            headers: {'Authorization': token}
-        })
-            .done(function (response, status, xhr) {
-                let users = response;
-                if(users.length == 0) {
-                    alert("검색결과가 없습니다.");
-                    return;
-                }
+            $.ajax({
+                type:'GET',
+                url:'/okw/users/search',
+                data: {
+                    keyword : search
+                },
+                headers: {'Authorization': token}
+            })
+                .done(function (response, status, xhr) {
+                    let users = response;
+                    if(users.length == 0) {
+                        alert("검색결과가 없습니다.");
+                        return;
+                    }
 
-                $('#invite-member-list').empty();
-                let html = ``;
-                users.forEach((user) => {
-                    html += `
-                        <li class="member-list-item">
-                            <div>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
-                            </div>
-                            <div class="member-list-item-content w-100">
-                                <h4>${user['username']}</h4>
-                                <p>${user['nickname']}</p>
-                                <p>${user['introduce']}</p>
-                            </div>
-                            <button class="invite-member-setting-btn btn-primary" onclick="inviteMember(\'${user['username']}\',${boardId})" type="button">
-                                    <i class="fas fa-plus" aria-hidden="true"></i>
-                            </button>
-                        </li>   
-                    `;
+                    $('#invite-member-list').empty();
+                    let html = ``;
+                    users.forEach((user) => {
+                        html += `
+                            <li class="member-list-item">
+                                <div>
+                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                                </div>
+                                <div class="member-list-item-content w-100">
+                                    <h4>${user['username']}</h4>
+                                    <p>${user['nickname']}</p>
+                                    <p>${user['introduce']}</p>
+                                </div>
+                                <button class="invite-member-setting-btn btn-primary" onclick="inviteMember(\'${user['username']}\',${boardId})" type="button">
+                                        <i class="fas fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </li>
+                        `;
+                    })
+                    $('#invite-member-list').append(html);
                 })
-                $('#invite-member-list').append(html);
-            })
-            .fail(function (response, status, xhr) {
-                console.log(response);
-            })
-    })
+                .fail(function (response, status, xhr) {
+                    console.log(response);
+                })
+        })
+        */
 })
 
 function inviteMember(username, boardId) {
@@ -154,13 +156,13 @@ function inviteMember(username, boardId) {
     let BoardId = boardId;
 
     let data = {
-        BoardId : BoardId,
-        username : User,
-        role : "VIEWER"
+        BoardId: BoardId,
+        username: User,
+        role: "VIEWER"
     }
     $.ajax({
-        type:'POST',
-        url:`/okw/boards/${boardId}/invite`,
+        type: 'POST',
+        url: `/okw/boards/${boardId}/invite`,
         contentType: 'application/json',
         data: JSON.stringify(data),
         headers: {"Authorization": token}
@@ -175,7 +177,7 @@ function inviteMember(username, boardId) {
 }
 
 function setHtml(boardTitle, boardId) {
-    let html=`
+    let html = `
               <div>
                     <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
                     <span hidden="hidden">${boardId}</span>
