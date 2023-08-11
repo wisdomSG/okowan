@@ -341,41 +341,5 @@
     <!-- End of lists container -->
 </body>
 <script src="/js/board.js"></script>
-<script>
-    // 보드 리스트
-    document.addEventListener("DOMContentLoaded", function () {
-        const token = Cookies.get('Authorization');
 
-        $.ajax({
-            type: "GET",
-            url: "/okw/boards",
-            headers: {'Authorization': token},
-            contentType: 'application/json',
-            success: function (response) {
-                console.log(response);
-                // $('#post-cards').empty();
-                for (let i = 0; i < response.length; i++) {
-                    let boardTitle = response[i]['title'];
-                    console.log(boardTitle);
-                    let boardId = response[i]['boardId'];
-                    setHtml(boardTitle, boardId);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        })
-    })
-
-    function setHtml(boardTitle, boardId) {
-        let html=`
-              <div>
-                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
-                    <span hidden="hidden">${boardId}</span>
-              </div>
-        `;
-        $('#boardList').append(html);
-    }
-
-</script>
 </html>

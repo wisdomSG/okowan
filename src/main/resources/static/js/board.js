@@ -5,22 +5,33 @@ document.addEventListener("DOMContentLoaded", function () {
     $.ajax({
         type: "GET",
         url: "/okw/boards",
-        headers: {'Authorization': token}
-            .done(function (response) {
-                console.log(response);
-                // $('#post-cards').empty();
-                for (let i = 0; i < response.length; i++) {
-                    console.log(response);
-                    // let boardTitle = response[i]['title'];
-                    // let post_id = response[i]['id'];
-                    // setHtml(post_title, post_id);
-                }
-            })
-            .fail(function () {
-                // window.location.href = "/okw/view/users/login-signup";
-            })
+        headers: {'Authorization': token},
+        contentType: 'application/json',
+        success: function (response) {
+            console.log(response);
+            // $('#post-cards').empty();
+            for (let i = 0; i < response.length; i++) {
+                let boardTitle = response[i]['title'];
+                console.log(boardTitle);
+                let boardId = response[i]['boardId'];
+                setHtml(boardTitle, boardId);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
     })
 })
+
+function setHtml(boardTitle, boardId) {
+    let html=`
+              <div>
+                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
+                    <span hidden="hidden">${boardId}</span>
+              </div>
+        `;
+    $('#boardList').append(html);
+}
 
 
 // 보드 추가 모달창
@@ -69,5 +80,4 @@ function postBoard() {
         }
     })
 }
-
 // 보드 추가 모달창 끝
