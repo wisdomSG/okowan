@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
 
     <!-- 스타일시트 -->
     <link rel="stylesheet" href="/css/login-signup.css">
+    <!--<link rel="stylesheet" href="/static/css/login-signup.css">-->
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -17,15 +18,12 @@
 
 </head>
 <body>
-<script src="/js/login-signup.js"></script>
+<script th:inline="javascript" src="/js/login-signup.js"></script>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
         <form action="#">
             <h1>회원가입</h1>
-            <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-            </div>
+            <div class="social-container"></div>
             <span>or use your email for registration</span>
             <input type="email" id="signup-email" placeholder="Email"/>
             <input type="password" id="signup-password" placeholder="Password"/>
@@ -37,8 +35,8 @@
         <form action="#">
             <h1>로그인</h1>
             <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=' + ${@environment.getProperty('oauth.kakao.client_id')} + '&redirect_uri=http://localhost:8080/okw/oauths/callback/kakao&response_type=code'}"
+                   style="background-image: url('/images/kakaotalk_sharing_btn_small.png')"></a>
             </div>
             <span>or use your account</span>
             <input type="email" id="login-email" placeholder="Email"/>

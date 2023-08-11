@@ -86,18 +86,4 @@ public class JwtUtil {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
     }
 
-    // jwt를 cookie에 저장
-    public void addJwtToCookie(String token, HttpServletResponse response) {
-        try {
-            token = URLEncoder.encode(token,"utf-8").replaceAll("\\+", "%20");
-
-            Cookie cookie = new Cookie(AUTHORIZATION_HEADER, token);
-            cookie.setPath("/");
-
-            response.addCookie(cookie);
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage());
-        }
-    }
-
 }

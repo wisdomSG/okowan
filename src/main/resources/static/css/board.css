@@ -489,3 +489,55 @@ Remove or comment-out the code block below to see how the browser will fall-back
     object-fit: cover;
   }
 }
+
+/* show Member list */
+
+.member-list-wrapper {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+.member-list {
+    background: #fff;
+    border-radius: 10px;
+    list-style: none;
+    padding: 10px 10px;
+
+}
+
+.member-list-item {
+    display: flex;
+    margin: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.member-list-item:last-child {
+    border-bottom: none;
+}
+
+.member-list-item-image {
+    border-radius: 50%;
+    width: 64px;
+}
+
+.member-list-item-content {
+    margin-left: 20px;
+}
+
+.member-list-item-content h4,
+.member-list-item-content p {
+    margin: 0;
+}
+
+.member-list-item-content h4 {
+    color: #121212;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.member-list-item-content p {
+    color: #aaa;
+    margin-top: 5px;
+}
