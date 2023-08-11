@@ -48,7 +48,7 @@ public class BoardController {    // 전체 보드 조회
     }
 
     // 보드 작성
-    @PostMapping
+    @PostMapping("/post")
     public ResponseEntity<ApiResponseDto> createBoard(@RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponseDto responseDto = boardService.createBoard(requestDto,userDetails.getUser());
         return ResponseEntity.ok().body(responseDto);
