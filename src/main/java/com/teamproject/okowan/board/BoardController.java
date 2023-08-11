@@ -51,7 +51,7 @@ public class BoardController {    // 전체 보드 조회
     // 보드 작성
     @PostMapping
     public ResponseEntity<ApiResponseDto> createBoard(@RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        ApiResponseDto responseDto = boardService.createBoard(requestDto,userDetails.getUser());
+        ApiResponseDto responseDto = boardService.createBoard(requestDto, userDetails.getUser());
         return ResponseEntity.ok().body(responseDto);
     }
 
@@ -92,6 +92,7 @@ public class BoardController {    // 전체 보드 조회
         return ResponseEntity.ok().body(responseDto);
         // userDetails.getUsername()이 안되는 이유??
     }
+
     @PutMapping("/{BoardId}/invite/update")
     public @ResponseBody ResponseEntity<ApiResponseDto> updateUser(@PathVariable Long BoardId, @Valid @RequestBody BoardInvitationRequestDto requestDto, BindingResult bindingResult, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
@@ -108,4 +109,12 @@ public class BoardController {    // 전체 보드 조회
         ApiResponseDto responseDto = boardService.updateUser(BoardId, requestDto, userDetails.getUser());
         return ResponseEntity.ok().body(responseDto);
     }
+
+    // 보드에 포함된 카테고리와 카드까지 조회
+    @GetMapping("/contents/{boardId}")
+    public ResponseEntity<BoardDetailResponseDto> getBoardContents(@PathVariable Long boardId) {
+        BoardDetailResponseDto boardDetailResponseDto = boardService.getBoardContents(boardId);
+        return ResponseEntity.ok().body(boardDetailResponseDto);
+    }
+
 }

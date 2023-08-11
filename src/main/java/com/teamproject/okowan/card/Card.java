@@ -23,7 +23,7 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cardId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     private String description;
