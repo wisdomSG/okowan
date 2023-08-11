@@ -97,4 +97,12 @@ document.addEventListener("DOMContentLoaded", function () {
         option.textContent = hour.toString().padStart(2, '0'); // 시간을 2자리 숫자로 표시
         hourSelect.appendChild(option);
     }
+
+
+
+    // 백엔드 연결 (U,D)
+
+
+
+
 })

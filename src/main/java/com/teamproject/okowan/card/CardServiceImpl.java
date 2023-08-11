@@ -42,7 +42,7 @@ public class CardServiceImpl implements CardService {
     private final UserBoardRepository userBoardRepository;
 
     @Override
-    public ApiResponseDto createCard(User user, CardRequestDto requestDto) {
+    public ApiResponseDto createCard(User user, CardRequestDto requestDto) { //Title 만 create
         Category category = categoryService.findCategory(requestDto.getCategoryId());
 
         // "yyyy-MM-dd HH:mm"과 같은 형식의 문자열을 deadlineStr 필드로 요청하면, 서버에서는 deadlineStr을 LocalDateTime으로 변환하여 Card 엔티티의 deadline 필드에 저장
