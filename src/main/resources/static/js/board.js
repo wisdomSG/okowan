@@ -178,7 +178,7 @@ function inviteMember(username, boardId) {
 
 function setHtml(boardTitle, boardId) {
     let html = `
-              <div>
+              <div class="boardListTitle">
                     <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
                     <span hidden="hidden">${boardId}</span>
               </div>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-//
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,12 +38,14 @@
             <button class="boards-btn btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fab fa-trello boards-btn-icon"></i>Boards</button>
             <div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <div class="offcanvas-header" style="padding:25px">
+                    <div class="offcanvas-header-container">
                     <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">My Boards</h1>
-                    <div class="user-settings-btn">
+<!--                    <div class="user-settings-btn">-->
 <!--                        <button class="user-settings-btn btn" aria-label="Create">-->
-                        <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn">
+                        <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn" style="height:30px">
                             <i class="fas fa-plus" aria-hidden="true"></i>
                         </button>
+                    </div>
                         <div id="myModal" class="modal" style="justify-content: center;
                         align-items: center;margin: 0;">
                             <form id="boardForm">
@@ -55,22 +57,19 @@
                                 <h3>Content</h3>
                                 <input type="text" id="description" name="description" placeholder="Enter description">
                                 <div class="buttons-container">
-<!--                                <button class="cancelBtn" id="cancelBtn">Cancel</button>-->
-<!--                                <button class="close">Cancel</button>-->
-<!--                                <button type="confirmBtn" id="confirmBtn" onclick="postBoard()">Confirm</button>-->
+
                                 <button id="confirmBtn">Confirm</button>
                                 </div>
                             </div>
                             </form>
-<!--                            <div id="responseMessage"></div>-->
                         </div>
-                    </div>
+<!--                    </div>-->
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div id="boardList" class="offcanvas-body boardList">
-                    <h3>Board List</h3>
-                    <div>
-                        <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">boardTitle</button>
+                    <h3 style="text-align: center">Board List</h3>
+                    <div class="boardListTitle">
+                        <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
                         <span hidden="hidden">boardId</span>
                     </div>
                 </div>

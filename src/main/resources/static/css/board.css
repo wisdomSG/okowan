@@ -20,7 +20,33 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
     box-sizing: border-box;
 }
 
-/* Modal Styles */
+/*보드리스트*/
+
+.boardListTitle {
+    display: flex;
+    height: 100px;
+    width: 300px;
+    margin: auto;
+}
+
+.boardListTitle .btn {
+    margin: auto;
+    font-size: large;
+    height: 50px;
+    width: 300px;
+    background-color: #8080ff;
+    border-radius: 0.3rem;
+    transition: background-color 150ms;
+}
+
+/* 보드 추가 Modal Styles */
+
+/*.offcanvas-header-container {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*}*/
 
 .modal {
     display: none;
@@ -36,7 +62,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 
 .modal-content {
     background-color: white;
-    margin: 15% auto;
+    margin: 25% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 50%;
@@ -86,7 +112,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
     color: black; /* Set the text color to black */
 }
 
-/* Add styles for cancel and confirm buttons */
+/* Add styles for cancel button */
 .modal-content .buttons-container {
     display: flex;
     justify-content: space-between;
@@ -95,15 +121,10 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 
 /*.modal-content #cancelBtn,*/
 .modal-content #confirmBtn {
-    width: 48%; /* Adjust the width of buttons */
+    width: 100%; /* Adjust the width of buttons */
     padding: 10px 20px;
     cursor: pointer;
 }
-
-/*.modal-content #cancelBtn {*/
-/*    background-color: #ddd;*/
-/*    border-radius: 0.3rem;*/
-/*}*/
 
 .modal-content #confirmBtn {
     background-color: #4d4c99;
@@ -146,7 +167,7 @@ body {
     align-items: center;
     padding: 0 0.8rem;
     background-color: #fff;
-    background: linear-gradient(to left, #1E1E1E, #4d4c99); 
+    background: linear-gradient(to left, #1E1E1E, #4d4c99);
 
     box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
 }
@@ -419,7 +440,7 @@ body {
 
 The following rule will only run if your browser supports CSS grid.
 
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling. 
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling.
 
 */
 
@@ -481,108 +502,106 @@ Remove or comment-out the code block below to see how the browser will fall-back
         margin: 0;
     }
 
-  /* card styles */
+    /* card styles */
 
-  .card__list {
-    display: grid;
-    grid-template-rows: auto;
-    grid-gap: .5rem;
-    margin: .5rem 0;
-  }
+    .card__list {
+        display: grid;
+        grid-template-rows: auto;
+        grid-gap: .5rem;
+        margin: .5rem 0;
+    }
 
-  .card__item {
-    background-color: white;
-    border-radius: .25rem;
-    box-shadow: 0 1px 0 rgba(9,45,66,.25);
-    padding: .5rem;
-  }
+    .card__item {
+        background-color: white;
+        border-radius: .25rem;
+        box-shadow: 0 1px 0 rgba(9,45,66,.25);
+        padding: .5rem;
+    }
 
-  .card__tag {
-    font-size: .75rem;
-    padding: .1rem .5rem;
-    border-radius: .25rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: .75rem;
-    display: inline-block;
-  }
+    .card__tag {
+        font-size: .75rem;
+        padding: .1rem .5rem;
+        border-radius: .25rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: .75rem;
+        display: inline-block;
+    }
 
-  .card__image {
-    width: 100%;
-    margin-bottom: .25rem;
-  }
+    .card__image {
+        width: 100%;
+        margin-bottom: .25rem;
+    }
 
-  /* sticker colors */
+    /* sticker colors */
 
-  .card__tag--design {
-    background-color: #61bd4f;
-  }
+    .card__tag--design {
+        background-color: #61bd4f;
+    }
 
-  .card__tag--browser {
-    background-color: #c377e0;
-  }
+    .card__tag--browser {
+        background-color: #c377e0;
+    }
 
-  .card__tag--mobile {
-    background-color: #f2d600;
-  }
+    .card__tag--mobile {
+        background-color: #f2d600;
+    }
 
-  .card__tag--high {
-    background-color: #eb5a46;
-  }
+    .card__tag--high {
+        background-color: #eb5a46;
+    }
 
-  .card__tag--low {
-    background-color: #00c2e0;
-  }
+    .card__tag--low {
+        background-color: #00c2e0;
+    }
 
-  .card__tag--date {
-    background-color: gray;
-  }
+    .card__tag--date {
+        background-color: gray;
+    }
 
-  .card__title {
-    color: #17394d;
-    margin-bottom: .75rem;
-  }
+    .card__title {
+        color: #17394d;
+        margin-bottom: .75rem;
+    }
 
-  /* card actions */
+    /* card actions */
 
-  .card__actions {
-    display: flex;
-    align-items: center;
-  }
+    .card__actions {
+        display: flex;
+        align-items: center;
+    }
 
-  .card__actions--wrapper i {
-    color: #798d99;
-    margin-right: .5rem;
-  }
+    .card__actions--wrapper i {
+        color: #798d99;
+        margin-right: .5rem;
+    }
 
-  .card__actions--text {
-    color: #798d99;
-    font-size: .8rem;
-    margin-left: -.25rem;
-    margin-right: .5rem;
-  }
+    .card__actions--text {
+        color: #798d99;
+        font-size: .8rem;
+        margin-left: -.25rem;
+        margin-right: .5rem;
+    }
 
-  .card__avatars {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-  }
+    .card__avatars {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+    }
 
-  .card__avatars--item {
-    margin-left: .25rem;
-    width: 28px;
-    height: 28px;
-  }
+    .card__avatars--item {
+        margin-left: .25rem;
+        width: 28px;
+        height: 28px;
+    }
 
-  .avatar__image {
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    .avatar__image {
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
-
-
 
 /* show Member list */
 
