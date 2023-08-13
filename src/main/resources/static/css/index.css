@@ -20,21 +20,6 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
     box-sizing: border-box;
 }
 
-/*developer image*/
-/*.developer-container {*/
-/*    margin: 20px 0;*/
-/*}*/
-
-/*.developer-container a {*/
-/*    border: 1px solid #DDDDDD;*/
-/*    border-radius: 50%;*/
-/*    display: inline-flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    margin: 0 5px;*/
-/*    height: 40px;*/
-/*    width: 40px;*/
-/*}*/
 
 /*보드리스트*/
 
@@ -154,10 +139,7 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    /* background: linear-gradient(to right, #ffffff, #809fff); */
     background-color: #1E1E1E;
-    /* background: linear-gradient(to right, #407FFF, #809fff); */
-    /* background: linear-gradient(to right, #bfbfff, #8080ff);  */
 }
 
 .btn {
@@ -354,24 +336,6 @@ body {
     align-items: center;
 }
 
-/*.lists-container::-webkit-scrollbar {*/
-/*    height: 2.4rem;*/
-/*}*/
-
-/*.lists-container::-webkit-scrollbar-thumb {*/
-/*    background-color: #66a3c7;*/
-/*    border: 0.8rem solid #0079bf;*/
-/*    border-top-width: 0;*/
-/*}*/
-
-/*.lists-container {*/
-/*    display: flex;*/
-/*    align-items: start;*/
-/*    padding: 0 0.8rem 0.8rem;*/
-/*    overflow-x: auto;*/
-/*    height: calc(100vh - 8.6rem);*/
-/*}*/
-
 .list {
     flex: 0 0 27rem;
     display: flex;
@@ -432,46 +396,6 @@ body {
 .list-items li:hover {
     background-color: #eee;
 }
-
-/*.add-card-btn {*/
-/*    display: block;*/
-/*    font-size: 1.4rem;*/
-/*    font-weight: 400;*/
-/*    color: #838c91;*/
-/*    padding: 1rem;*/
-/*    text-align: left;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.add-card-btn:hover {*/
-/*    background-color: #cdd2d4;*/
-/*    color: #4d4d4d;*/
-/*    text-decoration: underline;*/
-/*}*/
-
-/*.add-list-btn {*/
-/*    flex: 0 0 27rem;*/
-/*    display: block;*/
-/*    font-size: 1.4rem;*/
-/*    font-weight: 400;*/
-/*    background-color: #4d4c99;*/
-/*    !* background: linear-gradient(to right, #4040ff, #3333cc);  *!*/
-/*    color: #fff;*/
-/*    padding: 1rem;*/
-/*    border-radius: 0.3rem;*/
-/*    cursor: pointer;*/
-/*    transition: background-color 150ms;*/
-/*    text-align: left;*/
-/*}*/
-
-/*.add-list-btn:hover {*/
-/*    background-color: #3964E5;*/
-/*}*/
-
-/*.add-card-btn::after,*/
-/*.add-list-btn::after {*/
-/*    content: '...';*/
-/*}*/
 
 /*
 
@@ -569,7 +493,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 
      .develop__image {
-        filter: brightness(0.8);
+        filter: brightness(0.7);
         width: 100%;
         height: 100%;
         background-size: cover;
@@ -580,72 +504,72 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
     /* sticker colors */
 
-    .card__tag--design {
-        background-color: #61bd4f;
-    }
+    /*.card__tag--design {*/
+    /*    background-color: #61bd4f;*/
+    /*}*/
 
-    .card__tag--browser {
-        background-color: #c377e0;
-    }
+    /*.card__tag--browser {*/
+    /*    background-color: #c377e0;*/
+    /*}*/
 
-    .card__tag--mobile {
-        background-color: #f2d600;
-    }
+    /*.card__tag--mobile {*/
+    /*    background-color: #f2d600;*/
+    /*}*/
 
-    .card__tag--high {
-        background-color: #eb5a46;
-    }
+    /*.card__tag--high {*/
+    /*    background-color: #eb5a46;*/
+    /*}*/
 
-    .card__tag--low {
-        background-color: #00c2e0;
-    }
+    /*.card__tag--low {*/
+    /*    background-color: #00c2e0;*/
+    /*}*/
 
-    .card__tag--date {
-        background-color: gray;
-    }
+    /*.card__tag--date {*/
+    /*    background-color: gray;*/
+    /*}*/
 
-    .card__title {
-        color: #17394d;
-        margin-bottom: .75rem;
-    }
+    /*.card__title {*/
+    /*    color: #17394d;*/
+    /*    margin-bottom: .75rem;*/
+    /*}*/
 
     /* card actions */
 
-    .card__actions {
-        display: flex;
-        align-items: center;
-    }
+    /*.card__actions {*/
+    /*    display: flex;*/
+    /*    align-items: center;*/
+    /*}*/
 
-    .card__actions--wrapper i {
-        color: #798d99;
-        margin-right: .5rem;
-    }
+    /*.card__actions--wrapper i {*/
+    /*    color: #798d99;*/
+    /*    margin-right: .5rem;*/
+    /*}*/
 
-    .card__actions--text {
-        color: #798d99;
-        font-size: .8rem;
-        margin-left: -.25rem;
-        margin-right: .5rem;
-    }
+    /*.card__actions--text {*/
+    /*    color: #798d99;*/
+    /*    font-size: .8rem;*/
+    /*    margin-left: -.25rem;*/
+    /*    margin-right: .5rem;*/
+    /*}*/
 
-    .card__avatars {
-        display: flex;
-        flex: 1;
-        justify-content: flex-end;
-    }
+    /*.card__avatars {*/
+    /*    display: flex;*/
+    /*    flex: 1;*/
+    /*    justify-content: flex-end;*/
+    /*}*/
 
-    .card__avatars--item {
-        margin-left: .25rem;
-        width: 28px;
-        height: 28px;
-    }
+    /*.card__avatars--item {*/
+    /*    margin-left: .25rem;*/
+    /*    width: 28px;*/
+    /*    height: 28px;*/
+    /*}*/
 
-    .avatar__image {
-        border-radius: 50%;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+    /*.avatar__image {*/
+    /*    border-radius: 50%;*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*    object-fit: cover;*/
+    /*}*/
 }
 
 /* show Member list */
