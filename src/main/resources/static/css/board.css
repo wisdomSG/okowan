@@ -453,6 +453,11 @@ body {
     margin: 3px auto 5px auto;
 }
 
+.board-list-item {
+    font-size: 20px;
+    margin: 5px;
+}
+
 /*
 
 The following rule will only run if your browser supports CSS grid.
@@ -644,7 +649,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 .alert-list-item {
     display: flex;
     justify-content: space-between;
-    margin:5px;
+    margin: 5px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
