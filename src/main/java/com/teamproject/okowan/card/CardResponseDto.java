@@ -1,14 +1,11 @@
 package com.teamproject.okowan.card;
 
-import com.teamproject.okowan.awsS3.S3File;
-import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryResponseDto;
 import com.teamproject.okowan.entity.ColorEnum;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,8 +18,9 @@ public class CardResponseDto {
     private ColorEnum color;
     private LocalDateTime deadline; // 문자열로 저장하기 위한 필드
     private Long categoryId;
+    private Long boardId;
     private List<CategoryResponseDto> categoryResponseDtoList;
-    private List<S3File> fileList;
+    private List<S3FileResponseDto> fileList;
 
     public CardResponseDto(Card card) {
         this.cardId = card.getCardId();
@@ -43,6 +41,11 @@ public class CardResponseDto {
 //            this.deadline = "";
 //        }
 
-        this.fileList = card.getS3FileList();
+        this.boardId = card.getBoard().getBoardId();
+        this.fileList = card.getS3FileList()
+                .stream()
+                .map(S3FileResponseDto::new)
+                .collect(Collectors.toList());
+
     }
 }

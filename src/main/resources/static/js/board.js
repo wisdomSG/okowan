@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     getBoardContent(boardItemId);
                 })
             });
+
         },
         error: function (error, status, xhr) {
             console.error(error);
@@ -159,27 +160,6 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 // cardDetails 가기
-$(".card__item").click(function () {
-        const cardId = this.id // 클릭된 요소의 id 값 가져오기
-        console.log(cardId);
-
-        // 카드 정보를 가져오기 위한 AJAX 요청
-        $.ajax({
-            url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
-            method: 'GET',
-            dataType: 'json',
-            success: function (cardDetails) {
-
-                window.location.href = `/okw/view/cards/${cardId}`;
-            },
-            error: function (xhr, status, error) {
-                console.error('카드 정보 가져오기 에러:', error);
-            }
-        });
-    }
-)
-
-// cardDetails 가기
 function registerCardItemClickEvent() {
     $(".card__item").click(function () {
             const token = Cookies.get('Authorization');
@@ -244,6 +224,7 @@ function getBoardContent(boardId) {
             document.getElementsByClassName("lists-container").innerHTML = "";
             loadBoardContent(response);
             registerCardItemClickEvent();
+            AddCard();
         })
         .fail(function (response, status, xhr) {
             console.log(response.responseJSON);
@@ -347,7 +328,7 @@ function loadBoardContent(boardJson) {
                                 <input class="cardTitleInput" type="text" name="cardTitleInput" placeholder="Enter card title" required>
                             </div>
                             <button type="submit" class="createCardButton">Create Card</button>
-                            <button type="delete" class="deleteCardButton">X</button>
+                            <button type="button" class="deleteCardButton">X</button>
                         </form>
                     </div>
             </div>
@@ -361,4 +342,38 @@ function loadBoardContent(boardJson) {
 
     let boardContent = document.getElementById("board-content");
     boardContent.innerHTML = boardContentHtml;
+}
+
+
+
+
+function AddCard() {
+    // Add event listeners for each "Add a card" button
+    const addCardButtons = document.querySelectorAll('.add-card-btn');
+
+    addCardButtons.forEach(addCardButton => {
+        const cardForm = addCardButton.closest('.add-card-container').querySelector('.cardForm');
+        const cardDelete = cardForm.querySelector('#deleteCardButton');
+
+        addCardButton.addEventListener('click', () => {
+            addCardButton.style.display = 'none';
+            cardForm.style.display = 'block';
+        });
+
+        cardForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const cardTitleInput = cardForm.querySelector('.cardTitleInput');
+            const cardTitle = cardTitleInput.value;
+            console.log('New card title:', cardTitle);
+            addCardButton.style.display = 'block';
+            cardForm.style.display = 'none';
+            cardForm.reset();
+        });
+
+        cardDelete.addEventListener('click', (event) => {
+            addCardButton.style.display = 'block';
+            cardForm.style.display = 'none';
+            cardForm.reset();
+        });
+    });
 }

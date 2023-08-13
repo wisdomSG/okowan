@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
 // 수정 버튼 클릭시 필드 값 변경 & 버튼 전환
     const updateButtons = document.querySelectorAll('.update-btn');
     updateButtons.forEach(function (button) {
@@ -48,6 +49,20 @@ document.addEventListener("DOMContentLoaded", function () {
             const p = this.closest('p');
             const select = p.querySelector('select');
             const doneButton = p.querySelector('.done-worker-btn');
+
+            this.style.display = 'none';
+            doneButton.style.display = 'block';
+
+            select.disabled = false;
+        });
+    });
+
+    const colorButtons = document.querySelectorAll('.update-color-btn');
+    colorButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            const p = this.closest('p');
+            const select = p.querySelector('select');
+            const doneButton = p.querySelector('.done-btn');
 
             this.style.display = 'none';
             doneButton.style.display = 'block';
@@ -134,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .done(function (response) {
             alert("카드 정보 불러오기 성공");
             console.log(response);
-            fetchWorkerList();
+            fetchWorkerList(response);
             setCardData(response);
             categoryId = response.categoryId;
 
@@ -150,8 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // 작업자 선택 `<select>` 요소
     const workerChoiceSelect = document.getElementById('workerChoice');
     // 작업자 목록을 가져오는 함수
-    function fetchWorkerList() {
-        const boardId = 1; // BoardId 값을 어떻게 가져올지에 따라서 수정
+    function fetchWorkerList(response) {
+        let boardId = response.boardId;
 
         $.ajax({
             type: 'GET',
@@ -251,10 +266,30 @@ function setCardData(response) {
     daySelect.value = deadline.getDate().toString().padStart(2, '0');
     hourSelect.value = deadline.getHours().toString().padStart(2, '0');
 
+// fileList 배열에서 파일 이름과 URL 가져와서 출력과 링크 생성
+
+    let fileList = "";
+    let fileBox = document.getElementById("fileBox");
+
+    response.fileList.forEach(file => {
+
+        // URL을 '/'로 분할하여 각 부분을 배열로 가져옵니다.
+        const urlParts = file.fileName.split('/');
+
+        // 배열에서 마지막 요소를 추출합니다.
+        const fileNameWithUUID = urlParts[urlParts.length - 1];
+
+        const fileUrl = file.fileName; // 파일 URL을 저장하고 있는 속성을 사용해야 함
+
+        let fileContent = `
+                <p>
+                    <a href="${fileUrl}">${fileNameWithUUID}</a>
+                </p>`;
+        fileList += fileContent;
+    });
+    fileBox.innerHTML = fileList;
+
 }
-
-
-
 
 let currentURL = window.location.href;
 
@@ -266,8 +301,8 @@ let lastPart = urlParts[urlParts.length - 1];
 function doneButton() {
     let cardTitle = $("#cardTitle").val();
     let description = $("#description").val();
-    // let color = document.getElementById("cardChoice").value;
-    // let category = document.getElementById("categoryChoice").value;
+    let color = document.getElementById("cardChoice").value;
+    let categoryChoice = document.getElementById("categoryChoice").value;
 
     $.ajax({
         type: "PUT",
@@ -275,11 +310,10 @@ function doneButton() {
         headers: {'Authorization': token},
         contentType: "application/json",
         data: JSON.stringify({
-            categoryId:categoryId,
+            categoryId: categoryChoice,
             title: cardTitle,
-            description: description
-            // color: color,
-            // categoryId: category
+            description: description,
+            color: color
         })
     })
         .done(function () {
@@ -367,3 +401,38 @@ function updateSelectedWorker() {
 // "done-worker-btn" 버튼에 대한 이벤트 리스너
 const doneWorkerButton = document.querySelector('.done-worker-btn');
 doneWorkerButton.addEventListener('click', updateSelectedWorker);
+
+
+// "done-file-btn" 버튼에 대한 이벤트 리스너
+const doneFileButton = document.querySelector('.done-file-btn');
+doneFileButton.addEventListener('click', uploadFiles);
+
+// 파일을 서버에 업로드하는 함수
+function uploadFiles() {
+    const filesInput = document.getElementById('formFileMultiple');
+    const selectedFiles = filesInput.files;
+
+    const formData = new FormData();
+    for (let i = 0; i < selectedFiles.length; i++) {
+        formData.append('fileName', selectedFiles[i]);
+    }
+
+    $.ajax({
+        type: 'PUT',
+        url: '/okw/cards/files/' + lastPart,
+        data: formData,
+        processData: false,
+        contentType: false,
+        headers: {
+            'Authorization': token
+        }
+    })
+        .done(function(data) {
+            alert('파일 업로드 완료');
+            window.location.reload();
+            // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+        })
+        .fail(function(error) {
+            console.error('파일 업로드 오류:', error);
+        });
+}
