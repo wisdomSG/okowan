@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {"Authorization": token}
     })
         .done(function (response) {
-            alert("카드 정보 불러오기 성공");
+            console.log("카드 정보 불러오기 성공");
             console.log(response);
             fetchWorkerList(response);
             setCardData(response);
