@@ -16,7 +16,7 @@ public class AlertController {
     private final AlertServiceImpl alertService;
 
     /*알림 전체 조회*/
-    @GetMapping("")
+    @GetMapping
     public List<AlertResponseDto> getAlerts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return alertService.getAlerts(userDetails);
     }

@@ -375,6 +375,7 @@ body {
     background-color: #eee;
 }
 
+.add-category-btn,
 .add-card-btn {
     display: block;
     font-size: 1.4rem;
@@ -385,6 +386,7 @@ body {
     cursor: pointer;
 }
 
+.add-category-btn:hover,
 .add-card-btn:hover {
     background-color: #cdd2d4;
     color: #4d4d4d;
@@ -495,6 +497,12 @@ Remove or comment-out the code block below to see how the browser will fall-back
     .list-items {
         display: grid;
         grid-row-gap: 0.6rem;
+    }
+
+    .list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .logo,
@@ -608,11 +616,13 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 /* show Member list */
 
+.alert-list-wrapper,
 .member-list-wrapper {
     max-width: 400px;
     margin: 50px auto;
 }
 
+.alert-list,
 .member-list {
     background: #fff;
     border-radius: 10px;
@@ -621,6 +631,10 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 }
 
+.alert-list-item {
+    display: flex;
+    justify-content: space-between;
+}
 .member-list-item {
     display: flex;
     margin: 10px;
@@ -629,6 +643,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.alert-list-item:last-child,
 .member-list-item:last-child {
     border-bottom: none;
 }
@@ -638,22 +653,111 @@ Remove or comment-out the code block below to see how the browser will fall-back
     width: 64px;
 }
 
+.alert-list-item-content,
 .member-list-item-content {
+    margin-right: 5px;
     margin-left: 20px;
 }
 
+.alert-list-item-content h4,
+.alert-list-item-content p,
 .member-list-item-content h4,
 .member-list-item-content p {
     margin: 0;
 }
 
+.alert-list-item-content h4,
 .member-list-item-content h4 {
     color: #121212;
     margin-top: 10px;
     font-size: 18px;
 }
 
+.alert-list-item-content h5 {
+    color: #121212;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.alert-list-item-content p,
 .member-list-item-content p {
-    color: #aaa;
+    color: #121212;
     margin-top: 5px;
 }
+
+/* 보드 맴버 초대 */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.searchMember {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid #4d4c99;
+    border-right: none;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus{
+    color: #00B4CC;
+}
+
+.searchMemberButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #4d4c99;
+    background: #4d4c99;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.invite-member-setting-btn {
+    background-color: #8080ff;
+    width: 2rem;
+    height: 2rem;
+
+    border-radius: 35%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.collapse,
+.collapse.show,
+.collapsing {
+    background-color: #4d4c99;
+    padding: 5px 5px 0 5px;
+}
+
+.dropdown-toggle-no-arrow::after {
+    display: none;
+}
+
+.dropdown-menu {
+    background-color: gray;
+}
+
+.dropdown-menu a {
+    font-weight: bold;
+}
+
