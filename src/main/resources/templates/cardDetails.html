@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<script src="/js/cardDetails.js"></script>
+
 <div class="container">
     <div id="logo"><h1 class="logo">OKOWAN</h1>
     </div>
@@ -33,8 +33,8 @@
 
             <h2>description</h2>
             <p class="line mb-3">
-                <textarea class="form-control" id="description exampleFormControlTextarea1" rows="5" disabled></textarea>
-                <button class="btn update-btn">update</button>
+                <textarea class="form-control" id="description" rows="5" disabled></textarea>
+                <button class="btn des-btn">update</button>
                 <button class="btn done-btn" style="display: none">done</button>
             </p>
 
@@ -46,7 +46,7 @@
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-                <button class="btn update-btn">update</button>
+                <button class="btn update-category-btn">update</button>
                 <button class="btn done-btn" style="display: none">done</button>
             </p>
 
@@ -67,8 +67,6 @@
                 <select class="form-select" aria-label="Default select example" id="workerChoice" disabled>
                     <option selected>작업자를 선택해주세요</option>
                     <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
                 </select>
                 <button class="btn update-worker-btn">update</button>
                 <button class="btn done-worker-btn" style="display: none">done</button>
@@ -139,64 +137,11 @@
     </div>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+<script src="/js/cardDetails.js"></script>
 <script>
-
-    const token = Cookies.get('Authorization');
-    const cardId = [[${cardId}]];
-    function doneButton() {
-        let cardTitle = document.getElementById("cardTitle").value;
-        let descriptuon = document.getElementById("description exampleFormControlTextarea1").value;
-        let color = document.getElementById("cardChoice").value;
-        let category = document.getElementById("categoryChoice").value;
-
-        $.ajax({
-            type: "PUT",
-            url:"okw/cards/" + cardId,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({
-                title: cardTitle,
-                descriptuon: descriptuon,
-                color: color,
-                categoryId: category
-            })
-        })
-        .done(function () {
-            alert("수정 완료");
-            window.location.reload();
-        })
-        .fail(function (response) {
-            alert("수정 오류: " + response.responseJSON.msg);
-        })
-    }
-
-    // 작업자 조회
-    // 작업자 선택 `<select>` 요소
-    const workerChoiceSelect = document.getElementById('workerChoice');
-
-    // 작업자 목록을 가져오는 함수
-    function fetchWorkerList() {
-        const boardId = 1; // BoardId 값을 어떻게 가져올지에 따라서 수정
-
-        $.ajax({
-            type: 'GET',
-            url: `/okw/boards/worker/${boardId}`,
-            headers: {
-                'Authorization': token
-            }
-        })
-            .done(function(data) {
-                // 서버에서 가져온 작업자 목록을 `<option>` 요소로 변환하여 추가
-                data.forEach(worker => {
-                    const option = $('<option></option>');
-                    option.val(worker.userId); // 작업자 아이디나 관련 정보에 맞게 설정
-                    option.text(worker.username); // 작업자 이름이나 관련 정보에 맞게 설정
-                    workerChoiceSelect.append(option);
-                });
-            })
-            .fail(function(error) {
-                console.error('Error fetching worker list:', error);
-            });
-    }
 
     // "done-worker-btn" 버튼에 대한 이벤트 리스너
     const doneWorkerButton = document.querySelector('.done-worker-btn');
@@ -208,7 +153,7 @@
 
         $.ajax({
             type: 'PATCH',
-            url: '/okw/boards/worker',
+            url: '/okw/cards/worker',
             data: {
                 cardId: cardId,
                 worker: selectedWorkerId
@@ -227,40 +172,7 @@
             });
     }
 
-    // "done-deadline-btn" 버튼에 대한 이벤트 리스너
-    const doneDeadlineButton = document.querySelector('.done-deadline-btn');
-    doneDeadlineButton.addEventListener('click', updateDeadline);
 
-    // 선택한 데드라인을 서버에 업데이트하는 함수
-    function updateDeadline() {
-        const selectedYear = document.getElementById('year').value;
-        const selectedMonth = document.getElementById('month').value;
-        const selectedDay = document.getElementById('day').value;
-        const selectedHour = document.getElementById('hour').value;
-
-        // 선택한 데드라인을 원하는 형식으로 조합 (예: "2023-08-11 15")
-        const selectedDeadline = `${selectedYear}-${selectedMonth}-${selectedDay} ${selectedHour}`;
-
-        $.ajax({
-            type: 'PUT',
-            url: '/okw/cards/deadLine/' + cardId,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({
-                deadlineStr: selectedDeadline
-            }),
-            headers: {
-                'Authorization': token
-            }
-        })
-            .done(function(data) {
-                alert('데드라인이 업데이트되었습니다.');
-                window.reload();
-                // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
-            })
-            .fail(function(error) {
-                console.error('데드라인 업데이트 오류:', error);
-            });
-    }
 
     // "done-file-btn" 버튼에 대한 이벤트 리스너
     const doneFileButton = document.querySelector('.done-file-btn');
@@ -295,7 +207,6 @@
                 console.error('파일 업로드 오류:', error);
             });
     }
-
 
 </script>
 </html>

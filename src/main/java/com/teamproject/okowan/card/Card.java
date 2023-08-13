@@ -67,6 +67,15 @@ public class Card {
         this.board = category.getBoard();
     }
 
+    public Card(String title, String description, ColorEnum color, Category category, User user) {
+        this.title = title;
+        this.description = description;
+        this.color = color;
+        this.category = category;
+        this.user = user;
+        this.board = category.getBoard();
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

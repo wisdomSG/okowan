@@ -9,6 +9,7 @@ import com.teamproject.okowan.awsS3.S3Service;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
 import com.teamproject.okowan.entity.BoardRoleEnum;
+import com.teamproject.okowan.entity.ColorEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
@@ -47,7 +48,7 @@ public class CardServiceImpl implements CardService {
         Category category = categoryService.findCategory(requestDto.getCategoryId());
 
 
-        Card card = new Card(requestDto.getTitle(),category, user);
+        Card card = new Card(requestDto.getTitle(),"설명을 변경해주세요", ColorEnum.RED,category, user);
 
         cardRepository.save(card);
 
@@ -118,7 +119,6 @@ public class CardServiceImpl implements CardService {
     @Transactional
     public ApiResponseDto deleteCard(Long id, User user) {
         Card card = findCard(id);
-
 
         for(S3File s3File : card.getS3FileList()) {
             s3Service.deleteFile(s3File.getFileName());
