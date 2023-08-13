@@ -41,11 +41,6 @@
             <div class="offcanvas-header" style="padding:25px">
                 <div class="offcanvas-header-container">
                     <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">My Boards</h1>
-                    <!--                    <div class="user-settings-btn">-->
-                    <!--                        <button class="user-settings-btn btn" aria-label="Create">-->
-                    <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn" style="height:30px">
-                        <i class="fas fa-plus" aria-hidden="true"></i>
-                    </button>
                 </div>
                 <div id="myModal" class="modal" style="justify-content: center;
                         align-items: center;margin: 0;">
@@ -68,10 +63,13 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div id="boardList" class="offcanvas-body boardList">
-                <h3 style="text-align: center">Board List</h3>
+<!--                <h3 style="text-align: center">Board List</h3>-->
                 <div class="boardListTitle">
-                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">#OKOWAN</button>
+                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle" style="width:170px">#BOARD_LIST</button>
                     <span hidden="hidden">boardId</span>
+                    <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn" style="height: 50px;width: 50px;">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -185,17 +183,12 @@
 
 <!-- Lists container -->
 <section class="lists-container" id="board-content">
-    <div class="list">
+    <div class="list" style="width:465px">
 
         <h3 class="list-title">#OKOWAN</h3>
         <ul class="list-items">
             <li class="card__item">
-                <span class="card__tag card__tag--design">I CODE YOU <3</span>
-                <!--                <div class="developer-container">-->
-<!--                <img src="https://trello-attachments.s3.amazonaws.com/5501f5265b23195e950742e9/300x300/5a2bf59113b7211315c399c8b9814e9d/Thumbs_Up_Icons.jpg"-->
-<!--                     class="card__image">-->
-                                <div class="card__image" style="background-image: url('/images/developer image.jpeg')"></div>
-                <!--                </div>-->
+               <div class="develop__image" style="background-image: url('/images/developer image.jpeg')"></div>
             </li>
         </ul>
     </div>

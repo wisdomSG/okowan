@@ -43,13 +43,14 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
     height: 85px;
     width: 300px;
     margin: auto;
+    align-items: center;
 }
 
 .boardListTitle .btn {
-    margin: auto;
+    margin: 15px;
     font-size: large;
     height: 50px;
-    width: 270px;
+    width: 250px;
     background-color: #8080ff;
     border-radius: 0.3rem;
     transition: background-color 150ms;
@@ -57,12 +58,11 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 
 /* 보드 추가 Modal Styles */
 
-/*.offcanvas-header-container {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    height: 100vh;*/
-/*}*/
+.offcanvas-header-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 27%;
+}
 
 .modal {
     display: none;
@@ -143,6 +143,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 }
 
 .modal-content #confirmBtn {
+    font-size: 16px;
     background-color: #4d4c99;
     border-radius: 0.3rem;
     color: white;
@@ -548,10 +549,13 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 
     .card__item {
-        background-color: white;
-        border-radius: .25rem;
-        box-shadow: 0 1px 0 rgba(9,45,66,.25);
-        padding: .5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 450px; /* 원하는 너비 설정 */
+        height: 300px; /* 원하는 높이 설정 */
+        margin: 10px; /* 원하는 마진 설정 */
+        border: 1px solid #ccc; /* 테두리 스타일 설정 */
     }
 
     .card__tag {
@@ -564,9 +568,13 @@ Remove or comment-out the code block below to see how the browser will fall-back
         display: inline-block;
     }
 
-    .card__image {
+     .develop__image {
         width: 100%;
-        margin-bottom: .25rem;
+        height: 100%;
+        background-size: cover;
+         /*background-repeat: no-repeat;*/
+         /*background-position: center;*/
+        /* 추가 스타일 옵션을 설정할 수 있습니다 */
     }
 
     /* sticker colors */
