@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {"Authorization": token}
     })
         .done(function (response) {
-            alert("카드 정보 불러오기 성공");
             console.log(response);
             setCardData(response);
         })
@@ -145,6 +144,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 카드 정보 불러오기
 function setCardData(response) {
-    document.getElementById("cardTitle").value=response.title;
-    document.getElementById("cardDescription").textContent=response.description;
+    document.getElementById("cardTitle").value = response.title;
+    document.getElementById("cardDescription").textContent = response.description;
 }

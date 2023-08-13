@@ -38,16 +38,18 @@ public class UserController {
         return ResponseEntity.ok().body(apiResponseDto);
     }
 
-    @GetMapping("/profile/{userId}")
-    public ResponseEntity<ProfileResponseDto> getProfile(@PathVariable Long userId) {
+    @GetMapping("/profile")
+    public ResponseEntity<ProfileResponseDto> getProfile(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
         ProfileResponseDto profileResponseDto = userService.getProfile(userId);
         return ResponseEntity.ok().body(profileResponseDto);
     }
 
-    @PutMapping("/profile/{userId}")
+    @PutMapping("/profile")
     public ResponseEntity<ApiResponseDto> updateProfile(@Valid @RequestBody ProfileRequestDto profileRequestDto,
-                                                        BindingResult bindingResult, @PathVariable Long userId,
+                                                        BindingResult bindingResult,
                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Long userId = userDetails.getUser().getId();
         ApiResponseDto apiResponseDto = userService.updateProfile(profileRequestDto, userId, userDetails.getUser());
         return ResponseEntity.ok().body(apiResponseDto);
     }

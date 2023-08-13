@@ -152,7 +152,7 @@ public class CardServiceImpl implements CardService {
 
         Optional<BoardRoleEnum> roleEnum = userBoardRepository.getRoleFindByUserIdAndBoardId(user.getId(), card.getBoard().getBoardId());
         roleEnum.ifPresent(role -> {
-            if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITER))) {
+            if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITOR))) {
                 throw new IllegalArgumentException("Board 관리권한이 없습니다.");
             }
         });

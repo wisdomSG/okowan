@@ -3,25 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const host = "http://" + window.location.host;
     const showMemberButton = document.querySelector(".showMember-menu-btn");
     const offcanvasLabel = document.querySelector("#showMemberoffcanvasScrollingLabel");
-    const boardId = 1 //어떤 board가 눌렸는지 해당 boardId 업데이트
+    let boardId = 0 // 어떤 board가 눌렸는지 해당 boardId 업데이트
     const boardTitle = document.querySelector('.board-title').textContent;  //Board Title
-
-    // 보드의 내용(카테고리, 카드) 불러오는 함수
-    $.ajax({
-        type: "GET",
-        url: "/okw/boards/contents/" + boardId,
-        headers: {"Authorization": token},
-    })
-        .done(function (response) {
-            document.getElementsByClassName("lists-container").innerHTML = "";
-            loadBoardContent(response);
-            registerCardItemClickEvent();
-        })
-        .fail(function (response, status, xhr) {
-            console.log(response.responseJSON);
-            alert("보드 내용 불러오기 실패: " + response.responseJSON.msg);
-            window.location.href = "/okw/view/users/login-signup";
-        })
 
     // 보드 전체 리스트 불러오는 함수
     $.ajax({
@@ -36,9 +19,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 let boardId = response[i]['boardId'];
                 setHtml(boardTitle, boardId);
             }
+
+            // 보드 리스트에 클릭 시 정보 로딩 함수 매핑
+            const boardListItem = document.querySelectorAll(".board-list-item");
+            boardListItem.forEach(function (boardItem) {
+                let boardItemId = boardItem.value;
+                boardItem.addEventListener("click", function () {
+                    getBoardContent(boardItemId);
+                })
+            });
         },
-        error: function (xhr, status, error) {
+        error: function (error, status, xhr) {
             console.error(error);
+            let errorMessage = error.responseJSON.msg;
+            alert(errorMessage);
+            if (errorMessage === "토큰이 유효하지 않습니다.") {
+                window.location.href = "/okw/view/users/login-signup";
+            }
         }
     })
 
@@ -57,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showMemberButton.addEventListener("click", function () {
         offcanvasLabel.textContent = boardTitle + '에 초대된 맴버';
-
+        let boardId = document.getElementById("board-title-button").getAttribute("board-id");
         showBoardMember(boardId);
     });
 
@@ -221,11 +218,35 @@ function inviteMember(username, boardId) {
         });
 }
 
+
+// 보드의 내용(카테고리, 카드) 불러오는 함수
+function getBoardContent(boardId) {
+    let token = Cookies.get('Authorization');
+
+    $.ajax({
+        type: "GET",
+        url: "/okw/boards/contents/" + boardId,
+        headers: {"Authorization": token},
+    })
+        .done(function (response) {
+            document.getElementsByClassName("lists-container").innerHTML = "";
+            loadBoardContent(response);
+            registerCardItemClickEvent();
+        })
+        .fail(function (response, status, xhr) {
+            console.log(response.responseJSON);
+            let errorMessage = response.responseJSON.msg;
+            alert("보드 내용 불러오기 실패: " + errorMessage);
+            if (errorMessage === "만료된 토큰입니다.") {
+                window.location.href = "/okw/view/users/login-signup";
+            }
+        })
+}
+
 function setHtml(boardTitle, boardId) {
     let html = `
               <div>
-                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
-                    <span hidden="hidden">${boardId}</span>
+                    <button type="button" class="btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
               </div>
         `;
     $('#boardList').append(html);
