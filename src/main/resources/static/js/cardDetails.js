@@ -369,7 +369,7 @@ function setCardData(response) {
         let fileContent = `
                 <p class="line">
                     <a href="${fileUrl}" data-file-id="${fileId}" class="file-body">${fileNameWithUUID}</a>
-                    <button class="file-delete-btn">X</button>
+                    <button class="btn file-delete-btn">X</button>
                 </p>`;
         fileList += fileContent;
     });
@@ -388,9 +388,9 @@ function setCardData(response) {
                 <p class="line">
                     <input type="text" value="${content}" class="comment-body" data-comment-id="${commentId}"disabled>
                     <span class="author">${nickname}</span>
-                    <button class="btn comment-update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
-                    <button class="btn done-comment-btn" style="display: none">done</button>
                     <button class="btn comment-delete-btn">X</button>
+                    <button class="btn comment-update-btn"><img class="plus" src="/images/edit_icon.png" alt="plus"></button>
+                    <button class="btn done-comment-btn" style="display: none">done</button>
                 </p>`;
         commentList += commentContent;
 
