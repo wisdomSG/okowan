@@ -1,6 +1,7 @@
 package com.teamproject.okowan.card;
 
 import com.teamproject.okowan.category.CategoryResponseDto;
+import com.teamproject.okowan.comment.CommentResponseDto;
 import com.teamproject.okowan.entity.ColorEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class CardResponseDto {
     private Long boardId;
     private List<CategoryResponseDto> categoryResponseDtoList;
     private List<S3FileResponseDto> fileList;
+    private List<CommentResponseDto> commentResponseDtoList;
 
     public CardResponseDto(Card card) {
         this.cardId = card.getCardId();
@@ -45,6 +47,10 @@ public class CardResponseDto {
         this.fileList = card.getS3FileList()
                 .stream()
                 .map(S3FileResponseDto::new)
+                .collect(Collectors.toList());
+        this.commentResponseDtoList = card.getCommentList()
+                .stream()
+                .map(CommentResponseDto::new)
                 .collect(Collectors.toList());
 
     }

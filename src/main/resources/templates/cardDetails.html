@@ -118,27 +118,24 @@
             <h2>Comments</h2>
             <p class="line">
                 <input class="comment" type="text" id="comment">
-                <button class="btn">Add</button>
+                <button class="comment-create-btn">Add</button>
             </p>
-
-            <p class="line">
-                <input type="text" value="내용 작성" disabled>
-                <span class="author">작성자</span>
-                <button class="btn">X</button>
-                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
-            </p>
-            <p class=line>
-                <input class="comments" type="text" value="댓글" disabled>
-                <span class="author">작성자</span>
-                <button class="btn ">X</button>
-                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
-            </p>
-            <p class=line>
-                <input class="comments" type="text"  value="댓글" disabled>
-                <span class="author">작성자</span>
-                <button class="btn ">X</button>
-                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
-            </p>
+            <div id="commentList">
+                <p class="line">
+                    <input type="text" value="내용 작성" class="comment-body" disabled>
+                    <span class="author">작성자</span>
+                    <button class="btn comment-update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+                    <button class="btn done-comment-btn" style="display: none">done</button>
+                    <button class="comment-delete-btn">X</button>
+                </p>
+                <p class="line">
+                    <input type="text" value="내용 작성" disabled>
+                    <span class="author">작성자</span>
+                    <button class="btn comment-update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+                    <button class="btn done-comment-btn" style="display: none">done</button>
+                    <button class="comment-delete-btn">X</button>
+                </p>
+            </div>
         </div>
     </div>
 </div>
@@ -148,4 +145,6 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 <script src="/js/cardDetails.js"></script>
 <script src="/js/utils.js"></script>
+<script src="/js/comment.js"></script>
+
 </html>
