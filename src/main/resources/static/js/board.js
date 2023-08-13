@@ -1,4 +1,7 @@
 let BoardId = 0 //어떤 board가 눌렸는지 해당 boardId 업데이트
+let images = {
+
+}
 document.addEventListener("DOMContentLoaded", function () {
     const token = Cookies.get('Authorization');
     const host = "http://" + window.location.host;
@@ -143,7 +146,7 @@ function showBoardMember(boardId, token) {
                 html += `
                     <li class="member-list-item">
                             <div>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                                <img src="/images/cats.jpg" class="member-list-item-image">
                             </div>
                             <div class="member-list-item-content w-100">
                                 <h4>${user['username']}</h4>
@@ -191,7 +194,7 @@ function searchingMember(boardId) {
                 html += `
                         <li class="member-list-item">
                             <div>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                                <img src="/images/cats.jpg" class="member-list-item-image">
                             </div>
                             <div class="member-list-item-content w-100">
                                 <h4>${user['username']}</h4>
