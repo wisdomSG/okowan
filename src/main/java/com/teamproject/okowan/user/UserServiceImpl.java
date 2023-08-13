@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -129,6 +130,13 @@ public class UserServiceImpl implements UserService {
         return new ApiResponseDto("비밀번호 변경 완료", HttpStatus.OK.value());
     }
 
+    // 유저 검색
+    @Override
+    public List<UserSearchResponseDto> searchUsers(String keyword) {
+        return userRepository.findAllByUsernameContaining(keyword).stream().map(UserSearchResponseDto::new).toList();
+
+    }
+
     // 모든 쿠키 삭제 메서드
     public void deleteAllCookies(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies(); // 모든 쿠키 가져오기
@@ -140,4 +148,5 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
 }

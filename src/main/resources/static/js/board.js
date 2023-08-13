@@ -1,10 +1,7 @@
+let BoardId = 0 //어떤 board가 눌렸는지 해당 boardId 업데이트
 document.addEventListener("DOMContentLoaded", function () {
     const token = Cookies.get('Authorization');
     const host = "http://" + window.location.host;
-    const showMemberButton = document.querySelector(".showMember-menu-btn");
-    const offcanvasLabel = document.querySelector("#showMemberoffcanvasScrollingLabel");
-    let boardId = 0 // 어떤 board가 눌렸는지 해당 boardId 업데이트
-    const boardTitle = document.querySelector('.board-title').textContent;  //Board Title
 
     // 보드 전체 리스트 불러오는 함수
     $.ajax({
@@ -13,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {'Authorization': token},
         contentType: 'application/json',
         success: function (response) {
-            // $('#post-cards').empty();
+            //$('#post-cards').empty();
             for (let i = 0; i < response.length; i++) {
                 let boardTitle = response[i]['title'];
                 let boardId = response[i]['boardId'];
@@ -52,98 +49,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("confirmBtn").addEventListener("click", postBoard);
 
-    showMemberButton.addEventListener("click", function () {
-        offcanvasLabel.textContent = boardTitle + '에 초대된 맴버';
-        let boardId = document.getElementById("board-title-button").getAttribute("board-id");
-        showBoardMember(boardId);
+    document.querySelector(".showMember-menu-btn").addEventListener("click", () => {
+        showBoardMember(BoardId, token);
     });
 
-    function showBoardMember(boardId) {
-        $.ajax({
-            type: 'GET',
-            url: `/okw/boards/member/${boardId}`,
-            headers: {'Authorization': token}
-        })
-            .done(function (response, status, xhr) {
-                $('#member-list').empty();
-                const users = response;
-                let html = ``;
-                users.forEach((user) => {
-                    html += `
-                    <li class="member-list-item">
-                            <div>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
-                            </div>
-                            <div class="member-list-item-content w-100">
-                                <h4>${user['username']}</h4>
-                                <h4>${user['nickname']}</h4>
-                                <p>@${user['role']}</p>
-                            </div>
-                            <div>
-                                <button class="upd-member-setting-btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-${user['UserId']}" aria-expanded="false" aria-controls="collapseExample">
-                                    <i class="fas fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                    </li>
-                    <div class="collapse" id="collapseExample-${user['UserId']}">
-                            <div class="card card-body">
-                                Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                            </div>
-                    </div>
-                    `
-                })
-                $('#member-list').append(html);
-            })
-            .fail(function (response) {
-                alert(response.responseJSON.msg);
-            })
-    }
+    document.querySelector('.searchTerm').addEventListener('keyup', () => {
+        searchingMember(BoardId)
+    });
 
-    /*
-        document.querySelector('.searchMemberButton').addEventListener('click',() => {
-            let search = $('.searchTerm').val();
+    document.querySelector('.searchMemberButton').addEventListener('click',() => {
+        searchMember(BoardId)
+    });
 
-            $.ajax({
-                type:'GET',
-                url:'/okw/users/search',
-                data: {
-                    keyword : search
-                },
-                headers: {'Authorization': token}
-            })
-                .done(function (response, status, xhr) {
-                    let users = response;
-                    if(users.length == 0) {
-                        alert("검색결과가 없습니다.");
-                        return;
-                    }
+    document.querySelector('#board-content').parentElement.addEventListener('click', (event) => {
+        // 클릭된 요소 확인
+        const clickedElement = event.target;
 
-                    $('#invite-member-list').empty();
-                    let html = ``;
-                    users.forEach((user) => {
-                        html += `
-                            <li class="member-list-item">
-                                <div>
-                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
-                                </div>
-                                <div class="member-list-item-content w-100">
-                                    <h4>${user['username']}</h4>
-                                    <p>${user['nickname']}</p>
-                                    <p>${user['introduce']}</p>
-                                </div>
-                                <button class="invite-member-setting-btn btn-primary" onclick="inviteMember(\'${user['username']}\',${boardId})" type="button">
-                                        <i class="fas fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </li>
-                        `;
-                    })
-                    $('#invite-member-list').append(html);
-                })
-                .fail(function (response, status, xhr) {
-                    console.log(response);
-                })
-        })
-        */
+        if (clickedElement.classList.contains('list-title')) {
+            event.stopPropagation(); // 이벤트 버블링 중단
+
+            const listElement = clickedElement.closest('.list'); // 가장 가까운 .list 요소 찾기
+            const categoryId = listElement.getAttribute('id');
+
+            // 현재 텍스트 내용 가져오기
+            const currentText = clickedElement.textContent;
+            let newText = '';
+
+            // input 요소 생성 및 값 설정
+            const inputElement = document.createElement('input');
+            inputElement.value = currentText;
+            inputElement.classList.add('form-control');
+
+            // h3 요소를 input 요소로 교체
+            clickedElement.replaceWith(inputElement);
+
+            // input 요소에 포커스 설정
+            inputElement.focus();
+
+            inputElement.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    // 변경된 값 가져오기
+                    const newValue = inputElement.value;
+
+                    // h3 요소 생성 및 값 설정
+                    const newH3Element = document.createElement('h3');
+                    newH3Element.textContent = newValue;
+                    newH3Element.classList.add('list-title');
+                    newH3Element.id = 'list-title';
+
+                    // input 요소를 h3 요소로 교체
+                    inputElement.replaceWith(newH3Element);
+                    newText = newValue;
+
+                    updateCategory(categoryId,BoardId,newText,token);
+                }
+            });
+        }
+    });
+
+    document.querySelector('#showAlert').addEventListener('click',() => {
+        showAlert(BoardId);
+    });
+
 
     // User Menu 버튼 매핑
     const profileButton = document.getElementById("user-menu-profile");
@@ -156,7 +123,316 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     const logoutButton = document.getElementById("user-menu-logout");
     logoutButton.addEventListener("click", logout);
-})
+});
+
+function showBoardMember(boardId, token) {
+    const userBoardRole = ['OWNER', 'EDITOR','VIEWER'];
+    document.querySelector("#showMemberoffcanvasScrollingLabel").textContent =
+        document.querySelector('.board-title').textContent + '에 초대된 맴버';
+
+    $.ajax({
+        type: 'GET',
+        url: `/okw/boards/member/${boardId}`,
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            $('#member-list').empty();
+            const users = response;
+            let html = ``;
+            users.forEach((user) => {
+                html += `
+                    <li class="member-list-item">
+                            <div>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                            </div>
+                            <div class="member-list-item-content w-100">
+                                <h4>${user['username']}</h4>
+                                <h4>${user['nickname']}</h4>
+                                <select id="form-select-${user['userId']}" class="form-select" onchange="updateMember(${user['userId']},\'${user['username']}\',${boardId}, \'${token}\')" aria-label="Default select example" style="border:none">
+                                  <option selected style="background-color: #838c91">@${user['role']}</option>
+                                  <option value="1">@${userBoardRole[0]}</option>
+                                  <option value="2">@${userBoardRole[1]}</option>
+                                  <option value="3">@${userBoardRole[2]}</option>
+                                </select>
+                            </div>
+                    </li>
+                    `
+            })
+            $('#member-list').append(html);
+        })
+        .fail(function (response) {
+            alert("맴버 조회 실패")
+        })
+}
+
+function searchingMember(boardId) {
+    const token = Cookies.get('Authorization');
+    let search = $('.searchTerm').val().trim();
+
+    if(search === "") {
+        return;
+    }
+
+    $.ajax({
+        type:'GET',
+        url:'/okw/users/search',
+        data: {
+            keyword : search
+        },
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            let users = response;
+
+            $('#invite-member-list').empty();
+            let html = ``;
+            users.forEach((user) => {
+                html += `
+                        <li class="member-list-item">
+                            <div>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                            </div>
+                            <div class="member-list-item-content w-100">
+                                <h4>${user['username']}</h4>
+                                <p>${user['nickname']}</p>
+                                <p>${user['introduce']}</p>
+                            </div>
+                            <button class="invite-member-setting-btn btn-primary" onclick="inviteMember(\'${user['username']}\',${boardId},\'${token}\')" type="button">
+                                    <i class="fas fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </li>   
+                    `;
+            })
+            $('#invite-member-list').append(html);
+        })
+        .fail(function (response, status, xhr) {
+        })
+}
+
+function searchMember(boardId) {
+    const token = Cookies.get('Authorization');
+    let search = $('.searchTerm').val().trim();
+
+    $.ajax({
+        type:'GET',
+        url:'/okw/users/search',
+        data: {
+            keyword : search
+        },
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            let users = response;
+            if(users.length == 0) {
+                alert("검색결과가 없습니다.");
+                return;
+            }
+
+            $('#invite-member-list').empty();
+            let html = ``;
+            users.forEach((user) => {
+                html += `
+                        <li class="member-list-item">
+                            <div>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                            </div>
+                            <div class="member-list-item-content w-100">
+                                <h4>${user['username']}</h4>
+                                <p>${user['nickname']}</p>
+                                <p>${user['introduce']}</p>
+                            </div>
+                            <button class="invite-member-setting-btn btn-primary" onclick="inviteMember(\'${user['username']}\',${boardId})" type="button">
+                                    <i class="fas fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </li>   
+                    `;
+            })
+            $('#invite-member-list').append(html);
+        })
+        .fail(function (response, status, xhr) {
+            alert("맴버 검색 실패");
+        })
+}
+
+function inviteMember(username, boardId, token) {
+    const host = "http://" + window.location.host;
+    let User = username;
+    let BoardId = boardId;
+
+    let data = {
+        BoardId: BoardId,
+        username: User,
+        role: "VIEWER"
+    }
+    $.ajax({
+        type: 'POST',
+        url: `/okw/boards/${boardId}/invite`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            alert("맴버 초대 성공");
+        })
+        .fail(function (response) {
+            alert("맴버 초대 실패: " + response.responseJSON.msg);
+        });
+}
+
+function updateMember(userId,boardId, username, token) {
+    var onSelect = document.getElementById('form-select-' + userId);
+    var selectValue = onSelect.options[onSelect.selectedIndex].text.substring(1,);
+
+    let data = {
+        "BoardId" : boardId,
+        "username" : username,
+        "role" : selectValue
+    }
+
+    $.ajax({
+        type:'PUT',
+        url:`/okw/boards/${boardId}/invite/update`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            alert("역할 업데이트 성공");
+        })
+        .fail(function (response) {
+            //alert("역할 업데이트 실패: " + response.responseJSON.msg);
+            alert("역할 업데이트 실패: ");
+        })
+}
+
+function addCategory(boardId, token) {
+    const host = "http://" + window.location.host;
+    const BoardId = boardId;
+    const title = document.getElementById('add-category-input').value.trim();
+
+    let data = {
+        "title" : title
+    }
+
+    $.ajax({
+        type:'POST',
+        url:`/okw/categories/${BoardId}`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            alert("카테고리 등록 성공");
+            getBoardContent(boardId);
+        })
+        .fail(function (response, status, xhr) {
+            alert("카테고리 등록 실패: " + response.responseJSON.msg);
+        })
+}
+
+function updateCategory(categoryId, boardId, newText, token) {
+    let data = {
+        'title' : newText
+    }
+
+    $.ajax({
+        type: 'PUT',
+        url: `/okw/categories/${categoryId}`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            //getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("카테고리 수정 실패: " + response.responseJSON.msg);
+        })
+}
+
+function deleteCategory(categoryId, boardId, token) {
+    $.ajax({
+        type:'DELETE',
+        url:`/okw/categories/${categoryId}`,
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            alert("카테고리 삭제 성공")
+            getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("카테고리 삭제 실패: " + response.responseJSON.msg);
+        })
+
+}
+
+function moveCategory(categoryId, boardId, move, token) {
+    $.ajax({
+        type:'POST',
+        url:`/okw/categories/${categoryId}/move` + `?boardId=${boardId}&move=${move}`,
+        contentType: 'application/json',
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("카테고리 순서 이동 실패: " + response.responseJSON.msg);
+        })
+}
+
+function showAlert(boardId) {
+    const token = Cookies.get('Authorization');
+
+    $.ajax({
+        type:'GET',
+        url:'/okw/alerts',
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            let alerts = response;
+            let html = ``;
+
+            $('.alert-list').empty();
+
+            alerts.forEach((alert => {
+                html += `
+                    <li class="alert-list-item" id="${alert['alertId']}">                        
+                        <div class="alert-list-item-content">
+                            <h4>Board: ${alert['board_title']}</h4>
+                            <h5>Category: ${alert['category_title']}</h5>
+                            <p>제목: ${alert['card_title']}</p>
+                            <p>내용: ${alert['card_description']}</p>
+                            <p>${alert['alert_at']}</p>
+                        </div>
+                        <div>
+                            <button type="button" class="btn-close float-right" onclick="deleteAlert(${alert['alertId']},${boardId},\'${token}\')"aria-label="Close"></button>
+                        </div>
+                    </li>
+                `;
+            }));
+
+            $('.alert-list').append(html);
+        })
+        .fail(function (response) {
+            alert("알람 조회 실패: " + response.responseJSON.msg);
+        })
+}
+
+function deleteAlert(alertId, boardId, token) {
+    $.ajax({
+        type:'DELETE',
+        url:`/okw/alerts/${alertId}`,
+        headers: {"Authorization" : token}
+    })
+        .done(function (response, status, xhr) {
+            alert("알림 삭제 성공")
+            getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("알림 삭제 실패: " + response.responseJSON.msg)
+        })
+}
 
 // cardDetails 가기
 $(".card__item").click(function () {
@@ -201,35 +477,6 @@ function registerCardItemClickEvent() {
         }
     )
 }
-
-function inviteMember(username, boardId) {
-    console.log(username, boardId);
-    const host = "http://" + window.location.host;
-    const token = Cookies.get('Authorization');
-    let User = username;
-    let BoardId = boardId;
-
-    let data = {
-        BoardId: BoardId,
-        username: User,
-        role: "VIEWER"
-    }
-    $.ajax({
-        type: 'POST',
-        url: `/okw/boards/${boardId}/invite`,
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        headers: {"Authorization": token}
-    })
-        .done(function (response, status, xhr) {
-            alert("맴버 초대 성공");
-            window.location.href = host;
-        })
-        .fail(function (response) {
-            console.log(response);
-        });
-}
-
 
 // 보드의 내용(카테고리, 카드) 불러오는 함수
 function getBoardContent(boardId) {
@@ -295,7 +542,8 @@ function postBoard() {
 
 // 보드의 카테고리, 카드를 불러오는 함수
 function loadBoardContent(boardJson) {
-    let boardId = boardJson.boardId;
+    const token = Cookies.get('Authorization');
+    let boardId = BoardId = boardJson.boardId;
     let boardTitle = boardJson.title;
     let boardTitleButton = document.getElementById("board-title-button");
     boardTitleButton.setAttribute("board-id", boardId);
@@ -312,9 +560,22 @@ function loadBoardContent(boardJson) {
         let categoryTitle = category.title;
 
         let categoryContentHeader = `
-            <div class="list" id=${categoryId}>
-                <h3 class="list-title">${categoryTitle}</h3>
-                <ul class="list-items">
+                <div class="list" id=${categoryId} draggable="true">
+                    <div class="list-header">
+                        <h3 class="list-title" id="list-title">${categoryTitle}</h3>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-h menu-btn-icon" aria-hidden="true" style="font-size: 20px; color: #FFFFFF"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'up',\'${token}\')">Move to Up</a></li>
+                                <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'down',\'${token}\')">Move to Down</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" onclick="deleteCategory(${categoryId},${boardId},\'${token}\')">Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="list-items">
             `;
 
         // 카테고리에 속한 카드 순회
@@ -355,7 +616,16 @@ function loadBoardContent(boardJson) {
         boardContentHtml += categoryContentHeader + categoryContentFooter;
     })
     let boardContentFooter = `
-        <button class="add-list-btn btn">Add a column</button>
+        <div class="container">
+            <button class="add-list-btn btn" type="button" data-bs-toggle="collapse" data-bs-target="#addListCollapse" aria-expanded="false" aria-controls="addListCollapse">
+                Add a Category
+            </button>
+            <div class="collapse" id="addListCollapse" style="background-color: #4d4c99">
+                <input id="add-category-input" class="form-control" type="text" placeholder="Enter Category Title..."/>
+                <button class="add-category-btn btn" onclick="addCategory(${boardId}, \'${token}\')">Add Category</button>
+            </div>
+        </div>
+
     `;
     boardContentHtml += boardContentFooter;
 

@@ -4,6 +4,8 @@ import com.teamproject.okowan.aop.ApiResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.List;
+
 public interface UserService {
     /**
      * 회원가입
@@ -73,4 +75,11 @@ public interface UserService {
      * @return 요청 처리 결과
      */
     ApiResponseDto updatePassword(PasswordRequestDto passwordRequestDto, User user);
+
+    /**
+     * 유저 검색(이메일 기준)
+     * @param keyword keyword in username
+     * @return 해당하는 유저 리스트
+     */
+    List<UserSearchResponseDto> searchUsers(String keyword);
 }
