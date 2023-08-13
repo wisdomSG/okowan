@@ -135,7 +135,7 @@ public class BoardServiceImpl implements BoardService {
         UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteUser, board); // 초대되는 사람의 정보를 userBoard로 저장
         userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
                 .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다.")); // 초대하는 사람의 role이 OWNER인지 확
-        userBoardRepository.findByBoardAndUser(board,user).ifPresent((ExistUserBoard) -> {
+        userBoardRepository.findByBoardAndUser(board,inviteUser).ifPresent((ExistUserBoard) -> {
             throw new RejectedExecutionException("이미 초대한 맴버입니다.");
         });
         userBoardRepository.save(userBoard); // UserBoard에 초대되는 사람의 정보를 저장

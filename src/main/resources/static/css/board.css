@@ -375,6 +375,7 @@ body {
     background-color: #eee;
 }
 
+.add-category-btn,
 .add-card-btn {
     display: block;
     font-size: 1.4rem;
@@ -385,6 +386,7 @@ body {
     cursor: pointer;
 }
 
+.add-category-btn:hover,
 .add-card-btn:hover {
     background-color: #cdd2d4;
     color: #4d4d4d;
@@ -495,6 +497,12 @@ Remove or comment-out the code block below to see how the browser will fall-back
     .list-items {
         display: grid;
         grid-row-gap: 0.6rem;
+    }
+
+    .list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .logo,

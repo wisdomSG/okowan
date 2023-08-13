@@ -1,7 +1,7 @@
+let BoardId = 0 //어떤 board가 눌렸는지 해당 boardId 업데이트
 document.addEventListener("DOMContentLoaded", function () {
     const token = Cookies.get('Authorization');
     const host = "http://" + window.location.host;
-    const boardId = 1 //어떤 board가 눌렸는지 해당 boardId 업데이트
 
     // 보드 전체 리스트 불러오는 함수
     $.ajax({
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {'Authorization': token},
         contentType: 'application/json',
         success: function (response) {
-            // $('#post-cards').empty();
+            //$('#post-cards').empty();
             for (let i = 0; i < response.length; i++) {
                 let boardTitle = response[i]['title'];
                 let boardId = response[i]['boardId'];
@@ -50,15 +50,15 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("confirmBtn").addEventListener("click", postBoard);
 
     document.querySelector(".showMember-menu-btn").addEventListener("click", () => {
-        showBoardMember(boardId, token);
+        showBoardMember(BoardId, token);
     });
 
     document.querySelector('.searchTerm').addEventListener('keyup', () => {
-        searchingMember(boardId)
+        searchingMember(BoardId)
     });
 
     document.querySelector('.searchMemberButton').addEventListener('click',() => {
-        searchMember(boardId)
+        searchMember(BoardId)
     });
 
     document.querySelector('#board-content').parentElement.addEventListener('click', (event) => {
@@ -101,13 +101,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     inputElement.replaceWith(newH3Element);
                     newText = newValue;
 
-                    updateCategory(categoryId,newText,token);
+                    updateCategory(categoryId,BoardId,newText,token);
                 }
             });
         }
     });
 
-    document.querySelector('#showAlert').addEventListener('click',showAlert);
+    document.querySelector('#showAlert').addEventListener('click',() => {
+        showAlert(BoardId);
+    });
 
 
     // User Menu 버튼 매핑
@@ -124,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function showBoardMember(boardId, token) {
-    const userBoardRole = ['OWNER', 'EDITER','VIEWER'];
+    const userBoardRole = ['OWNER', 'EDITOR','VIEWER'];
     document.querySelector("#showMemberoffcanvasScrollingLabel").textContent =
         document.querySelector('.board-title').textContent + '에 초대된 맴버';
 
@@ -159,7 +161,7 @@ function showBoardMember(boardId, token) {
             $('#member-list').append(html);
         })
         .fail(function (response) {
-            alert(response.responseJSON.msg);
+            alert("맴버 조회 실패")
         })
 }
 
@@ -204,7 +206,6 @@ function searchingMember(boardId) {
             $('#invite-member-list').append(html);
         })
         .fail(function (response, status, xhr) {
-            alert("맴버 초대 실패: " + response.responseJSON.msg);
         })
 }
 
@@ -249,7 +250,187 @@ function searchMember(boardId) {
             $('#invite-member-list').append(html);
         })
         .fail(function (response, status, xhr) {
-            alert('맴버 검색 실패: ' + response.responseJSON.msg);
+            alert("맴버 검색 실패");
+        })
+}
+
+function inviteMember(username, boardId, token) {
+    const host = "http://" + window.location.host;
+    let User = username;
+    let BoardId = boardId;
+
+    let data = {
+        BoardId: BoardId,
+        username: User,
+        role: "VIEWER"
+    }
+    $.ajax({
+        type: 'POST',
+        url: `/okw/boards/${boardId}/invite`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            alert("맴버 초대 성공");
+        })
+        .fail(function (response) {
+            alert("맴버 초대 실패: " + response.responseJSON.msg);
+        });
+}
+
+function updateMember(userId,boardId, username, token) {
+    var onSelect = document.getElementById('form-select-' + userId);
+    var selectValue = onSelect.options[onSelect.selectedIndex].text.substring(1,);
+
+    let data = {
+        "BoardId" : boardId,
+        "username" : username,
+        "role" : selectValue
+    }
+
+    $.ajax({
+        type:'PUT',
+        url:`/okw/boards/${boardId}/invite/update`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            alert("역할 업데이트 성공");
+        })
+        .fail(function (response) {
+            //alert("역할 업데이트 실패: " + response.responseJSON.msg);
+            alert("역할 업데이트 실패: ");
+        })
+}
+
+function addCategory(boardId, token) {
+    const host = "http://" + window.location.host;
+    const BoardId = boardId;
+    const title = document.getElementById('add-category-input').value.trim();
+
+    let data = {
+        "title" : title
+    }
+
+    $.ajax({
+        type:'POST',
+        url:`/okw/categories/${BoardId}`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {'Authorization': token}
+    })
+        .done(function (response, status, xhr) {
+            alert("카테고리 등록 성공");
+            getBoardContent(boardId);
+        })
+        .fail(function (response, status, xhr) {
+            alert("카테고리 등록 실패: " + response.responseJSON.msg);
+        })
+}
+
+function updateCategory(categoryId, boardId, newText, token) {
+    let data = {
+        'title' : newText
+    }
+
+    $.ajax({
+        type: 'PUT',
+        url: `/okw/categories/${categoryId}`,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            //getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("카테고리 수정 실패: " + response.responseJSON.msg);
+        })
+}
+
+function deleteCategory(categoryId, boardId, token) {
+    $.ajax({
+        type:'DELETE',
+        url:`/okw/categories/${categoryId}`,
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            alert("카테고리 삭제 성공")
+            getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("카테고리 삭제 실패: " + response.responseJSON.msg);
+        })
+
+}
+
+function moveCategory(categoryId, boardId, move, token) {
+    $.ajax({
+        type:'POST',
+        url:`/okw/categories/${categoryId}/move` + `?boardId=${boardId}&move=${move}`,
+        contentType: 'application/json',
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("카테고리 순서 이동 실패: " + response.responseJSON.msg);
+        })
+}
+
+function showAlert(boardId) {
+    const token = Cookies.get('Authorization');
+
+    $.ajax({
+        type:'GET',
+        url:'/okw/alerts',
+        headers: {"Authorization": token}
+    })
+        .done(function (response, status, xhr) {
+            let alerts = response;
+            let html = ``;
+
+            $('.alert-list').empty();
+
+            alerts.forEach((alert => {
+                html += `
+                    <li class="alert-list-item" id="${alert['alertId']}">                        
+                        <div class="alert-list-item-content">
+                            <h4>Board: ${alert['board_title']}</h4>
+                            <h5>Category: ${alert['category_title']}</h5>
+                            <p>제목: ${alert['card_title']}</p>
+                            <p>내용: ${alert['card_description']}</p>
+                            <p>${alert['alert_at']}</p>
+                        </div>
+                        <div>
+                            <button type="button" class="btn-close float-right" onclick="deleteAlert(${alert['alertId']},${boardId},\'${token}\')"aria-label="Close"></button>
+                        </div>
+                    </li>
+                `;
+            }));
+
+            $('.alert-list').append(html);
+        })
+        .fail(function (response) {
+            alert("알람 조회 실패: " + response.responseJSON.msg);
+        })
+}
+
+function deleteAlert(alertId, boardId, token) {
+    $.ajax({
+        type:'DELETE',
+        url:`/okw/alerts/${alertId}`,
+        headers: {"Authorization" : token}
+    })
+        .done(function (response, status, xhr) {
+            alert("알림 삭제 성공")
+            getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("알림 삭제 실패: " + response.responseJSON.msg)
         })
 }
 
@@ -296,187 +477,6 @@ function registerCardItemClickEvent() {
         }
     )
 }
-
-function inviteMember(username, boardId, token) {
-    const host = "http://" + window.location.host;
-    let User = username;
-    let BoardId = boardId;
-
-    let data = {
-        BoardId: BoardId,
-        username: User,
-        role: "VIEWER"
-    }
-    $.ajax({
-        type: 'POST',
-        url: `/okw/boards/${boardId}/invite`,
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        headers: {"Authorization": token}
-    })
-        .done(function (response, status, xhr) {
-            alert("맴버 초대 성공");
-            window.location.href = host;
-        })
-        .fail(function (response) {
-            alert("맴버 초대 실패: " + response.responseJSON.msg);
-        });
-}
-
-function updateMember(userId, username, boardId, token) {
-    var onSelect = document.getElementById('form-select-' + userId);
-    var selectValue = onSelect.options[onSelect.selectedIndex].text.substring(1,);
-
-    let data = {
-        "BoardId" : boardId,
-        "username" : username,
-        "role" : selectValue
-    }
-
-    $.ajax({
-        type:'PUT',
-        url:`/okw/boards/${boardId}/invite/update`,
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        headers: {'Authorization': token}
-    })
-        .done(function (response, status, xhr) {
-            alert("역할 업데이트 성공");
-        })
-        .fail(function (response) {
-            alert("역할 업데이트 실패: " + response.responseJSON.msg);
-        })
-}
-
-function addCategory(boardId, token) {
-    const host = "http://" + window.location.host;
-    const BoardId = boardId;
-    const title = document.getElementById('add-category-input').value.trim();
-
-    let data = {
-        "title" : title
-    }
-
-    $.ajax({
-        type:'POST',
-        url:`/okw/categories/${BoardId}`,
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        headers: {'Authorization': token}
-    })
-        .done(function (response, status, xhr) {
-            alert("카테고리 등록 성공");
-            window.location.href = host;
-        })
-        .fail(function (response, status, xhr) {
-            alert("카테고리 등록 실패: " + response.responseJSON.msg);
-        })
-}
-
-function updateCategory(categoryId, newText, token) {
-    let data = {
-        'title' : newText
-    }
-
-    $.ajax({
-        type: 'PUT',
-        url: `/okw/categories/${categoryId}`,
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        headers: {"Authorization": token}
-    })
-        .done(function (response, status, xhr) {
-
-        })
-        .fail(function (response) {
-            alert("카테고리 수정 실패: " + response.responseJSON.msg);
-        })
-}
-
-function deleteCategory(categoryId, token) {
-    $.ajax({
-        type:'DELETE',
-        url:`/okw/categories/${categoryId}`,
-        headers: {"Authorization": token}
-    })
-        .done(function (response, status, xhr) {
-            alert("카테고리 삭제 성공")
-            window.location.reload();
-        })
-        .fail(function (response) {
-            alert("카테고리 삭제 실패: " + response.responseJSON.msg);
-        })
-
-}
-
-function moveCategory(categoryId, boardId, move, token) {
-    $.ajax({
-        type:'POST',
-        url:`/okw/categories/${categoryId}/move` + `?boardId=${boardId}&move=${move}`,
-        contentType: 'application/json',
-        headers: {"Authorization": token}
-    })
-        .done(function (response, status, xhr) {
-            window.location.reload();
-        })
-        .fail(function (response) {
-            alert("카테고리 순서 이동 실패: " + response.responseJSON.msg);
-        })
-}
-
-function showAlert() {
-    const token = Cookies.get('Authorization');
-
-    $.ajax({
-        type:'GET',
-        url:'/okw/alerts',
-        headers: {"Authorization": token}
-    })
-        .done(function (response, status, xhr) {
-            let alerts = response;
-            let html = ``;
-
-            $('.alert-list').empty();
-
-            alerts.forEach((alert => {
-                html += `
-                    <li class="alert-list-item" id="${alert['alertId']}">                        
-                        <div class="alert-list-item-content">
-                            <h4>Board: ${alert['board_title']}</h4>
-                            <h5>Category: ${alert['category_title']}</h5>
-                            <p>제목: ${alert['card_title']}</p>
-                            <p>내용: ${alert['card_description']}</p>
-                            <p>${alert['alert_at']}</p>
-                        </div>
-                        <div>
-                            <button type="button" class="btn-close float-right" onclick="deleteAlert(${alert['alertId']},\'${token}\')"aria-label="Close"></button>
-                        </div>
-                    </li>
-                `;
-            }));
-
-            $('.alert-list').append(html);
-        })
-        .fail(function (response) {
-
-        })
-}
-
-function deleteAlert(alertId, token) {
-    $.ajax({
-        type:'DELETE',
-        url:`/okw/alerts/${alertId}`,
-        headers: {"Authorization" : token}
-    })
-        .done(function (response, status, xhr) {
-            alert("알림 삭제 성공")
-            window.location.reload()
-        })
-        .fail(function (response) {
-            alert("알림 삭제 실패: " + response.responseJSON.msg)
-        })
-}
-
 
 // 보드의 내용(카테고리, 카드) 불러오는 함수
 function getBoardContent(boardId) {
@@ -543,7 +543,7 @@ function postBoard() {
 // 보드의 카테고리, 카드를 불러오는 함수
 function loadBoardContent(boardJson) {
     const token = Cookies.get('Authorization');
-    let boardId = boardJson.boardId;
+    let boardId = BoardId = boardJson.boardId;
     let boardTitle = boardJson.title;
     let boardTitleButton = document.getElementById("board-title-button");
     boardTitleButton.setAttribute("board-id", boardId);
@@ -571,7 +571,7 @@ function loadBoardContent(boardJson) {
                                 <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'up',\'${token}\')">Move to Up</a></li>
                                 <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'down',\'${token}\')">Move to Down</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" onclick="deleteCategory(${categoryId},\'${token}\')">Delete</a></li>
+                                <li><a class="dropdown-item" onclick="deleteCategory(${categoryId},${boardId},\'${token}\')">Delete</a></li>
                             </ul>
                         </div>
                     </div>
