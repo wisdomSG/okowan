@@ -144,6 +144,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
         })
         */
+
+    // User Menu 버튼 매핑
+    const profileButton = document.getElementById("user-menu-profile");
+    profileButton.addEventListener("click", function () {
+        window.location.href = "/okw/view/users/profile";
+    });
+    const passwordButton = document.getElementById("user-menu-password");
+    passwordButton.addEventListener("click", function () {
+        window.location.href = "/okw/view/users/password";
+    });
+    const logoutButton = document.getElementById("user-menu-logout");
+    logoutButton.addEventListener("click", logout);
 })
 
 // cardDetails 가기
@@ -281,6 +293,7 @@ function postBoard() {
     })
 }
 
+// 보드의 카테고리, 카드를 불러오는 함수
 function loadBoardContent(boardJson) {
     let boardId = boardJson.boardId;
     let boardTitle = boardJson.title;

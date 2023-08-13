@@ -3,21 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const token = Cookies.get('Authorization');
 
-    function logout() {
-        $.ajax({
-            type: "POST",
-            url: "/okw/users/logout",
-            headers: {"Authorization": token}
-        })
-            .done(function () {
-                window.location.href = host + "/okw/view/users/login-signup";
-            })
-            .fail(function (response) {
-                alert("로그아웃 오류: " + response.responseJSON.msg);
-                window.location.href = host + "/okw/view/users/login-signup";
-            })
-    }
-
     function updatePassword() {
         let currentPassword = document.getElementById("current-password").value;
         let newPassword = document.getElementById("new-password").value;
