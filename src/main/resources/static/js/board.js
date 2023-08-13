@@ -279,7 +279,7 @@ function inviteMember(username, boardId, token) {
         });
 }
 
-function updateMember(userId, boardId, username, token) {
+function updateMember(userId, username, boardId, token) {
     var onSelect = document.getElementById('form-select-' + userId);
     var selectValue = onSelect.options[onSelect.selectedIndex].text.substring(1,);
 
@@ -300,8 +300,7 @@ function updateMember(userId, boardId, username, token) {
             alert("역할 업데이트 성공");
         })
         .fail(function (response) {
-            //alert("역할 업데이트 실패: " + response.responseJSON.msg);
-            alert("역할 업데이트 실패: ");
+            alert("역할 업데이트 실패: " + response.responseJSON.msg);
         })
 }
 
@@ -522,7 +521,7 @@ function postBoard() {
 
         success: function (response) {
             alert("보드 추가 성공");
-            // window.location.href = "/okw/view/boards/board";
+            window.location.href = "/okw/view/boards/board";
         }, error: function (req, status, error) {
             alert("보드 추가 실패");
             console.log(req, status, error);
