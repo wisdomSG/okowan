@@ -634,6 +634,8 @@ Remove or comment-out the code block below to see how the browser will fall-back
 .alert-list-item {
     display: flex;
     justify-content: space-between;
+    margin:5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .member-list-item {
     display: flex;
