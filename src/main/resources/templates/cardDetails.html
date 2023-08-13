@@ -102,43 +102,28 @@
                 <button class="btn done-file-btn">done</button>
             </p>
             <div id="fileBox">
-                <p>
+                <p class="line" >
                     <a>다운로드된 파일</a>
-                </p>
-                <p>
-                    <a>다운로드된 파일</a>
+                    <button class="btn file-delete-btn">X</button>
                 </p>
             </div>
-
-            <p class="line"></p>
-
             <br>
             <br>
             <br>
             <h2>Comments</h2>
             <p class="line">
                 <input class="comment" type="text" id="comment">
-                <button class="btn">Add</button>
+                <button class="btn comment-create-btn">Add</button>
             </p>
-
-            <p class="line">
-                <input type="text" value="내용 작성" disabled>
-                <span class="author">작성자</span>
-                <button class="btn">X</button>
-                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
-            </p>
-            <p class=line>
-                <input class="comments" type="text" value="댓글" disabled>
-                <span class="author">작성자</span>
-                <button class="btn ">X</button>
-                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
-            </p>
-            <p class=line>
-                <input class="comments" type="text"  value="댓글" disabled>
-                <span class="author">작성자</span>
-                <button class="btn ">X</button>
-                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
-            </p>
+            <div id="commentList">
+                <p class="line">
+                    <input type="text" value="내용 작성" class="comment-body" disabled>
+                    <span class="author">작성자</span>
+                    <button class="btn comment-update-btn"><img class="plus" src="/images/edit_icon.png" alt="plus"></button>
+                    <button class="btn done-comment-btn" style="display: none">done</button>
+                    <button class="btn comment-delete-btn">X</button>
+                </p>
+            </div>
         </div>
     </div>
 </div>

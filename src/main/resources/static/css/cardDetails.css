@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,900|Montserrat|Roboto');
 
 body {
-    background: linear-gradient(to right, #fff, #407fff);
+    background: linear-gradient(to right, #fff, #4d4c99);
 
 }
 
@@ -22,7 +22,7 @@ body {
     margin-right: 12px;
     margin-top: 12px;
     font-family: 'Nunito Sans', sans-serif;
-    color: #1e90ff;
+    color: #4d4c99;
     font-weight: 900;
     font-size: 1.5em;
     letter-spacing: 1px;
@@ -47,7 +47,7 @@ body {
 
 h1 {
     font-family: 'Montserrat', sans-serif;
-    color: #1e90ff;
+    color: #4d4c99;
     font-size: 1.5em;
     margin-top: 40px;
     margin-bottom: 50px;
@@ -66,7 +66,7 @@ h2 {
 p.line {
     border-width: 1px;
     border-style: solid;
-    border-image: linear-gradient(to right, #0ff, rgba(64, 127, 255, .5)) 1 0%;
+    border-image: linear-gradient(to right, #4d4c99, rgba(64, 127, 255, .5)) 1 0%;
     border-top: 0;
     width: 100%;
     font-family: 'Montserrat', sans-serif;
@@ -105,6 +105,10 @@ span {
 .btn:hover {
     text-decoration: underline;
     font-weight: 900;
+}
+
+.plus {
+    height: 15px;
 }
 
 input.title {
