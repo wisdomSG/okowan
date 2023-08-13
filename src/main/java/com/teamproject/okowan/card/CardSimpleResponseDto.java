@@ -20,7 +20,7 @@ public class CardSimpleResponseDto {
         this.workerName = nickname;
 
         // LocalDateTime을 "yyyy-MM-dd HH:mm" 형식의 문자열로 변환하여 저장
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:00");
         if(card.getDeadline() != null) {
             this.deadline = card.getDeadline().format(formatter);
         } else {
