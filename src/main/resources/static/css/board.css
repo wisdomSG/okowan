@@ -443,6 +443,16 @@ body {
     margin: 5px auto 5px 20px;
 }
 
+.cardForm {
+    margin: 5px;
+    padding: 5px;
+    font-size: 10px;
+}
+
+#cardTitleInput {
+    margin: 3px auto 5px auto;
+}
+
 /*
 
 The following rule will only run if your browser supports CSS grid.
@@ -635,6 +645,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
     display: flex;
     justify-content: space-between;
 }
+
 .member-list-item {
     display: flex;
     margin: 10px;
@@ -706,7 +717,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
     color: #9DBFAF;
 }
 
-.searchTerm:focus{
+.searchTerm:focus {
     color: #00B4CC;
 }
 
