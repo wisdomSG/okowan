@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {'Authorization': token},
         contentType: 'application/json',
         success: function (response) {
-            //$('#post-cards').empty();
+            $('#boardList').empty();
             for (let i = 0; i < response.length; i++) {
                 let boardTitle = response[i]['title'];
                 let boardId = response[i]['boardId'];
@@ -378,7 +378,7 @@ function moveCategory(categoryId, boardId, move, token) {
         headers: {"Authorization": token}
     })
         .done(function (response, status, xhr) {
-            getBoardContent(boardId);
+                getBoardContent(boardId);
         })
         .fail(function (response) {
             alert("카테고리 순서 이동 실패: " + response.responseJSON.msg);
@@ -500,7 +500,7 @@ function getBoardContent(boardId) {
 function setHtml(boardTitle, boardId) {
     let html = `
               <div>
-                    <button type="button" class="btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
+                    <button type="button" class="boardListTitle btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
               </div>
         `;
     $('#boardList').append(html);
@@ -601,8 +601,8 @@ function loadBoardContent(boardJson) {
                         <div class="cardForm" style="display: none">
                             <label for="exampleFormControlInput1" class="form-label" style="color: white; font-size: 15px">Card Title</label>
                             <input type="email" class="form-control cardTitleInput" placeholder="카드 제목을 입력하세요." required>
-                            <button type="submit" class="createCardButton" id="create${categoryId}">Create Card</button>
-                            <button type="button" class="deleteCardButton">X</button>
+                            <button type="submit" class="board-btn createCardButton" id="create${categoryId}">Create</button>
+                            <button type="button" class="board-btn deleteCardButton">X</button>
                         </div>
                     </div>
             </div>

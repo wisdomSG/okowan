@@ -20,6 +20,8 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
     box-sizing: border-box;
 }
 
+
+
 /* Modal Styles */
 
 .modal {
@@ -95,7 +97,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 
 /*.modal-content #cancelBtn,*/
 .modal-content #confirmBtn {
-    width: 48%; /* Adjust the width of buttons */
+    width: 100%; /* Adjust the width of buttons */
     padding: 10px 20px;
     cursor: pointer;
 }
@@ -132,6 +134,16 @@ body {
     color: inherit;
     padding: 0;
     cursor: pointer;
+}
+
+.board-btn {
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    border: none;
+    color: #777;
+    margin: 4px;
 }
 
 :focus {
@@ -779,3 +791,20 @@ Remove or comment-out the code block below to see how the browser will fall-back
     font-weight: bold;
 }
 
+.boardListTitle {
+    display: flex;
+    height: 85px;
+    width: 300px;
+    margin: auto;
+    align-items: center;
+}
+
+.boardListTitle .btn {
+    margin: 15px;
+    font-size: large;
+    height: 50px;
+    width: 250px;
+    background-color: #8080ff;
+    border-radius: 0.3rem;
+    transition: background-color 150ms;
+}
