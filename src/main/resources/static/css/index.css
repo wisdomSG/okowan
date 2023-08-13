@@ -20,6 +20,22 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
     box-sizing: border-box;
 }
 
+/*developer image*/
+/*.developer-container {*/
+/*    margin: 20px 0;*/
+/*}*/
+
+/*.developer-container a {*/
+/*    border: 1px solid #DDDDDD;*/
+/*    border-radius: 50%;*/
+/*    display: inline-flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    margin: 0 5px;*/
+/*    height: 40px;*/
+/*    width: 40px;*/
+/*}*/
+
 /*보드리스트*/
 
 .boardListTitle {
@@ -317,23 +333,43 @@ body {
 
 /* Lists */
 
-.lists-container::-webkit-scrollbar {
-    height: 2.4rem;
-}
-
-.lists-container::-webkit-scrollbar-thumb {
-    background-color: #66a3c7;
-    border: 0.8rem solid #0079bf;
-    border-top-width: 0;
-}
-
 .lists-container {
     display: flex;
-    align-items: start;
-    padding: 0 0.8rem 0.8rem;
-    overflow-x: auto;
-    height: calc(100vh - 8.6rem);
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
+
+.list {
+    text-align: center;
+}
+
+.developer-container {
+    width: 300px; /* 원하는 이미지 너비 */
+    height: 200px; /* 원하는 이미지 높이 */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.lists-container::-webkit-scrollbar {*/
+/*    height: 2.4rem;*/
+/*}*/
+
+/*.lists-container::-webkit-scrollbar-thumb {*/
+/*    background-color: #66a3c7;*/
+/*    border: 0.8rem solid #0079bf;*/
+/*    border-top-width: 0;*/
+/*}*/
+
+/*.lists-container {*/
+/*    display: flex;*/
+/*    align-items: start;*/
+/*    padding: 0 0.8rem 0.8rem;*/
+/*    overflow-x: auto;*/
+/*    height: calc(100vh - 8.6rem);*/
+/*}*/
 
 .list {
     flex: 0 0 27rem;
@@ -396,45 +432,45 @@ body {
     background-color: #eee;
 }
 
-.add-card-btn {
-    display: block;
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: #838c91;
-    padding: 1rem;
-    text-align: left;
-    cursor: pointer;
-}
+/*.add-card-btn {*/
+/*    display: block;*/
+/*    font-size: 1.4rem;*/
+/*    font-weight: 400;*/
+/*    color: #838c91;*/
+/*    padding: 1rem;*/
+/*    text-align: left;*/
+/*    cursor: pointer;*/
+/*}*/
 
-.add-card-btn:hover {
-    background-color: #cdd2d4;
-    color: #4d4d4d;
-    text-decoration: underline;
-}
+/*.add-card-btn:hover {*/
+/*    background-color: #cdd2d4;*/
+/*    color: #4d4d4d;*/
+/*    text-decoration: underline;*/
+/*}*/
 
-.add-list-btn {
-    flex: 0 0 27rem;
-    display: block;
-    font-size: 1.4rem;
-    font-weight: 400;
-    background-color: #4d4c99;
-    /* background: linear-gradient(to right, #4040ff, #3333cc);  */
-    color: #fff;
-    padding: 1rem;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    transition: background-color 150ms;
-    text-align: left;
-}
+/*.add-list-btn {*/
+/*    flex: 0 0 27rem;*/
+/*    display: block;*/
+/*    font-size: 1.4rem;*/
+/*    font-weight: 400;*/
+/*    background-color: #4d4c99;*/
+/*    !* background: linear-gradient(to right, #4040ff, #3333cc);  *!*/
+/*    color: #fff;*/
+/*    padding: 1rem;*/
+/*    border-radius: 0.3rem;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 150ms;*/
+/*    text-align: left;*/
+/*}*/
 
-.add-list-btn:hover {
-    background-color: #3964E5;
-}
+/*.add-list-btn:hover {*/
+/*    background-color: #3964E5;*/
+/*}*/
 
-.add-card-btn::after,
-.add-list-btn::after {
-    content: '...';
-}
+/*.add-card-btn::after,*/
+/*.add-list-btn::after {*/
+/*    content: '...';*/
+/*}*/
 
 /*
 

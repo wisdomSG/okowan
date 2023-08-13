@@ -22,4 +22,9 @@ public class UserViewController {
     public String password() {
         return "password";
     }
+
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
 }
