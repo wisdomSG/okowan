@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-
     // const deadlineButtons = document.querySelectorAll('.update-deadline-btn');
     // deadlineButtons.forEach(function (button) {
     //     button.addEventListener('click', function () {
@@ -130,14 +129,13 @@ document.addEventListener("DOMContentLoaded", function () {
         daySelect.appendChild(option);
     }
 
-        // 년 옵션 생성
+    // 년 옵션 생성
     for (let year = currentYear; year <= endYear; year++) {
         const option = document.createElement('option');
         option.value = year;
         option.textContent = year;
         yearSelect.appendChild(option);
     }
-
 
 
     // 시간 옵션 생성
@@ -182,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 작업자 조회
     // 작업자 선택 `<select>` 요소
     const workerChoiceSelect = document.getElementById('workerChoice');
+
     // 작업자 목록을 가져오는 함수
     function fetchWorkerList(response) {
         let boardId = response.boardId;
@@ -193,8 +192,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Authorization': token
             }
         })
-            .done(function(data) {
-                workerChoiceSelect.innerHTML ='';
+            .done(function (data) {
+                workerChoiceSelect.innerHTML = '';
 
                 // 서버에서 가져온 작업자 목록을 `<option>` 요소로 변환하여 추가
                 data.forEach(worker => {
@@ -209,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             })
 
-            .fail(function(error) {
+            .fail(function (error) {
                 console.error('Error fetching worker list:', error);
             });
     }
@@ -232,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (response) {
-                console.log('댓글이 성공적으로 수정되었습니다.');
+                alert('댓글이 성공적으로 수정되었습니다.');
                 window.location.reload();
             },
             error: function (error) {
@@ -241,7 +240,28 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-})
+    // const commentDeleteButtons = document.querySelectorAll('.comment-delete-btn');
+    // commentDeleteButtons.forEach(function (button) {
+    //     button.addEventListener('click', function () {
+    $(document).on('click', '.comment-delete-btn', function () {
+        const commentContainer = this.closest('p');
+        const commentId = commentContainer.querySelector('.comment-body').dataset.commentId;
+
+        $.ajax({
+            type: 'DELETE',
+            url: `/okw/comments/${commentId}`,
+            headers: {'Authorization': token},
+            success: function (response) {
+                alert('댓글이 성공적으로 삭제되었습니다.');
+                window.location.reload();
+            },
+            error: function (error) {
+                console.error('댓글 삭제 오류: ', error);
+            }
+        });
+    });
+});
+
 
 const token = Cookies.get('Authorization');
 
@@ -327,7 +347,7 @@ function setCardData(response) {
         const fileUrl = file.fileName; // 파일 URL을 저장하고 있는 속성을 사용해야 함
 
         let fileContent = `
-                <p>
+                <p class="line">
                     <a href="${fileUrl}">${fileNameWithUUID}</a>
                 </p>`;
         fileList += fileContent;
@@ -543,51 +563,6 @@ function createComment() {
 
 const commentCreateBtn = document.querySelector('.comment-create-btn');
 commentCreateBtn.addEventListener('click', createComment);
-
-
-// 댓글 수정
-// function  updateComment() {
-//     // 댓글 필드에서 입력값을 가져옵니다.
-//     let commentContainer = this.closest('p');
-//     let commentBody = commentContainer.find(".comment-body");
-//     let commentId_test = commentContainer.data("comment-id");
-//     console.log(commentId_test);
-//
-//
-//     const commentId = commentContainer.getAttribute('data-comment-id'); // 여기서 data-comment-id를 가져옴
-//     console.log(commentId);
-//
-//     let updatedCommentContent = commentBody.val();
-//
-//     let data = {
-//         content: updatedCommentContent
-//     };
-//
-//     $.ajax({
-//         type: "PUT",
-//         url: `/okw/comments/`+ commentId, // 적절한 엔드포인트 URL로 대체
-//         headers: {'Authorization': token},
-//         contentType: "application/json",
-//         data: JSON.stringify(data),
-//         success: function (response) {
-//             console.log("댓글이 성공적으로 수정되었습니다.");
-//             window.location.reload();
-//         },
-//         error: function (error) {
-//             console.error("댓글 수정 오류: ", error);
-//         }
-//     });
-// }
-//
-// function donBtn() {
-//     const commentUpdateBtn = document.querySelector('.comment-done-btn');
-//     commentUpdateBtn.forEach(
-//         function (button) {
-//             button.addEventListener('click', updateComment);
-//         }
-//     )
-// }
-
 
 
 
