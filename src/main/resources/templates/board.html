@@ -6,8 +6,9 @@
     <title>Main Board</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courgette:400,700">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/board.css"/>
 
@@ -19,7 +20,9 @@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
     <!-- bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
 
     <!-- favicon -->
     <link rel="icon" href="/images/o-solid.png">
@@ -29,191 +32,95 @@
 <body>
 <script src="/js/board.js"></script>
 <script src="/js/utils.js"></script>
-    <!-- Masthead -->
-    <header class="masthead">
+<!-- Masthead -->
+<header class="masthead">
 
-        <div class="boards-menu">
+    <div class="boards-menu">
 
-<!--            <button class="boards-btn btn"><i class="fab fa-trello boards-btn-icon"></i>Boards</button>-->
+        <!--            <button class="boards-btn btn"><i class="fab fa-trello boards-btn-icon"></i>Boards</button>-->
 
-            <button class="boards-btn btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fab fa-trello boards-btn-icon"></i>Boards</button>
-            <div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-                <div class="offcanvas-header" style="padding:25px">
-                    <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">My Boards</h1>
-                    <div class="user-settings-btn">
-<!--                        <button class="user-settings-btn btn" aria-label="Create">-->
-                        <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn">
-                            <i class="fas fa-plus" aria-hidden="true"></i>
-                        </button>
-                        <div id="myModal" class="modal" style="justify-content: center;
+        <button class="boards-btn btn" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i
+                class="fab fa-trello boards-btn-icon"></i>Boards
+        </button>
+        <div class="offcanvas offcanvas-start text-bg-dark" data-bs-scroll="true" tabindex="-1"
+             id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+            <div class="offcanvas-header" style="padding:25px">
+                <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">My Boards</h1>
+                <div class="user-settings-btn">
+                    <!--                        <button class="user-settings-btn btn" aria-label="Create">-->
+                    <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                    </button>
+                    <div id="myModal" class="modal" style="justify-content: center;
                         align-items: center;margin: 0;">
-                            <form id="boardForm">
+                        <form id="boardForm">
                             <div class="modal-content">
                                 <span class="close" style="margin-left: auto">&times;</span>
                                 <h1>Create Board</h1>
-                                <h3>Board  Title</h3>
+                                <h3>Board Title</h3>
                                 <input type="text" id="title" name="title" placeholder="Enter title">
                                 <h3>Content</h3>
                                 <input type="text" id="description" name="description" placeholder="Enter description">
                                 <div class="buttons-container">
-<!--                                <button class="cancelBtn" id="cancelBtn">Cancel</button>-->
-<!--                                <button class="close">Cancel</button>-->
-<!--                                <button type="confirmBtn" id="confirmBtn" onclick="postBoard()">Confirm</button>-->
-                                <button id="confirmBtn">Confirm</button>
+                                    <!--                                <button class="cancelBtn" id="cancelBtn">Cancel</button>-->
+                                    <!--                                <button class="close">Cancel</button>-->
+                                    <!--                                <button type="confirmBtn" id="confirmBtn" onclick="postBoard()">Confirm</button>-->
+                                    <button id="confirmBtn">Confirm</button>
                                 </div>
                             </div>
-                            </form>
-<!--                            <div id="responseMessage"></div>-->
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div id="boardList" class="offcanvas-body boardList">
-                    <h3>Board List</h3>
-                    <div id="getboard">
-                        <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">boardTitle</button>
-                        <span hidden="hidden">boardId</span>
+                        </form>
+                        <!--                            <div id="responseMessage"></div>-->
                     </div>
                 </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
             </div>
-            <div class="board-search">
-                <input type="search" class="board-search-input" aria-label="Board Search">
-                <i class="fas fa-search search-icon" aria-hidden="true"></i>
-            </div>
-        </div>
-
-        <div class="logo">
-
-            <h1><i class="fab fa-trello logo-icon" aria-hidden="true"></i>Okowan</h1>
-
-        </div>
-
-        <div class="user-settings">
-            <button class="user-settings-btn btn" aria-label="plus" type="button" data-bs-toggle="offcanvas" data-bs-target="#inviteMemberoffcanvasScrolling" aria-controls="offcanvasScrolling">
-                <i class="fas fa-plus" aria-hidden="true"></i>
-            </button>
-
-            <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="inviteMemberoffcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="inviteMemberoffcanvasScrollingLabel">맴버 초대</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <!-- search -->
-                    <div class="inviteMemberwrap">
-                        <div class="searchMember">
-                            <input type="text" class="searchTerm" placeholder="초대할 맴버의 이메일을 입력하세요">
-                            <button type="submit" class="searchMemberButton">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="member-list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
-                        <ul class="member-list" id="invite-member-list">
-                            <!--<li class="member-list-item">
-                                <div>
-                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
-                                </div>
-                                <div class="member-list-item-content">
-                                    <h4>Hitesh Kumar</h4>
-                                    <p>@hk-skit</p>
-                                </div>
-                            </li>-->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <button class="user-settings-btn btn" aria-label="Information">
-                <i class="fas fa-info-circle" aria-hidden="true"></i>
-            </button>
-
-            <button class="user-settings-btn btn" id="showAlert" aria-label="Notifications" type="button" data-bs-toggle="offcanvas" data-bs-target="#showAlertoffcanvasScrolling" aria-controls="offcanvasScrolling">
-                <i class="fas fa-bell" aria-hidden="true"></i>
-            </button>
-            <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="showAlertoffcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="showAlertoffcanvasScrollingLabel">알림</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="alert-list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
-                        <ul class="alert-list" id="alert-list">
-                            <!--<li class="alert-list-item">
-                                <div>
-                                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
-                                </div>
-                                <div class="alert-list-item-content">
-                                    <h4>Hitesh Kumar</h4>
-                                    <p>@hk-skit</p>
-                                </div>
-                            </li>-->
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <button class="user-settings-btn btn" aria-label="User Settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                <i class="fas fa-user-circle" aria-hidden="true"></i>
-            </button>
-
-            <div class="offcanvas offcanvas-end text-bg-dark user-menu-offcanvas" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                <div class="offcanvas-header">
-                    <h1 id="offcanvasRightLabel">User Menu</h1>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="circle-container">
-                        <div class="circle">
-                            <img class="profile-img" src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg">
-                        </div>
-                    </div>
-                    <div>
-                        <button class="user-menu-btn" id="user-menu-profile">My Profile</button>
-                    </div>
-                    <div>
-                        <button class="user-menu-btn" id="user-menu-password">Change Password</button>
-                    </div>
-                    <div>
-                        <button class="user-menu-btn" id="user-menu-logout">Logout</button>
-                    </div>
+            <div id="boardList" class="offcanvas-body boardList">
+                <h3>Board List</h3>
+                <div id="getboard">
+                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">boardTitle</button>
+                    <span hidden="hidden">boardId</span>
                 </div>
             </div>
         </div>
-
-    </header>
-    <!-- End of masthead -->
-
-    <!-- Board info bar -->
-    <section class="board-info-bar">
-
-        <div class="board-controls">
-
-            <button class="board-title btn" id="board-title-button" board-id="">
-                <h2 id="board-title">Web Development</h2>
-            </button>
-
-<!--            <button class="star-btn btn" aria-label="Star Board">-->
-<!--                <i class="far fa-star" aria-hidden="true"></i>-->
-<!--            </button>-->
-
-<!--            <button class="personal-btn btn">Personal</button>-->
-
-<!--            <button class="private-btn btn"><i class="fas fa-briefcase private-btn-icon"-->
-<!--                    aria-hidden="true"></i>Private</button>-->
+        <div class="board-search">
+            <input type="search" class="board-search-input" aria-label="Board Search">
+            <i class="fas fa-search search-icon" aria-hidden="true"></i>
         </div>
+    </div>
 
-        <button class="showMember-menu-btn btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#showMemberoffcanvasScrolling" aria-controls="offcanvasScrolling">
-            <i class="fas fa-ellipsis-h menu-btn-icon" aria-hidden="true"></i>Show Member</button>
+    <div class="logo">
 
-        <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="showMemberoffcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <h1><i class="fab fa-trello logo-icon" aria-hidden="true"></i>Okowan</h1>
+
+    </div>
+
+    <div class="user-settings">
+        <button class="user-settings-btn btn" aria-label="plus" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#inviteMemberoffcanvasScrolling" aria-controls="offcanvasScrolling">
+            <i class="fas fa-plus" aria-hidden="true"></i>
+        </button>
+
+        <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+             id="inviteMemberoffcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="showMemberoffcanvasScrollingLabel"></h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <h5 class="offcanvas-title" id="inviteMemberoffcanvasScrollingLabel">맴버 초대</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
+                <!-- search -->
+                <div class="inviteMemberwrap">
+                    <div class="searchMember">
+                        <input type="text" class="searchTerm" placeholder="초대할 맴버의 이메일을 입력하세요">
+                        <button type="submit" class="searchMemberButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="member-list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
-                    <ul class="member-list" id="member-list">
+                    <ul class="member-list" id="invite-member-list">
                         <!--<li class="member-list-item">
                             <div>
                                 <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
@@ -227,229 +134,340 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End of board info bar -->
 
-    <!-- Lists container -->
-    <section class="lists-container" id="board-content">
+        <button class="user-settings-btn btn" aria-label="Information">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+        </button>
 
-        <div class="list">
-
-            <h3 class="list-title">Tasks to Do</h3>
-
-            <ul class="list-items">
-                <li class="card__item">
-                    <span class="card__tag card__tag--browser">Browser</span>
-                    <h6 class="card__title">Lightbox loading issue on Safari</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-align-left"></i>
-                        </li>
-                    </ol>
-                    <span class="card__tag card__tag--date">2023-08-10 18:00</span>
-                </li>
-                <li class="card__item">
-                    <span class="card__tag card__tag--high">High Priority</span>
-                    <h6 class="card__title">Notifications Not Sending #4</h6>
-                    <span class="card__tag card__tag--date">2023-08-07 18:00</span>
-                </li>
-                <li class="card__item">
-                    <span class="card__tag card__tag--browser">Browser</span>
-                    <h6 class="card__title">Multiple Select Broken</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-align-left"></i>
-                        </li>
-                    </ol>
-                    <span class="card__tag card__tag--date">2023-08-07 22:00</span>
-                </li>
-                <li class="card__item">
-                    <span class="card__tag card__tag--browser">Browser</span>
-                    <h6 class="card__title">Drag and drop issues in Chrome</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-align-left"></i>
-                        </li>
-                    </ol>
-                    <span class="card__tag card__tag--date">2023-08-07 18:00</span>
-                </li>
-                <li class="card__item">
-                    <span class="card__tag card__tag--design">Design</span>
-                    <span class="card__tag card__tag--high">High Priority</span>
-                    <h6 class="card__title">Download icon rendering issue</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-align-left"></i>
-                        </li>
-                    </ol>
-                    <span class="card__tag card__tag--date">2023-08-07 18:00</span>
-                </li>
-            </ul>
-
-            <div class="add-card-container">
-                <button class="add-card-btn btn">Add a card</button>
-                <!-- 폼 추가 -->
-                <form id="cardForm" style="display: none;">
-                    <div>
-                        <input class="cardTitleInput" type="text" id="cardTitleInput" name="cardTitleInput" placeholder="Enter card title" required>
-                    </div>
-                    <button type="submit" id="createCardButton">Create Card</button>
-                    <button type="button" id="deleteCardButton">X</button>
-                </form>
+        <button class="user-settings-btn btn" id="showAlert" aria-label="Notifications" type="button"
+                data-bs-toggle="offcanvas" data-bs-target="#showAlertoffcanvasScrolling"
+                aria-controls="offcanvasScrolling">
+            <i class="fas fa-bell" aria-hidden="true"></i>
+        </button>
+        <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+             id="showAlertoffcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="showAlertoffcanvasScrollingLabel">알림</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="alert-list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
+                    <ul class="alert-list" id="alert-list">
+                        <!--<li class="alert-list-item">
+                            <div>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                            </div>
+                            <div class="alert-list-item-content">
+                                <h4>Hitesh Kumar</h4>
+                                <p>@hk-skit</p>
+                            </div>
+                        </li>-->
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div class="list">
+        <button class="user-settings-btn btn" aria-label="User Settings" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <i class="fas fa-user-circle" aria-hidden="true"></i>
+        </button>
 
-            <h3 class="list-title">Topics/Concepts to Revise</h3>
-
-            <ul class="list-items">
-                <li class="card__item">
-                    <span class="card__tag card__tag--high">High Priotity</span>
-                    <h6 class="card__title">Localization</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="far fa-check-square"></i><span class="card__actions--text">1/4</span>
-                        </li>
-                        <ol class="card__avatars">
-                            <li class="card__avatars--item">
-                                <!-- Photo by Philip Martin on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80"
-                                    alt="Man standing near balcony" class="avatar__image">
-                            </li>
-                        </ol>
-                    </ol>
-                </li>
-                <li class="card__item">
-                    <span class="card__tag card__tag--design">Design</span>
-                    <img src="https://trello-attachments.s3.amazonaws.com/5501f5265b23195e950742e9/300x300/5a2bf59113b7211315c399c8b9814e9d/Thumbs_Up_Icons.jpg"
-                        class="card__image">
-                    <h6 class="card__title">"Like" button in comments</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-paperclip"></i><span class="card__actions--text">1</span>
-                        </li>
-                        <ol class="card__avatars">
-                            <li class="card__avatars--item">
-                                <!-- Photo by Michael Alfonso on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                                    alt="Woman, Lady, Female" class="avatar__image">
-                            </li>
-                            <li class="card__avatars--item">
-                                <!-- Photo by Toa Heftiba on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                                    alt="Woman standing near blue steel gate" class="avatar__image">
-                            </li>
-                        </ol>
-                    </ol>
-                </li>
-            </ul>
-
-            <button class="add-card-btn btn">Add a card</button>
-
+        <div class="offcanvas offcanvas-end text-bg-dark user-menu-offcanvas" tabindex="-1" id="offcanvasRight"
+             aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h1 id="offcanvasRightLabel">User Menu</h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="circle-container">
+                    <div class="circle">
+                        <img class="profile-img"
+                             src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg">
+                    </div>
+                </div>
+                <div>
+                    <button class="user-menu-btn" id="user-menu-profile">My Profile</button>
+                </div>
+                <div>
+                    <button class="user-menu-btn" id="user-menu-password">Change Password</button>
+                </div>
+                <div>
+                    <button class="user-menu-btn" id="user-menu-logout">Logout</button>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="list">
+</header>
+<!-- End of masthead -->
 
-            <h3 class="list-title">Topics/Concepts to Learn</h3>
+<!-- Board info bar -->
+<section class="board-info-bar">
 
-            <ul class="list-items">
-                <li class="card__item">
-                    <span class="card__tag card__tag--browser">Browser</span>
-                    <h6 class="card__title">Embed all the things</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-align-left"></i>
-                        </li>
-                        <ol class="card__avatars">
-                            <li class="card__avatars--item">
-                                <!-- Photo by Philip Martin on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80"
-                                    alt="Man standing near balcony" class="avatar__image">
-                            </li>
-                        </ol>
-                    </ol>
-                </li>
-                <li class="card__item">
-                    <span class="card__tag card__tag--mobile">Mobile</span>
-                    <span class="card__tag card__tag--high">High Priority</span>
-                    <h6 class="card__title">Pop-over max width issue on mobile</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-align-left"></i>
-                            <i class="far fa-comment"></i><span class="card__actions--text">1</span>
-                        </li>
-                        <ol class="card__avatars">
-                            <li class="card__avatars--item">
-                                <!-- Photo by Michael Alfonso on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                                    alt="Woman, Lady, Female" class="avatar__image">
-                            </li>
-                            <li class="card__avatars--item">
-                                <!-- Photo by Toa Heftiba on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                                    alt="Woman standing near blue steel gate" class="avatar__image">
-                            </li>
-                        </ol>
-                    </ol>
-                </li>
-                <li class="card__item">
-                    <span class="card__tag card__tag--mobile">Mobile</span>
-                    <span class="card__tag card__tag--browser">Browser</span>
-                    <h6 class="card__title">Animated gif support</h6>
-                    <ol class="card__actions">
-                        <li class="card__actions--wrapper">
-                            <i class="fas fa-paperclip"></i><span class="card__actions--text">1</span>
-                        </li>
-                        <ol class="card__avatars">
-                            <li class="card__avatars--item">
-                                <!-- Photo by Toa Heftiba on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                                    alt="Woman standing near blue steel gate" class="avatar__image">
-                            </li>
-                            <li class="card__avatars--item">
-                                <!-- Photo by Michael Alfonso on Unsplash -->
-                                <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                                    alt="Woman, Lady, Female" class="avatar__image">
-                            </li>
-                        </ol>
-                    </ol>
-                </li>
-            </ul>
+    <div class="board-controls">
 
-            <button class="add-card-btn btn">Add a card</button>
+        <button class="board-title btn" id="board-title-button" board-id="">
+            <h2 id="board-title">Web Development</h2>
+        </button>
 
+        <button class="personal-btn btn" onclick="changeBoardTitle()">Update</button>
+        <button class="private-btn btn" onclick="deleteBoard()">Delete</button>
+    </div>
+
+    <button class="showMember-menu-btn btn" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#showMemberoffcanvasScrolling" aria-controls="offcanvasScrolling">
+        <i class="fas fa-ellipsis-h menu-btn-icon" aria-hidden="true"></i>Show Member
+    </button>
+
+    <div class="offcanvas offcanvas-end text-bg-dark" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+         id="showMemberoffcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="showMemberoffcanvasScrollingLabel"></h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
         </div>
-
-        <div class="list">
-
-            <h3 class="list-title">Useful Websites for Learning</h3>
-
-            <ul class="list-items">
-                <li>Code Academy</li>
-                <li>CodePen</li>
-                <li>Codrops</li>
-                <li>CSS-Tricks</li>
-                <li>Free Code Camp</li>
-                <li>Khan Academy</li>
-                <li>Lynda</li>
-                <li>Medium</li>
-                <li>Mozilla Developer Network</li>
-                <li>Stack Overflow</li>
-                <li>Team Treehouse</li>
-                <li>Tuts Plus</li>
-                <li>Udemy</li>
-                <li>WPSessions</li>
-                <li>YouTube</li>
-            </ul>
-
-            <button class="add-card-btn btn">Add a card</button>
-
+        <div class="offcanvas-body">
+            <div class="member-list-wrapper" ng-app="app" ng-controller="MainCtrl as ctrl">
+                <ul class="member-list" id="member-list">
+                    <!--<li class="member-list-item">
+                        <div>
+                            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                        </div>
+                        <div class="member-list-item-content">
+                            <h4>Hitesh Kumar</h4>
+                            <p>@hk-skit</p>
+                        </div>
+                    </li>-->
+                </ul>
+            </div>
         </div>
+    </div>
+</section>
+<!-- End of board info bar -->
 
-        <button class="add-list-btn btn">Add a category</button>
+<!-- Lists container -->
+<section class="lists-container" id="board-content">
 
-    </section>
-    <!-- End of lists container -->
+    <div class="list">
+
+        <h3 class="list-title">Tasks to Do</h3>
+
+        <ul class="list-items">
+            <li class="card__item">
+                <span class="card__tag card__tag--browser">Browser</span>
+                <h6 class="card__title">Lightbox loading issue on Safari</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-align-left"></i>
+                    </li>
+                </ol>
+                <span class="card__tag card__tag--date">2023-08-10 18:00</span>
+            </li>
+            <li class="card__item">
+                <span class="card__tag card__tag--high">High Priority</span>
+                <h6 class="card__title">Notifications Not Sending #4</h6>
+                <span class="card__tag card__tag--date">2023-08-07 18:00</span>
+            </li>
+            <li class="card__item">
+                <span class="card__tag card__tag--browser">Browser</span>
+                <h6 class="card__title">Multiple Select Broken</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-align-left"></i>
+                    </li>
+                </ol>
+                <span class="card__tag card__tag--date">2023-08-07 22:00</span>
+            </li>
+            <li class="card__item">
+                <span class="card__tag card__tag--browser">Browser</span>
+                <h6 class="card__title">Drag and drop issues in Chrome</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-align-left"></i>
+                    </li>
+                </ol>
+                <span class="card__tag card__tag--date">2023-08-07 18:00</span>
+            </li>
+            <li class="card__item">
+                <span class="card__tag card__tag--design">Design</span>
+                <span class="card__tag card__tag--high">High Priority</span>
+                <h6 class="card__title">Download icon rendering issue</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-align-left"></i>
+                    </li>
+                </ol>
+                <span class="card__tag card__tag--date">2023-08-07 18:00</span>
+            </li>
+        </ul>
+
+        <div class="add-card-container">
+            <button class="add-card-btn btn">Add a card</button>
+            <!-- 폼 추가 -->
+            <form id="cardForm" style="display: none;">
+                <div>
+                    <input class="cardTitleInput" type="text" id="cardTitleInput" name="cardTitleInput"
+                           placeholder="Enter card title" required>
+                </div>
+                <button type="submit" id="createCardButton">Create Card</button>
+                <button type="button" id="deleteCardButton">X</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="list">
+
+        <h3 class="list-title">Topics/Concepts to Revise</h3>
+
+        <ul class="list-items">
+            <li class="card__item">
+                <span class="card__tag card__tag--high">High Priotity</span>
+                <h6 class="card__title">Localization</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="far fa-check-square"></i><span class="card__actions--text">1/4</span>
+                    </li>
+                    <ol class="card__avatars">
+                        <li class="card__avatars--item">
+                            <!-- Photo by Philip Martin on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80"
+                                 alt="Man standing near balcony" class="avatar__image">
+                        </li>
+                    </ol>
+                </ol>
+            </li>
+            <li class="card__item">
+                <span class="card__tag card__tag--design">Design</span>
+                <img src="https://trello-attachments.s3.amazonaws.com/5501f5265b23195e950742e9/300x300/5a2bf59113b7211315c399c8b9814e9d/Thumbs_Up_Icons.jpg"
+                     class="card__image">
+                <h6 class="card__title">"Like" button in comments</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-paperclip"></i><span class="card__actions--text">1</span>
+                    </li>
+                    <ol class="card__avatars">
+                        <li class="card__avatars--item">
+                            <!-- Photo by Michael Alfonso on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                 alt="Woman, Lady, Female" class="avatar__image">
+                        </li>
+                        <li class="card__avatars--item">
+                            <!-- Photo by Toa Heftiba on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                 alt="Woman standing near blue steel gate" class="avatar__image">
+                        </li>
+                    </ol>
+                </ol>
+            </li>
+        </ul>
+
+        <button class="add-card-btn btn">Add a card</button>
+
+    </div>
+
+    <div class="list">
+
+        <h3 class="list-title">Topics/Concepts to Learn</h3>
+
+        <ul class="list-items">
+            <li class="card__item">
+                <span class="card__tag card__tag--browser">Browser</span>
+                <h6 class="card__title">Embed all the things</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-align-left"></i>
+                    </li>
+                    <ol class="card__avatars">
+                        <li class="card__avatars--item">
+                            <!-- Photo by Philip Martin on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80"
+                                 alt="Man standing near balcony" class="avatar__image">
+                        </li>
+                    </ol>
+                </ol>
+            </li>
+            <li class="card__item">
+                <span class="card__tag card__tag--mobile">Mobile</span>
+                <span class="card__tag card__tag--high">High Priority</span>
+                <h6 class="card__title">Pop-over max width issue on mobile</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-align-left"></i>
+                        <i class="far fa-comment"></i><span class="card__actions--text">1</span>
+                    </li>
+                    <ol class="card__avatars">
+                        <li class="card__avatars--item">
+                            <!-- Photo by Michael Alfonso on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                 alt="Woman, Lady, Female" class="avatar__image">
+                        </li>
+                        <li class="card__avatars--item">
+                            <!-- Photo by Toa Heftiba on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                 alt="Woman standing near blue steel gate" class="avatar__image">
+                        </li>
+                    </ol>
+                </ol>
+            </li>
+            <li class="card__item">
+                <span class="card__tag card__tag--mobile">Mobile</span>
+                <span class="card__tag card__tag--browser">Browser</span>
+                <h6 class="card__title">Animated gif support</h6>
+                <ol class="card__actions">
+                    <li class="card__actions--wrapper">
+                        <i class="fas fa-paperclip"></i><span class="card__actions--text">1</span>
+                    </li>
+                    <ol class="card__avatars">
+                        <li class="card__avatars--item">
+                            <!-- Photo by Toa Heftiba on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                 alt="Woman standing near blue steel gate" class="avatar__image">
+                        </li>
+                        <li class="card__avatars--item">
+                            <!-- Photo by Michael Alfonso on Unsplash -->
+                            <img src="https://images.unsplash.com/photo-1516756587022-7891ad56a8cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                                 alt="Woman, Lady, Female" class="avatar__image">
+                        </li>
+                    </ol>
+                </ol>
+            </li>
+        </ul>
+
+        <button class="add-card-btn btn">Add a card</button>
+
+    </div>
+
+    <div class="list">
+
+        <h3 class="list-title">Useful Websites for Learning</h3>
+
+        <ul class="list-items">
+            <li>Code Academy</li>
+            <li>CodePen</li>
+            <li>Codrops</li>
+            <li>CSS-Tricks</li>
+            <li>Free Code Camp</li>
+            <li>Khan Academy</li>
+            <li>Lynda</li>
+            <li>Medium</li>
+            <li>Mozilla Developer Network</li>
+            <li>Stack Overflow</li>
+            <li>Team Treehouse</li>
+            <li>Tuts Plus</li>
+            <li>Udemy</li>
+            <li>WPSessions</li>
+            <li>YouTube</li>
+        </ul>
+
+        <button class="add-card-btn btn">Add a card</button>
+
+    </div>
+
+    <button class="add-list-btn btn">Add a category</button>
+
+</section>
+<!-- End of lists container -->
 </body>
 </html>

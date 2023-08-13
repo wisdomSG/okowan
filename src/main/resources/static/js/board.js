@@ -1,4 +1,7 @@
 let BoardId = 0 //어떤 board가 눌렸는지 해당 boardId 업데이트
+let images = {
+
+}
 document.addEventListener("DOMContentLoaded", function () {
     const token = Cookies.get('Authorization');
     const host = "http://" + window.location.host;
@@ -26,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
             });
         },
-        error: function (error, status, xhr) {
+        error: function (error) {
             console.error(error);
             let errorMessage = error.responseJSON.msg;
             alert(errorMessage);
@@ -135,7 +138,7 @@ function showBoardMember(boardId, token) {
         url: `/okw/boards/member/${boardId}`,
         headers: {'Authorization': token}
     })
-        .done(function (response, status, xhr) {
+        .done(function (response) {
             $('#member-list').empty();
             const users = response;
             let html = ``;
@@ -143,7 +146,7 @@ function showBoardMember(boardId, token) {
                 html += `
                     <li class="member-list-item">
                             <div>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                                <img src="/images/cats.jpg" class="member-list-item-image">
                             </div>
                             <div class="member-list-item-content w-100">
                                 <h4>${user['username']}</h4>
@@ -162,6 +165,7 @@ function showBoardMember(boardId, token) {
         })
         .fail(function (response) {
             alert("맴버 조회 실패")
+            console.log(response.responseJSON.msg);
         })
 }
 
@@ -181,7 +185,7 @@ function searchingMember(boardId) {
         },
         headers: {'Authorization': token}
     })
-        .done(function (response, status, xhr) {
+        .done(function (response) {
             let users = response;
 
             $('#invite-member-list').empty();
@@ -190,7 +194,7 @@ function searchingMember(boardId) {
                 html += `
                         <li class="member-list-item">
                             <div>
-                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/488320/profile/profile-80.jpg" class="member-list-item-image">
+                                <img src="/images/cats.jpg" class="member-list-item-image">
                             </div>
                             <div class="member-list-item-content w-100">
                                 <h4>${user['username']}</h4>
@@ -221,7 +225,7 @@ function searchMember(boardId) {
         },
         headers: {'Authorization': token}
     })
-        .done(function (response, status, xhr) {
+        .done(function (response) {
             let users = response;
             if (users.length == 0) {
                 alert("검색결과가 없습니다.");
@@ -249,8 +253,9 @@ function searchMember(boardId) {
             })
             $('#invite-member-list').append(html);
         })
-        .fail(function (response, status, xhr) {
+        .fail(function (response) {
             alert("맴버 검색 실패");
+            console.log(response.responseJSON.msg);
         })
 }
 
@@ -672,5 +677,48 @@ function createCard(categoryId, title) {
         })
         .fail(function (response) {
             alert("카드 작성 오류: " + response.responseJSON.msg);
+        })
+}
+
+function changeBoardTitle() {
+    let token = Cookies.get("Authorization");
+    let boardId = document.getElementById("board-title-button").getAttribute("board-id");
+    let newBoardTitle = prompt("변경할 보드 제목을 입력하세요: ", "");
+
+    $.ajax({
+        type: "PUT",
+        url: "/okw/boards/" + boardId,
+        headers: {"Authorization": token},
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+            title: newBoardTitle,
+            color: "RED",
+            description: "none"
+        })
+    })
+        .done(function () {
+            alert("보드 제목 수정 성공");
+            window.location.href = "/okw/view/boards/board";
+        })
+        .fail(function (response) {
+            alert(response.responseJSON.msg);
+        })
+}
+
+function deleteBoard() {
+    let token = Cookies.get("Authorization");
+    let boardId = document.getElementById("board-title-button").getAttribute("board-id");
+
+    $.ajax({
+        type: "DELETE",
+        url: "/okw/boards/" + boardId,
+        headers: {"Authorization": token}
+    })
+        .done(function () {
+            alert("보드 삭제 성공");
+            window.location.href = "/okw/view/boards/board";
+        })
+        .fail(function (response) {
+            alert(response.responseJSON.msg);
         })
 }
