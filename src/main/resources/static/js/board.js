@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     getBoardContent(boardItemId);
                 })
             });
-
         },
         error: function (error, status, xhr) {
             console.error(error);
@@ -58,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         searchingMember(BoardId)
     });
 
-    document.querySelector('.searchMemberButton').addEventListener('click',() => {
+    document.querySelector('.searchMemberButton').addEventListener('click', () => {
         searchMember(BoardId)
     });
 
@@ -102,13 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     inputElement.replaceWith(newH3Element);
                     newText = newValue;
 
-                    updateCategory(categoryId,BoardId,newText,token);
+                    updateCategory(categoryId, BoardId, newText, token);
                 }
             });
         }
     });
 
-    document.querySelector('#showAlert').addEventListener('click',() => {
+    document.querySelector('#showAlert').addEventListener('click', () => {
         showAlert(BoardId);
     });
 
@@ -127,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function showBoardMember(boardId, token) {
-    const userBoardRole = ['OWNER', 'EDITOR','VIEWER'];
+    const userBoardRole = ['OWNER', 'EDITOR', 'VIEWER'];
     document.querySelector("#showMemberoffcanvasScrollingLabel").textContent =
         document.querySelector('.board-title').textContent + '에 초대된 맴버';
 
@@ -170,15 +169,15 @@ function searchingMember(boardId) {
     const token = Cookies.get('Authorization');
     let search = $('.searchTerm').val().trim();
 
-    if(search === "") {
+    if (search === "") {
         return;
     }
 
     $.ajax({
-        type:'GET',
-        url:'/okw/users/search',
+        type: 'GET',
+        url: '/okw/users/search',
         data: {
-            keyword : search
+            keyword: search
         },
         headers: {'Authorization': token}
     })
@@ -215,16 +214,16 @@ function searchMember(boardId) {
     let search = $('.searchTerm').val().trim();
 
     $.ajax({
-        type:'GET',
-        url:'/okw/users/search',
+        type: 'GET',
+        url: '/okw/users/search',
         data: {
-            keyword : search
+            keyword: search
         },
         headers: {'Authorization': token}
     })
         .done(function (response, status, xhr) {
             let users = response;
-            if(users.length == 0) {
+            if (users.length == 0) {
                 alert("검색결과가 없습니다.");
                 return;
             }
@@ -280,19 +279,19 @@ function inviteMember(username, boardId, token) {
         });
 }
 
-function updateMember(userId,username,boardId, token) {
+function updateMember(userId, username, boardId, token) {
     var onSelect = document.getElementById('form-select-' + userId);
     var selectValue = onSelect.options[onSelect.selectedIndex].text.substring(1,);
 
     let data = {
-        "BoardId" : boardId,
-        "username" : username,
-        "role" : selectValue
+        "BoardId": boardId,
+        "username": username,
+        "role": selectValue
     }
 
     $.ajax({
-        type:'PUT',
-        url:`/okw/boards/${boardId}/invite/update`,
+        type: 'PUT',
+        url: `/okw/boards/${boardId}/invite/update`,
         contentType: 'application/json',
         data: JSON.stringify(data),
         headers: {'Authorization': token}
@@ -301,8 +300,7 @@ function updateMember(userId,username,boardId, token) {
             alert("역할 업데이트 성공");
         })
         .fail(function (response) {
-            //alert("역할 업데이트 실패: " + response.responseJSON.msg);
-            alert("역할 업데이트 실패: ");
+            alert("역할 업데이트 실패: " + response.responseJSON.msg);
         })
 }
 
@@ -312,12 +310,12 @@ function addCategory(boardId, token) {
     const title = document.getElementById('add-category-input').value.trim();
 
     let data = {
-        "title" : title
+        "title": title
     }
 
     $.ajax({
-        type:'POST',
-        url:`/okw/categories/${BoardId}`,
+        type: 'POST',
+        url: `/okw/categories/${BoardId}`,
         contentType: 'application/json',
         data: JSON.stringify(data),
         headers: {'Authorization': token}
@@ -333,7 +331,7 @@ function addCategory(boardId, token) {
 
 function updateCategory(categoryId, boardId, newText, token) {
     let data = {
-        'title' : newText
+        'title': newText
     }
 
     $.ajax({
@@ -353,8 +351,8 @@ function updateCategory(categoryId, boardId, newText, token) {
 
 function deleteCategory(categoryId, boardId, token) {
     $.ajax({
-        type:'DELETE',
-        url:`/okw/categories/${categoryId}`,
+        type: 'DELETE',
+        url: `/okw/categories/${categoryId}`,
         headers: {"Authorization": token}
     })
         .done(function (response, status, xhr) {
@@ -369,8 +367,8 @@ function deleteCategory(categoryId, boardId, token) {
 
 function moveCategory(categoryId, boardId, move, token) {
     $.ajax({
-        type:'POST',
-        url:`/okw/categories/${categoryId}/move` + `?boardId=${boardId}&move=${move}`,
+        type: 'POST',
+        url: `/okw/categories/${categoryId}/move` + `?boardId=${boardId}&move=${move}`,
         contentType: 'application/json',
         headers: {"Authorization": token}
     })
@@ -386,8 +384,8 @@ function showAlert(boardId) {
     const token = Cookies.get('Authorization');
 
     $.ajax({
-        type:'GET',
-        url:'/okw/alerts',
+        type: 'GET',
+        url: '/okw/alerts',
         headers: {"Authorization": token}
     })
         .done(function (response, status, xhr) {
@@ -422,9 +420,9 @@ function showAlert(boardId) {
 
 function deleteAlert(alertId, token) {
     $.ajax({
-        type:'DELETE',
-        url:`/okw/alerts/${alertId}`,
-        headers: {"Authorization" : token}
+        type: 'DELETE',
+        url: `/okw/alerts/${alertId}`,
+        headers: {"Authorization": token}
     })
         .done(function (response, status, xhr) {
             alert("알림 삭제 성공")
@@ -461,7 +459,7 @@ function registerCardItemClickEvent() {
                 success: function (cardDetails) {
                     window.location.href = `/okw/view/cards/${cardId}`;
                 },
-                error: function (xhr, status, error) {
+                error: function (error, status, xhr) {
                     console.error('카드 정보 가져오기 에러:', error);
                 }
             });
@@ -482,7 +480,7 @@ function getBoardContent(boardId) {
             document.getElementsByClassName("lists-container").innerHTML = "";
             loadBoardContent(response);
             registerCardItemClickEvent();
-            AddCard();
+            addCardFormButtonMapping();
         })
         .fail(function (response, status, xhr) {
             console.log(response.responseJSON);
@@ -524,7 +522,7 @@ function postBoard() {
 
         success: function (response) {
             alert("보드 추가 성공");
-            // window.location.href = "/okw/view/boards/board";
+            window.location.href = "/okw/view/boards/board";
         }, error: function (req, status, error) {
             alert("보드 추가 실패");
             console.log(req, status, error);
@@ -593,15 +591,14 @@ function loadBoardContent(boardJson) {
         let categoryContentFooter = `                        
                 </ul>
                     <div class="add-card-container">
-                        <button class="add-card-btn btn" id="category${categoryId}">Add a card</button>
+                        <button class="add-card-btn btn">Add a card</button>
                         <!-- 폼 추가 -->
-                        <form class="cardForm" style="display: none;">
-                            <div>
-                                <input class="cardTitleInput" type="text" name="cardTitleInput" placeholder="Enter card title" required>
-                            </div>
-                            <button type="submit" class="createCardButton">Create Card</button>
+                        <div class="cardForm" style="display: none">
+                            <label for="exampleFormControlInput1" class="form-label" style="color: white; font-size: 15px">Card Title</label>
+                            <input type="email" class="form-control cardTitleInput" placeholder="카드 제목을 입력하세요." required>
+                            <button type="submit" class="createCardButton" id="create${categoryId}">Create Card</button>
                             <button type="button" class="deleteCardButton">X</button>
-                        </form>
+                        </div>
                     </div>
             </div>
             `;
@@ -617,7 +614,6 @@ function loadBoardContent(boardJson) {
                 <button class="add-category-btn btn" onclick="addCategory(${boardId}, \'${token}\')">Add Category</button>
             </div>
         </div>
-
     `;
     boardContentHtml += boardContentFooter;
 
@@ -625,36 +621,56 @@ function loadBoardContent(boardJson) {
     boardContent.innerHTML = boardContentHtml;
 }
 
-
-
-
-function AddCard() {
-    // Add event listeners for each "Add a card" button
-    const addCardButtons = document.querySelectorAll('.add-card-btn');
-
-    addCardButtons.forEach(addCardButton => {
-        const cardForm = addCardButton.closest('.add-card-container').querySelector('.cardForm');
-        const cardDelete = cardForm.querySelector('#deleteCardButton');
-
-        addCardButton.addEventListener('click', () => {
-            addCardButton.style.display = 'none';
-            cardForm.style.display = 'block';
-        });
-
-        cardForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const cardTitleInput = cardForm.querySelector('.cardTitleInput');
-            const cardTitle = cardTitleInput.value;
-            console.log('New card title:', cardTitle);
-            addCardButton.style.display = 'block';
-            cardForm.style.display = 'none';
-            cardForm.reset();
-        });
-
-        cardDelete.addEventListener('click', (event) => {
-            addCardButton.style.display = 'block';
-            cardForm.style.display = 'none';
-            cardForm.reset();
+// 카드 폼 버튼 매핑
+function addCardFormButtonMapping() {
+    // form 나타나게 하기
+    let addCardButtons = document.querySelectorAll('.add-card-btn');
+    addCardButtons.forEach(function (addCardButton) {
+        addCardButton.addEventListener("click", function () {
+            let cardForm = addCardButton.closest('.add-card-container').querySelector('.cardForm');
+            cardForm.style.display = "block";
         });
     });
+
+    // form 작성하기 버튼
+    let createCardButtons = document.querySelectorAll(".createCardButton");
+    createCardButtons.forEach(function (createCardButton) {
+        createCardButton.addEventListener("click", function () {
+            let cardTitle = createCardButton.closest('.cardForm').querySelector(".cardTitleInput").value;
+            let categoryId = this.id.slice(6);
+            createCard(categoryId, cardTitle);
+        })
+    })
+
+    // form 닫기
+    let closeFormButtons = document.querySelectorAll(".deleteCardButton");
+    closeFormButtons.forEach(function (closeFormButton) {
+        closeFormButton.addEventListener("click", function () {
+            let cardForm = closeFormButton.closest('.add-card-container').querySelector('.cardForm');
+            cardForm.style.display = "none";
+        });
+    });
+}
+
+function createCard(categoryId, title) {
+    let token = Cookies.get('Authorization');
+    let boardId = document.getElementById("board-title-button").getAttribute("board-id");
+
+    $.ajax({
+        type: "POST",
+        url: "/okw/cards",
+        headers: {"Authorization": token},
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+            categoryId: categoryId,
+            title: title
+        })
+    })
+        .done(function () {
+            alert("카드 작성 완료");
+            getBoardContent(boardId);
+        })
+        .fail(function (response) {
+            alert("카드 작성 오류: " + response.responseJSON.msg);
+        })
 }
