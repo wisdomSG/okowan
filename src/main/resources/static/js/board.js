@@ -3,25 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const host = "http://" + window.location.host;
     const showMemberButton = document.querySelector(".showMember-menu-btn");
     const offcanvasLabel = document.querySelector("#showMemberoffcanvasScrollingLabel");
-    const boardId = 1 //어떤 board가 눌렸는지 해당 boardId 업데이트
+    let boardId = 0 // 어떤 board가 눌렸는지 해당 boardId 업데이트
     const boardTitle = document.querySelector('.board-title').textContent;  //Board Title
-
-    // 보드의 내용(카테고리, 카드) 불러오는 함수
-    $.ajax({
-        type: "GET",
-        url: "/okw/boards/contents/" + boardId,
-        headers: {"Authorization": token},
-    })
-        .done(function (response) {
-            document.getElementsByClassName("lists-container").innerHTML = "";
-            loadBoardContent(response);
-            registerCardItemClickEvent();
-        })
-        .fail(function (response, status, xhr) {
-            console.log(response.responseJSON);
-            alert("보드 내용 불러오기 실패: " + response.responseJSON.msg);
-            window.location.href = "/okw/view/users/login-signup";
-        })
 
     // 보드 전체 리스트 불러오는 함수
     $.ajax({
@@ -36,9 +19,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 let boardId = response[i]['boardId'];
                 setHtml(boardTitle, boardId);
             }
+
+            // 보드 리스트에 클릭 시 정보 로딩 함수 매핑
+            const boardListItem = document.querySelectorAll(".board-list-item");
+            boardListItem.forEach(function (boardItem) {
+                let boardItemId = boardItem.value;
+                boardItem.addEventListener("click", function () {
+                    getBoardContent(boardItemId);
+                })
+            });
         },
-        error: function (xhr, status, error) {
+        error: function (error, status, xhr) {
             console.error(error);
+            let errorMessage = error.responseJSON.msg;
+            alert(errorMessage);
+            if (errorMessage === "토큰이 유효하지 않습니다.") {
+                window.location.href = "/okw/view/users/login-signup";
+            }
         }
     })
 
@@ -57,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showMemberButton.addEventListener("click", function () {
         offcanvasLabel.textContent = boardTitle + '에 초대된 맴버';
-
+        let boardId = document.getElementById("board-title-button").getAttribute("board-id");
         showBoardMember(boardId);
     });
 
@@ -147,7 +144,63 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
         })
         */
+
+    // User Menu 버튼 매핑
+    const profileButton = document.getElementById("user-menu-profile");
+    profileButton.addEventListener("click", function () {
+        window.location.href = "/okw/view/users/profile";
+    });
+    const passwordButton = document.getElementById("user-menu-password");
+    passwordButton.addEventListener("click", function () {
+        window.location.href = "/okw/view/users/password";
+    });
+    const logoutButton = document.getElementById("user-menu-logout");
+    logoutButton.addEventListener("click", logout);
 })
+
+// cardDetails 가기
+$(".card__item").click(function () {
+        const cardId = this.id // 클릭된 요소의 id 값 가져오기
+        console.log(cardId);
+
+        // 카드 정보를 가져오기 위한 AJAX 요청
+        $.ajax({
+            url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
+            method: 'GET',
+            dataType: 'json',
+            success: function (cardDetails) {
+
+                window.location.href = `/okw/view/cards/${cardId}`;
+            },
+            error: function (xhr, status, error) {
+                console.error('카드 정보 가져오기 에러:', error);
+            }
+        });
+    }
+)
+
+// cardDetails 가기
+function registerCardItemClickEvent() {
+    $(".card__item").click(function () {
+            const token = Cookies.get('Authorization');
+            const cardId = this.id // 클릭된 요소의 id 값 가져오기
+            console.log(cardId);
+            // 카드 정보를 가져오기 위한 AJAX 요청
+            $.ajax({
+                url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
+                method: 'GET',
+                headers: {"Authorization": token},
+                dataType: 'json',
+                success: function (cardDetails) {
+                    window.location.href = `/okw/view/cards/${cardId}`;
+                },
+                error: function (xhr, status, error) {
+                    console.error('카드 정보 가져오기 에러:', error);
+                }
+            });
+        }
+    )
+}
 
 function inviteMember(username, boardId) {
     console.log(username, boardId);
@@ -177,11 +230,35 @@ function inviteMember(username, boardId) {
         });
 }
 
+
+// 보드의 내용(카테고리, 카드) 불러오는 함수
+function getBoardContent(boardId) {
+    let token = Cookies.get('Authorization');
+
+    $.ajax({
+        type: "GET",
+        url: "/okw/boards/contents/" + boardId,
+        headers: {"Authorization": token},
+    })
+        .done(function (response) {
+            document.getElementsByClassName("lists-container").innerHTML = "";
+            loadBoardContent(response);
+            registerCardItemClickEvent();
+        })
+        .fail(function (response, status, xhr) {
+            console.log(response.responseJSON);
+            let errorMessage = response.responseJSON.msg;
+            alert("보드 내용 불러오기 실패: " + errorMessage);
+            if (errorMessage === "만료된 토큰입니다.") {
+                window.location.href = "/okw/view/users/login-signup";
+            }
+        })
+}
+
 function setHtml(boardTitle, boardId) {
     let html = `
               <div>
-                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
-                    <span hidden="hidden">${boardId}</span>
+                    <button type="button" class="btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
               </div>
         `;
     $('#boardList').append(html);
@@ -216,6 +293,7 @@ function postBoard() {
     })
 }
 
+// 보드의 카테고리, 카드를 불러오는 함수
 function loadBoardContent(boardJson) {
     let boardId = boardJson.boardId;
     let boardTitle = boardJson.title;
@@ -284,30 +362,3 @@ function loadBoardContent(boardJson) {
     let boardContent = document.getElementById("board-content");
     boardContent.innerHTML = boardContentHtml;
 }
-
-// cardDetails 가기
-function registerCardItemClickEvent() {
-    $(".card__item").click(function () {
-            const token = Cookies.get('Authorization');
-            const cardId = this.id // 클릭된 요소의 id 값 가져오기
-            console.log(cardId);
-
-            // 카드 정보를 가져오기 위한 AJAX 요청
-            $.ajax({
-                url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
-                method: 'GET',
-                headers: {"Authorization": token},
-                dataType: 'json',
-                success: function (cardDetails) {
-
-                    window.location.href = `/okw/view/cards/${cardId}`;
-                },
-                error: function (xhr, status, error) {
-                    console.error('카드 정보 가져오기 에러:', error);
-                }
-            });
-        }
-    )
-}
-// 초기 페이지 로딩 시 클릭 이벤트 등록
-registerCardItemClickEvent();
