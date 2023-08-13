@@ -280,7 +280,7 @@ function inviteMember(username, boardId, token) {
         });
 }
 
-function updateMember(userId,boardId, username, token) {
+function updateMember(userId,username,boardId, token) {
     var onSelect = document.getElementById('form-select-' + userId);
     var selectValue = onSelect.options[onSelect.selectedIndex].text.substring(1,);
 
@@ -398,7 +398,7 @@ function showAlert(boardId) {
 
             alerts.forEach((alert => {
                 html += `
-                    <li class="alert-list-item" id="${alert['alertId']}">                        
+                    <li class="alert-list-item" id="alert-${alert['alertId']}">                        
                         <div class="alert-list-item-content">
                             <h4>Board: ${alert['board_title']}</h4>
                             <h5>Category: ${alert['category_title']}</h5>
@@ -407,7 +407,7 @@ function showAlert(boardId) {
                             <p>${alert['alert_at']}</p>
                         </div>
                         <div>
-                            <button type="button" class="btn-close float-right" onclick="deleteAlert(${alert['alertId']},${boardId},\'${token}\')"aria-label="Close"></button>
+                            <button type="button" class="btn-close float-right" onclick="deleteAlert(${alert['alertId']},\'${token}\')"aria-label="Close"></button>
                         </div>
                     </li>
                 `;
@@ -420,7 +420,7 @@ function showAlert(boardId) {
         })
 }
 
-function deleteAlert(alertId, boardId, token) {
+function deleteAlert(alertId, token) {
     $.ajax({
         type:'DELETE',
         url:`/okw/alerts/${alertId}`,
@@ -428,11 +428,22 @@ function deleteAlert(alertId, boardId, token) {
     })
         .done(function (response, status, xhr) {
             alert("알림 삭제 성공")
-            getBoardContent(boardId);
+            removeAlertElement(alertId);
         })
         .fail(function (response) {
             alert("알림 삭제 실패: " + response.responseJSON.msg)
         })
+}
+
+function removeAlertElement(alertId) {
+    const alertList = document.querySelector('#alert-list');
+    if (alertList) {
+        const liElement = alertList.querySelector(`li[id="alert-${alertId}"]`);
+
+        if (liElement) {
+            liElement.remove();
+        }
+    }
 }
 
 // cardDetails 가기
@@ -549,8 +560,8 @@ function loadBoardContent(boardJson) {
                                 <i class="fas fa-ellipsis-h menu-btn-icon" aria-hidden="true" style="font-size: 20px; color: #FFFFFF"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'up',\'${token}\')">Move to Up</a></li>
-                                <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'down',\'${token}\')">Move to Down</a></li>
+                                <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'up',\'${token}\')">Move to Right</a></li>
+                                <li><a class="dropdown-item" onclick="moveCategory(${categoryId},${boardId},'down',\'${token}\')">Move to Left</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" onclick="deleteCategory(${categoryId},${boardId},\'${token}\')">Delete</a></li>
                             </ul>
