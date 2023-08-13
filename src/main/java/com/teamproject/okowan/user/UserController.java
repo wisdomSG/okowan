@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/okw/users")
@@ -60,5 +62,11 @@ public class UserController {
                                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
         ApiResponseDto apiResponseDto = userService.updatePassword(passwordRequestDto, userDetails.getUser());
         return ResponseEntity.ok().body(apiResponseDto);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<UserSearchResponseDto>> searchUser(@RequestParam String keyword, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        List<UserSearchResponseDto> userLists = userService.searchUsers(keyword);
+        return ResponseEntity.ok().body(userLists);
     }
 }
