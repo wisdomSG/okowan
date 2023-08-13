@@ -22,18 +22,21 @@ public class CardController {
 
     private final S3Service s3Service;
 
+    // 카드 생성
     @PostMapping
     public ResponseEntity<ApiResponseDto> createCard(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestBody CardRequestDto requestDto) {
         ApiResponseDto result = cardService.createCard(userDetails.getUser(), requestDto);
         return ResponseEntity.ok().body(result);
     }
 
+    // 카드 조회
     @GetMapping("/{id}")
     public ResponseEntity<CardResponseDto> getCard(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         CardResponseDto result = cardService.getCard(id, userDetails.getUser());
         return ResponseEntity.ok().body(result);
     }
 
+    // 키워드로 카드제목 조회 
     @GetMapping("/search")
     public ResponseEntity<List<CardResponseDto>> getCardFindByTitleList(@RequestParam("keyword") String keyword) {
         List<CardResponseDto> result = cardService.getCardFindByTitleList(keyword);
