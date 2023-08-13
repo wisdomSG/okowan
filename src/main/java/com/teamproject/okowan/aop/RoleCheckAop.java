@@ -79,7 +79,7 @@ public class RoleCheckAop {
 
         userBoardRepository.getRoleFindByUserIdAndBoardId(user.getId(), card.getBoard().getBoardId())
                 .ifPresent(role -> { // ifPresent를 사용하여 값이 있는경우에만 람다식을 실행하게 함
-                    if (role != BoardRoleEnum.OWNER && role != BoardRoleEnum.EDITER) {
+                    if (role != BoardRoleEnum.OWNER && role != BoardRoleEnum.EDITOR) {
                         throw new IllegalArgumentException("Card의 관한 권한이 없습니다.");
                     }
                 });
@@ -103,7 +103,7 @@ public class RoleCheckAop {
 
         Optional<BoardRoleEnum> roleEnum = userBoardRepository.getRoleFindByUserIdAndBoardId(user.getId(), board.getBoardId());
         roleEnum.ifPresent(role -> {
-            if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITER))) {
+            if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITOR))) {
                 throw new IllegalArgumentException("Category 생성 권한이 없습니다.");
             }
         });
@@ -124,7 +124,7 @@ public class RoleCheckAop {
 
         Optional<BoardRoleEnum> roleEnum = userBoardRepository.getRoleFindByUserIdAndBoardId(user.getId(), category.getBoard().getBoardId());
         roleEnum.ifPresent(role -> {
-            if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITER))) {
+            if (!(role.equals(BoardRoleEnum.OWNER) || role.equals(BoardRoleEnum.EDITOR))) {
                 throw new IllegalArgumentException("Category에 관한 권한이 없습니다.");
             }
         });

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+//
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,14 +19,19 @@
     <!-- js Cookie -->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
+    <link rel="stylesheet" href="/css/board.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/o-solid.png">
 
 </head>
 
 <body>
 <script src="/js/board.js"></script>
+<script src="/js/utils.js"></script>
     <!-- Masthead -->
     <header class="masthead">
 
@@ -67,7 +73,7 @@
                 </div>
                 <div id="boardList" class="offcanvas-body boardList">
                     <h3>Board List</h3>
-                    <div>
+                    <div id="getboard">
                         <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">boardTitle</button>
                         <span hidden="hidden">boardId</span>
                     </div>
@@ -150,10 +156,32 @@
                 </div>
             </div>
 
-            <button class="user-settings-btn btn" aria-label="User Settings">
+            <button class="user-settings-btn btn" aria-label="User Settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                 <i class="fas fa-user-circle" aria-hidden="true"></i>
             </button>
 
+            <div class="offcanvas offcanvas-end text-bg-dark user-menu-offcanvas" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h1 id="offcanvasRightLabel">User Menu</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="circle-container">
+                        <div class="circle">
+                            <img class="profile-img" src="https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg">
+                        </div>
+                    </div>
+                    <div>
+                        <button class="user-menu-btn" id="user-menu-profile">My Profile</button>
+                    </div>
+                    <div>
+                        <button class="user-menu-btn" id="user-menu-password">Change Password</button>
+                    </div>
+                    <div>
+                        <button class="user-menu-btn" id="user-menu-logout">Logout</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </header>
@@ -261,8 +289,17 @@
                 </li>
             </ul>
 
-            <button class="add-card-btn btn">Add a card</button>
-
+            <div class="add-card-container">
+                <button class="add-card-btn btn">Add a card</button>
+                <!-- 폼 추가 -->
+                <form id="cardForm" style="display: none;">
+                    <div>
+                        <input class="cardTitleInput" type="text" id="cardTitleInput" name="cardTitleInput" placeholder="Enter card title" required>
+                    </div>
+                    <button type="submit" id="createCardButton">Create Card</button>
+                    <button type="delete" id="deleteCardButton">X</button>
+                </form>
+            </div>
         </div>
 
         <div class="list">

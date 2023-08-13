@@ -3,22 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const host = "http://" + window.location.host;
     const boardId = 1 //어떤 board가 눌렸는지 해당 boardId 업데이트
 
-    // 보드의 내용(카테고리, 카드) 불러오는 함수
-    $.ajax({
-        type: "GET",
-        url: "/okw/boards/contents/" + boardId,
-        headers: {"Authorization": token},
-    })
-        .done(function (response) {
-            document.getElementsByClassName("lists-container").innerHTML = "";
-            loadBoardContent(response);
-        })
-        .fail(function (response, status, xhr) {
-            console.log(response.responseJSON);
-            alert("보드 내용 불러오기 실패: " + response.responseJSON.msg);
-            window.location.href = "/okw/view/users/login-signup";
-        })
-
     // 보드 전체 리스트 불러오는 함수
     $.ajax({
         type: "GET",
@@ -32,9 +16,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 let boardId = response[i]['boardId'];
                 setHtml(boardTitle, boardId);
             }
+
+            // 보드 리스트에 클릭 시 정보 로딩 함수 매핑
+            const boardListItem = document.querySelectorAll(".board-list-item");
+            boardListItem.forEach(function (boardItem) {
+                let boardItemId = boardItem.value;
+                boardItem.addEventListener("click", function () {
+                    getBoardContent(boardItemId);
+                })
+            });
         },
-        error: function (xhr, status, error) {
+        error: function (error, status, xhr) {
             console.error(error);
+            let errorMessage = error.responseJSON.msg;
+            alert(errorMessage);
+            if (errorMessage === "토큰이 유효하지 않습니다.") {
+                window.location.href = "/okw/view/users/login-signup";
+            }
         }
     })
 
@@ -111,43 +109,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector('#showAlert').addEventListener('click',showAlert);
 
-    // drag and drop //
-    /*const listElements = document.querySelectorAll('.list');
 
-    listElements.forEach(listElement => {
-        listElement.addEventListener('dragstart', function(event) {
-            // Save the ID of the dragged element
-            event.dataTransfer.setData('text/plain', this.id);
-        });
+    // User Menu 버튼 매핑
+    const profileButton = document.getElementById("user-menu-profile");
+    profileButton.addEventListener("click", function () {
+        window.location.href = "/okw/view/users/profile";
     });
-
-    document.addEventListener('dragover', event => {
-        event.preventDefault();
+    const passwordButton = document.getElementById("user-menu-password");
+    passwordButton.addEventListener("click", function () {
+        window.location.href = "/okw/view/users/password";
     });
-
-    document.addEventListener('drop', event => {
-        event.preventDefault();
-
-        const sourceElementId = event.dataTransfer.getData('text/plain');
-        const targetElement = event.target.closest('.list');
-
-        if (targetElement && sourceElementId) {
-            const dragSourceElement = document.getElementById(sourceElementId);
-
-            if (dragSourceElement) {
-                // Determine whether to insert before or after the target
-                const rect = targetElement.getBoundingClientRect();
-                const isBefore = event.clientY < rect.top + rect.height / 2;
-
-                if (isBefore) {
-                    targetElement.insertAdjacentElement('beforebegin', dragSourceElement);
-                } else {
-                    targetElement.insertAdjacentElement('afterend', dragSourceElement);
-                }
-            }
-        }
-    });*/
-
+    const logoutButton = document.getElementById("user-menu-logout");
+    logoutButton.addEventListener("click", logout);
 });
 
 function showBoardMember(boardId, token) {
@@ -278,6 +251,50 @@ function searchMember(boardId) {
         .fail(function (response, status, xhr) {
             alert('맴버 검색 실패: ' + response.responseJSON.msg);
         })
+}
+
+// cardDetails 가기
+$(".card__item").click(function () {
+        const cardId = this.id // 클릭된 요소의 id 값 가져오기
+        console.log(cardId);
+
+        // 카드 정보를 가져오기 위한 AJAX 요청
+        $.ajax({
+            url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
+            method: 'GET',
+            dataType: 'json',
+            success: function (cardDetails) {
+
+                window.location.href = `/okw/view/cards/${cardId}`;
+            },
+            error: function (xhr, status, error) {
+                console.error('카드 정보 가져오기 에러:', error);
+            }
+        });
+    }
+)
+
+// cardDetails 가기
+function registerCardItemClickEvent() {
+    $(".card__item").click(function () {
+            const token = Cookies.get('Authorization');
+            const cardId = this.id // 클릭된 요소의 id 값 가져오기
+            console.log(cardId);
+            // 카드 정보를 가져오기 위한 AJAX 요청
+            $.ajax({
+                url: `/okw/cards/${cardId}`,  // 카드 정보를 가져올 API 엔드포인트
+                method: 'GET',
+                headers: {"Authorization": token},
+                dataType: 'json',
+                success: function (cardDetails) {
+                    window.location.href = `/okw/view/cards/${cardId}`;
+                },
+                error: function (xhr, status, error) {
+                    console.error('카드 정보 가져오기 에러:', error);
+                }
+            });
+        }
+    )
 }
 
 function inviteMember(username, boardId, token) {
@@ -460,11 +477,35 @@ function deleteAlert(alertId, token) {
         })
 }
 
+
+// 보드의 내용(카테고리, 카드) 불러오는 함수
+function getBoardContent(boardId) {
+    let token = Cookies.get('Authorization');
+
+    $.ajax({
+        type: "GET",
+        url: "/okw/boards/contents/" + boardId,
+        headers: {"Authorization": token},
+    })
+        .done(function (response) {
+            document.getElementsByClassName("lists-container").innerHTML = "";
+            loadBoardContent(response);
+            registerCardItemClickEvent();
+        })
+        .fail(function (response, status, xhr) {
+            console.log(response.responseJSON);
+            let errorMessage = response.responseJSON.msg;
+            alert("보드 내용 불러오기 실패: " + errorMessage);
+            if (errorMessage === "만료된 토큰입니다.") {
+                window.location.href = "/okw/view/users/login-signup";
+            }
+        })
+}
+
 function setHtml(boardTitle, boardId) {
     let html = `
               <div>
-                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
-                    <span hidden="hidden">${boardId}</span>
+                    <button type="button" class="btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
               </div>
         `;
     $('#boardList').append(html);
@@ -499,6 +540,7 @@ function postBoard() {
     })
 }
 
+// 보드의 카테고리, 카드를 불러오는 함수
 function loadBoardContent(boardJson) {
     const token = Cookies.get('Authorization');
     let boardId = boardJson.boardId;
@@ -558,7 +600,17 @@ function loadBoardContent(boardJson) {
 
         let categoryContentFooter = `                        
                 </ul>
-                <button class="add-card-btn btn">Add a card</button>
+                    <div class="add-card-container">
+                        <button class="add-card-btn btn" id="category${categoryId}">Add a card</button>
+                        <!-- 폼 추가 -->
+                        <form class="cardForm" style="display: none;">
+                            <div>
+                                <input class="cardTitleInput" type="text" name="cardTitleInput" placeholder="Enter card title" required>
+                            </div>
+                            <button type="submit" class="createCardButton">Create Card</button>
+                            <button type="delete" class="deleteCardButton">X</button>
+                        </form>
+                    </div>
             </div>
             `;
         boardContentHtml += categoryContentHeader + categoryContentFooter;
