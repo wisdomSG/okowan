@@ -202,9 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     option.value = worker.userId;
                     option.textContent = worker.nickname;
 
-                    console.log(option);
                     workerChoiceSelect.appendChild(option);
-                    console.log("작업자 리스트 생성 완료");
                 });
             })
 
@@ -213,12 +211,36 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    $(document).on('click', '.file-delete-btn', function () {
+        const fileContent = $(this).closest('p');
+        const aTag = fileContent.find('.file-body');
+        const fileId = aTag.data('file-id'); // 이 부분을 수정하세요
+
+        $.ajax({
+            type: 'DELETE',
+            url: "/okw/cards/"+lastPart +"/files/" + fileId,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .done(function (data) {
+                alert('파일 삭제 완료');
+                window.location.reload();
+                // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+            })
+            .fail(function (error) {
+                console.error('파일 삭제 오류:', error);
+            });
+    });
+
+
     // 댓글 수정 완료 버튼 클릭 이벤트
     $(document).on('click', '.done-comment-btn', function () {
         const commentContainer = $(this).closest('p');
         const input = commentContainer.find('.comment-body');
         const commentId = input.data('comment-id');
         const updatedCommentContent = input.val();
+
 
         const data = {
             content: updatedCommentContent
@@ -240,9 +262,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // const commentDeleteButtons = document.querySelectorAll('.comment-delete-btn');
-    // commentDeleteButtons.forEach(function (button) {
-    //     button.addEventListener('click', function () {
     $(document).on('click', '.comment-delete-btn', function () {
         const commentContainer = this.closest('p');
         const commentId = commentContainer.querySelector('.comment-body').dataset.commentId;
@@ -326,7 +345,6 @@ function setCardData(response) {
     const deadline = new Date(response.deadline);
 
     yearSelect.value = deadline.getFullYear();
-    console.log(deadline.getFullYear());
     monthSelect.value = (deadline.getMonth() + 1).toString().padStart(2, '0');
     daySelect.value = deadline.getDate().toString().padStart(2, '0');
     hourSelect.value = deadline.getHours().toString().padStart(2, '0');
@@ -346,9 +364,12 @@ function setCardData(response) {
 
         const fileUrl = file.fileName; // 파일 URL을 저장하고 있는 속성을 사용해야 함
 
+        const fileId = file.fileId;
+
         let fileContent = `
                 <p class="line">
-                    <a href="${fileUrl}">${fileNameWithUUID}</a>
+                    <a href="${fileUrl}" data-file-id="${fileId}" class="file-body">${fileNameWithUUID}</a>
+                    <button class="file-delete-btn">X</button>
                 </p>`;
         fileList += fileContent;
     });
@@ -514,6 +535,7 @@ function uploadFiles() {
         }
     })
         .done(function(data) {
+            console.log(data);
             alert('파일 업로드 완료');
             window.location.reload();
             // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
@@ -522,13 +544,6 @@ function uploadFiles() {
             console.error('파일 업로드 오류:', error);
         });
 }
-
-
-
-
-// 댓글
-
-
 
 
 
