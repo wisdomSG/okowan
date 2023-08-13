@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
             });
         },
-        error: function (error, status, xhr) {
+        error: function (error) {
             console.error(error);
             let errorMessage = error.responseJSON.msg;
             alert(errorMessage);
@@ -138,7 +138,7 @@ function showBoardMember(boardId, token) {
         url: `/okw/boards/member/${boardId}`,
         headers: {'Authorization': token}
     })
-        .done(function (response, status, xhr) {
+        .done(function (response) {
             $('#member-list').empty();
             const users = response;
             let html = ``;
@@ -165,6 +165,7 @@ function showBoardMember(boardId, token) {
         })
         .fail(function (response) {
             alert("맴버 조회 실패")
+            console.log(response.responseJSON.msg);
         })
 }
 
@@ -184,7 +185,7 @@ function searchingMember(boardId) {
         },
         headers: {'Authorization': token}
     })
-        .done(function (response, status, xhr) {
+        .done(function (response) {
             let users = response;
 
             $('#invite-member-list').empty();
@@ -224,7 +225,7 @@ function searchMember(boardId) {
         },
         headers: {'Authorization': token}
     })
-        .done(function (response, status, xhr) {
+        .done(function (response) {
             let users = response;
             if (users.length == 0) {
                 alert("검색결과가 없습니다.");
@@ -252,8 +253,9 @@ function searchMember(boardId) {
             })
             $('#invite-member-list').append(html);
         })
-        .fail(function (response, status, xhr) {
+        .fail(function (response) {
             alert("맴버 검색 실패");
+            console.log(response.responseJSON.msg);
         })
 }
 
@@ -675,5 +677,48 @@ function createCard(categoryId, title) {
         })
         .fail(function (response) {
             alert("카드 작성 오류: " + response.responseJSON.msg);
+        })
+}
+
+function changeBoardTitle() {
+    let token = Cookies.get("Authorization");
+    let boardId = document.getElementById("board-title-button").getAttribute("board-id");
+    let newBoardTitle = prompt("변경할 보드 제목을 입력하세요: ", "");
+
+    $.ajax({
+        type: "PUT",
+        url: "/okw/boards/" + boardId,
+        headers: {"Authorization": token},
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({
+            title: newBoardTitle,
+            color: "RED",
+            description: "none"
+        })
+    })
+        .done(function () {
+            alert("보드 제목 수정 성공");
+            window.location.href = "/okw/view/boards/board";
+        })
+        .fail(function (response) {
+            alert(response.responseJSON.msg);
+        })
+}
+
+function deleteBoard() {
+    let token = Cookies.get("Authorization");
+    let boardId = document.getElementById("board-title-button").getAttribute("board-id");
+
+    $.ajax({
+        type: "DELETE",
+        url: "/okw/boards/" + boardId,
+        headers: {"Authorization": token}
+    })
+        .done(function () {
+            alert("보드 삭제 성공");
+            window.location.href = "/okw/view/boards/board";
+        })
+        .fail(function (response) {
+            alert(response.responseJSON.msg);
         })
 }

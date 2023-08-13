@@ -87,12 +87,8 @@ public class BoardServiceImpl implements BoardService {
         // 보드 유무 확인
         Board board = findBoard(BoardId);
 
-        try {
-            userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
-                    .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다."));
-        } catch (RejectedExecutionException e) {
-            return new ApiResponseDto("수정이 불가합니다.", HttpStatus.BAD_REQUEST.value());
-        }
+        userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER).orElseThrow(() ->
+                new RejectedExecutionException("해당 보드의 소유주가 아닙니다."));
 
         // 보드 내용 수정
         board.setTitle(requestDto.getTitle());
@@ -108,12 +104,9 @@ public class BoardServiceImpl implements BoardService {
         Board board = findBoard(BoardId);
 
         // 보드 작성자인지
-        try {
-            userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
-                    .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다."));
-        } catch (RejectedExecutionException e) {
-            return new ApiResponseDto("삭제가 불가합니다.", HttpStatus.BAD_REQUEST.value());
-        }
+        userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER).orElseThrow(() ->
+                new RejectedExecutionException("해당 보드의 소유주가 아닙니다."));
+
         boardRepository.delete(board);
         return new ApiResponseDto("보드 삭제 성공.", HttpStatus.OK.value());
     }
@@ -135,7 +128,7 @@ public class BoardServiceImpl implements BoardService {
         UserBoard userBoard = new UserBoard(requestDto.getRole(), inviteUser, board); // 초대되는 사람의 정보를 userBoard로 저장
         userBoardRepository.findByBoardAndUserAndRole(board, user, BoardRoleEnum.OWNER)
                 .orElseThrow(() -> new RejectedExecutionException("해당 보드의 소유주가 아닙니다.")); // 초대하는 사람의 role이 OWNER인지 확
-        userBoardRepository.findByBoardAndUser(board,inviteUser).ifPresent((ExistUserBoard) -> {
+        userBoardRepository.findByBoardAndUser(board, inviteUser).ifPresent((ExistUserBoard) -> {
             throw new RejectedExecutionException("이미 초대한 맴버입니다.");
         });
         userBoardRepository.save(userBoard); // UserBoard에 초대되는 사람의 정보를 저장
