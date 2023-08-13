@@ -23,3 +23,4 @@ public class BoardResponseDto {
 //    private List<CategoryResponseDto> categoryResponseDtoList = new ArrayList<>();
 //    private List<CardResponseDto> cardResponseDtoList = new ArrayList<>();
 }
+

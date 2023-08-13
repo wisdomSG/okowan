@@ -334,3 +334,36 @@ function updateDeadline() {
 // "done-deadline-btn" 버튼에 대한 이벤트 리스너
 const doneDeadlineButton = document.querySelector('.update-deadline-btn');
 doneDeadlineButton.addEventListener('click', updateDeadline);
+
+
+
+// 선택한 작업자를 서버에 업데이트하는 함수
+function updateSelectedWorker() {
+    const workerChoiceSelect = document.getElementById('workerChoice');
+    const selectedWorkerId = workerChoiceSelect.value; // 선택한 작업자의 ID 가져오기
+    console.log(selectedWorkerId);
+
+    $.ajax({
+        type: 'PATCH',
+        url: '/okw/cards/worker',
+        data: {
+            cardId: lastPart,
+            worker: selectedWorkerId
+        },
+        headers: {
+            'Authorization': token
+        }
+    })
+        .done(function(data) {
+            alert('작업자가 업데이트되었습니다.');
+            window.location.reload();
+            // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+        })
+        .fail(function(error) {
+            console.error('작업자 업데이트 오류:', error);
+        });
+}
+
+// "done-worker-btn" 버튼에 대한 이벤트 리스너
+const doneWorkerButton = document.querySelector('.done-worker-btn');
+doneWorkerButton.addEventListener('click', updateSelectedWorker);
