@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {'Authorization': token},
         contentType: 'application/json',
         success: function (response) {
-            //$('#post-cards').empty();
+            $('#boardList').empty();
             for (let i = 0; i < response.length; i++) {
                 let boardTitle = response[i]['title'];
                 let boardId = response[i]['boardId'];
@@ -500,7 +500,7 @@ function getBoardContent(boardId) {
 function setHtml(boardTitle, boardId) {
     let html = `
               <div>
-                    <button type="button" class="btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
+                    <button type="button" class="boardListTitle btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
               </div>
         `;
     $('#boardList').append(html);
