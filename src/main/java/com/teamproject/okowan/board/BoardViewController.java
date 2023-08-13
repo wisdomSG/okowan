@@ -17,5 +17,6 @@ public class BoardViewController {
     public String ex() {
         return "ex";
     }
+
 }
 

@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 Cookies.set('Authorization', token, {path: '/', expires: expirationDate});
                 alert('로그인 성공');
 
+                // window.location.href = host + '/okw/view/boards/board';
                 window.location.href = host + '/okw/view/users/index';
             })
             .fail(function (response) {

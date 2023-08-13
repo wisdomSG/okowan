@@ -112,7 +112,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
     color: black; /* Set the text color to black */
 }
 
-/* Add styles for cancel button */
+/* Add styles for cancel and confirm buttons */
 .modal-content .buttons-container {
     display: flex;
     justify-content: space-between;
@@ -436,11 +436,37 @@ body {
     content: '...';
 }
 
+.user-menu-offcanvas {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    margin: 10px auto 40px auto;
+}
+
+.profile-img {
+    max-width: 250px;
+    max-height: 250px;
+}
+
+.user-menu-btn {
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 5px auto 5px 20px;
+}
+
 /*
 
 The following rule will only run if your browser supports CSS grid.
 
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling.
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox styling. 
 
 */
 
@@ -503,7 +529,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 
     /* card styles */
-
     .card__list {
         display: grid;
         grid-template-rows: auto;
@@ -514,7 +539,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
     .card__item {
         background-color: white;
         border-radius: .25rem;
-        box-shadow: 0 1px 0 rgba(9,45,66,.25);
+        box-shadow: 0 1px 0 rgba(9, 45, 66, .25);
         padding: .5rem;
     }
 
@@ -534,7 +559,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 
     /* sticker colors */
-
     .card__tag--design {
         background-color: #61bd4f;
     }
@@ -565,7 +589,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
     }
 
     /* card actions */
-
     .card__actions {
         display: flex;
         align-items: center;
@@ -602,6 +625,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
         object-fit: cover;
     }
 }
+
 
 /* show Member list */
 

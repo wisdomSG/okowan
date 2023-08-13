@@ -16,12 +16,15 @@
     <!-- js Cookie -->
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
 
+    <!-- favicon -->
+    <link rel="icon" href="/images/o-solid.png">
 </head>
 <body>
 <script th:inline="javascript" src="/js/login-signup.js"></script>
+<script src="/js/utils.js"></script>
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#">
+        <div class="login-form">
             <h1>회원가입</h1>
             <div class="social-container"></div>
             <span>or use your email for registration</span>
@@ -29,21 +32,20 @@
             <input type="password" id="signup-password" placeholder="Password"/>
             <input type="text" id="signup-nickname" placeholder="NickName"/>
             <button id="signup-button">Sign Up</button>
-        </form>
+        </div>
     </div>
     <div class="form-container sign-in-container">
-        <form action="#">
+        <div class="login-form">
             <h1>로그인</h1>
             <div class="social-container">
-                <a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=' + ${@environment.getProperty('oauth.kakao.client_id')} + '&redirect_uri=http://localhost:8080/okw/oauths/callback/kakao&response_type=code'}"
+                <a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=' + ${@environment.getProperty('oauth.kakao.client-id')} + '&redirect_uri=http://localhost:8080/okw/oauths/callback/kakao&response_type=code'}"
                    style="background-image: url('/images/kakaotalk_sharing_btn_small.png')"></a>
             </div>
             <span>or use your account</span>
             <input type="email" id="login-email" placeholder="Email"/>
             <input type="password" id="login-password" placeholder="Password"/>
-            <a href="#">Forgot your password?</a>
             <button id="login-button">LogIn</button>
-        </form>
+        </div>
     </div>
     <div class="overlay-container">
         <div class="overlay">
