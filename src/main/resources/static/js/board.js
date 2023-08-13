@@ -496,8 +496,9 @@ function getBoardContent(boardId) {
 
 function setHtml(boardTitle, boardId) {
     let html = `
-              <div>
-                    <button type="button" class="btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
+                <div class="boardListTitle">
+                    <button type="button" class="btn btn-light" value="boardTitle" id="boardTitle">${boardTitle}</button>
+                    <span hidden="hidden">${boardId}</span>
               </div>
         `;
     $('#boardList').append(html);
