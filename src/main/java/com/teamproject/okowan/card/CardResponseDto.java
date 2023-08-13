@@ -26,7 +26,7 @@ public class CardResponseDto {
         this.color = card.getColor();
 
         // LocalDateTime을 "yyyy-MM-dd HH:mm" 형식의 문자열로 변환하여 저장
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:00");
         this.deadline = card.getDeadline().format(formatter); // deadline을 문자열로 변환하여 저장
 
         this.fileList = card.getS3FileList();

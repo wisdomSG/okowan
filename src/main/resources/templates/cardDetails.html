@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <!-- 스타일시트 -->
+    <link rel="stylesheet" href="/css/cardDetails.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    <!-- js Cookie -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+
+    <!-- favicon -->
+    <link rel="icon" href="/images/o-solid.png">
+</head>
+<body>
+<script src="/js/cardDetails.js"></script>
+<script src="/js/utils.js"></script>
+<div class="container">
+    <div id="logo"><h1 class="logo">OKOWAN</h1>
+    </div>
+    <div class="rightbox">
+        <div class="profile">
+            <h1>Card Details</h1>
+            <h2>Title</h2>
+            <p class="line">
+                <input class="title" type="text" id="cardTitle" value="cardTitle" disabled>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>description</h2>
+            <p class="line mb-3">
+                <textarea class="form-control" id="cardDescription" rows="5" disabled></textarea>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>Category</h2>
+            <p class="line">
+                <select class="form-select" aria-label="Default select example" id="categoryChoice" disabled>
+                    <option selected>카테고리 변경</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>Color Choice</h2>
+            <p class="line">
+                <select class="form-select" aria-label="Default select example" id="cardChoice" disabled>
+                    <option selected>카드의 색상을 선택해주세요</option>
+                    <option value="RED">RED</option>
+                    <option value="BLUE">BLUE</option>
+                    <option value="GREEN">GREEN</option>
+                </select>
+                <button class="btn update-btn">update</button>
+                <button class="btn done-btn" style="display: none">done</button>
+            </p>
+
+            <h2>Worker Choice</h2>
+            <p class="line">
+                <select class="form-select" aria-label="Default select example" id="workerChoice" disabled>
+                    <option selected>작업자를 선택해주세요</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <button class="btn update-worker-btn">update</button>
+                <button class="btn done-worker-btn" style="display: none">done</button>
+            </p>
+
+            <h2>DeadLine</h2>
+            <p class="line">
+                <select select class="form-select cal-select" aria-label="Default select example" id="year">
+                    <option value="0" selected>Year</option>
+                </select>
+                <select class="form-select cal-select" aria-label="Default select example" id="month">
+                    <option value="0" selected>Month</option>
+                    <!-- 월 옵션은 그대로 유지 -->
+                </select>
+                <select class="form-select cal-select" aria-label="Default select example" id="day">
+                    <option value="0" selected>Day</option>
+                </select>
+                <select class="form-select cal-select" aria-label="Default select example" id="hour">
+                    <option value="0" selected>Hour</option>
+                    <!-- 시간 옵션은 여기에 추가 -->
+                </select>
+                <button class="btn update-deadline-btn">update</button>
+                <button class="btn done-deadline-btn" style="display: none">done</button>
+
+            </p>
+
+            <h2>Upload File</h2>
+            <p class="line mb-3">
+                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                <button class="btn done-file-btn">done</button>
+            </p>
+            <p>
+                <a>다운로드된 파일</a>
+            </p>
+            <p>
+                <a>다운로드된 파일</a>
+            </p>
+            <p class="line"></p>
+
+            <br>
+            <br>
+            <br>
+            <h2>Comments</h2>
+            <p class="line">
+                <input class="comment" type="text" id="comment">
+                <button class="btn">Add</button>
+            </p>
+
+            <p class="line">
+                <input type="text" id="comment-text" value="내용 작성" disabled>
+                <span class="author">작성자</span>
+                <button class="btn">X</button>
+                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+            </p>
+            <p class="line">
+                <input class="comments" type="text" id="comment-text" value="댓글" disabled>
+                <span class="author">작성자</span>
+                <button class="btn ">X</button>
+                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+            </p>
+            <p class="line">
+                <input class="comments" type="text" id="comment-text" value="댓글" disabled>
+                <span class="author">작성자</span>
+                <button class="btn ">X</button>
+                <button class="btn update-btn"><img class="plus" src="/css/search.png" alt="plus"></button>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    const token = Cookies.get('Authorization');
+    let cardId = 1;
+
+    function doneButton() {
+        let cardTitle = document.getElementById("cardTitle").value;
+        let descriptuon = document.getElementById("description exampleFormControlTextarea1").value;
+        let color = document.getElementById("cardChoice").value;
+        let category = document.getElementById("categoryChoice").value;
+
+        $.ajax({
+            type: "PUT",
+            url: "okw/cards/" + cardId,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                title: cardTitle,
+                descriptuon: descriptuon,
+                color: color,
+                categoryId: category
+            })
+        })
+            .done(function () {
+                alert("수정 완료");
+                window.location.reload();
+            })
+            .fail(function (response) {
+                alert("수정 오류: " + response.responseJSON.msg);
+            })
+    }
+
+    // 작업자 조회
+    // 작업자 선택 `<select>` 요소
+    const workerChoiceSelect = document.getElementById('workerChoice');
+
+    // 작업자 목록을 가져오는 함수
+    function fetchWorkerList() {
+        const boardId = 1; // BoardId 값을 어떻게 가져올지에 따라서 수정
+
+        $.ajax({
+            type: 'GET',
+            url: `/okw/boards/worker/${boardId}`,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .done(function (data) {
+                // 서버에서 가져온 작업자 목록을 `<option>` 요소로 변환하여 추가
+                data.forEach(worker => {
+                    const option = $('<option></option>');
+                    option.val(worker.userId); // 작업자 아이디나 관련 정보에 맞게 설정
+                    option.text(worker.username); // 작업자 이름이나 관련 정보에 맞게 설정
+                    workerChoiceSelect.append(option);
+                });
+            })
+            .fail(function (error) {
+                console.error('Error fetching worker list:', error);
+            });
+    }
+
+    // "done-worker-btn" 버튼에 대한 이벤트 리스너
+    const doneWorkerButton = document.querySelector('.done-worker-btn');
+    doneWorkerButton.addEventListener('click', updateSelectedWorker);
+
+    // 선택한 작업자를 서버에 업데이트하는 함수
+    function updateSelectedWorker() {
+        const selectedWorkerId = workerChoiceSelect.value; // 선택한 작업자의 ID 가져오기
+
+        $.ajax({
+            type: 'PATCH',
+            url: '/okw/boards/worker',
+            data: {
+                cardId: cardId,
+                worker: selectedWorkerId
+            },
+            headers: {
+                'Authorization': token
+            }
+        })
+            .done(function (data) {
+                alert('작업자가 업데이트되었습니다.');
+                window.reload();
+                // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+            })
+            .fail(function (error) {
+                console.error('작업자 업데이트 오류:', error);
+            });
+    }
+
+    // "done-deadline-btn" 버튼에 대한 이벤트 리스너
+    const doneDeadlineButton = document.querySelector('.done-deadline-btn');
+    doneDeadlineButton.addEventListener('click', updateDeadline);
+
+    // 선택한 데드라인을 서버에 업데이트하는 함수
+    function updateDeadline() {
+        const selectedYear = document.getElementById('year').value;
+        const selectedMonth = document.getElementById('month').value;
+        const selectedDay = document.getElementById('day').value;
+        const selectedHour = document.getElementById('hour').value;
+
+        // 선택한 데드라인을 원하는 형식으로 조합 (예: "2023-08-11 15")
+        const selectedDeadline = `${selectedYear}-${selectedMonth}-${selectedDay} ${selectedHour}`;
+
+        $.ajax({
+            type: 'PUT',
+            url: '/okw/cards/deadLine/' + cardId,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                deadlineStr: selectedDeadline
+            }),
+            headers: {
+                'Authorization': token
+            }
+        })
+            .done(function (data) {
+                alert('데드라인이 업데이트되었습니다.');
+                window.reload();
+                // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+            })
+            .fail(function (error) {
+                console.error('데드라인 업데이트 오류:', error);
+            });
+    }
+
+    // "done-file-btn" 버튼에 대한 이벤트 리스너
+    const doneFileButton = document.querySelector('.done-file-btn');
+    doneFileButton.addEventListener('click', uploadFiles);
+
+    // 파일을 서버에 업로드하는 함수
+    function uploadFiles() {
+        const filesInput = document.getElementById('formFileMultiple');
+        const selectedFiles = filesInput.files;
+
+        const formData = new FormData();
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append('fileName', selectedFiles[i]);
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: '/okw/cards/files/' + cardId,
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .done(function (data) {
+                alert('파일 업로드 완료');
+                window.reload();
+                // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
+            })
+            .fail(function (error) {
+                console.error('파일 업로드 오류:', error);
+            });
+    }
+
+
+</script>
+</html>

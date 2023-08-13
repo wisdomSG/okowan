@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const host = "http://" + window.location.host;
 
-    let userId = 1; // board 페이지에서 받아와야 하는 값
+    // let userId = 1; // board 페이지에서 받아와야 하는 값
     const token = Cookies.get('Authorization');
 
     $.ajax({
         type: "GET",
-        url: "/okw/users/profile/" + userId,
+        url: "/okw/users/profile",
         headers: {'Authorization': token}
     })
         .done(function (response) {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $.ajax({
             type: "PUT",
-            url: "/okw/users/profile/" + userId,
+            url: "/okw/users/profile",
             headers: {'Authorization': token},
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
