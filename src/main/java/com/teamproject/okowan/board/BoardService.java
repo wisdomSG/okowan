@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BoardService {
 
-    List<BoardResponseDto> getBoardList();
+    List<BoardResponseDto> getBoardList(User user);
 
     BoardResponseDto getBoard(Long BoardId);
 
