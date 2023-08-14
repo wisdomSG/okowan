@@ -503,7 +503,7 @@ function getBoardContent(boardId) {
 function setHtml(boardTitle, boardId) {
     let html = `
               <div>
-                    <button type="button" class="boardListTitle btn btn-light board-list-item" value="${boardId}">${boardTitle}</button>
+                    <button type="button" class="boardListTitle btn btn-light board-list-item" value="${boardId}" style="background-color:#4d4c99; margin:10px;">${boardTitle}</button>
               </div>
         `;
     $('#boardList').append(html);
@@ -529,7 +529,7 @@ function postBoard() {
 
         success: function (response) {
             alert("보드 추가 성공");
-            window.location.reload();
+            window.location.href = "/okw/view/boards";
         }, error: function (req, status, error) {
             alert("보드 추가 실패");
             console.log(req, status, error);

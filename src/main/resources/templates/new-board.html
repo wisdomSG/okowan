@@ -45,12 +45,12 @@
             <div class="offcanvas-header" style="padding:25px">
                 <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">My Boards</h1>
                 <div class="user-settings-btn">
-                    <button class="user-settings-btn btn" aria-label="Create" id="openModalBtn">
+                    <button class="open-modal-btn user-settings-btn btn" aria-label="Create" id="openModalBtn">
                         <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                     <div id="myModal" class="modal" style="justify-content: center;
                         align-items: center;margin: 0;">
-                        <form id="boardForm">
+                        <div id="boardForm">
                             <div class="modal-content">
                                 <span class="close" style="margin-left: auto">&times;</span>
                                 <h1>Create Board</h1>
@@ -62,7 +62,7 @@
                                     <button id="confirmBtn">Confirm</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
