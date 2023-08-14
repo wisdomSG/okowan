@@ -20,6 +20,7 @@ public class CardResponseDto {
     private LocalDateTime deadline; // 문자열로 저장하기 위한 필드
     private Long categoryId;
     private Long boardId;
+    private Long workerId;
     private List<CategoryResponseDto> categoryResponseDtoList;
     private List<S3FileResponseDto> fileList;
     private List<CommentResponseDto> commentResponseDtoList;
@@ -35,15 +36,8 @@ public class CardResponseDto {
                 .map(CategoryResponseDto::new)
                 .collect(Collectors.toList());
         this.deadline = card.getDeadline();
-//        // LocalDateTime을 "yyyy-MM-dd HH:mm" 형식의 문자열로 변환하여 저장
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
-//        if(card.getDeadline() != null) {
-//            this.deadline = card.getDeadline().format(formatter);
-//        } else {
-//            this.deadline = "";
-//        }
-
         this.boardId = card.getBoard().getBoardId();
+        this.workerId = card.getUser().getId();
         this.fileList = card.getS3FileList()
                 .stream()
                 .map(S3FileResponseDto::new)
