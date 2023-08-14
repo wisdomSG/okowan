@@ -1,7 +1,5 @@
 let BoardId = 0 //어떤 board가 눌렸는지 해당 boardId 업데이트
-let images = {
 
-}
 document.addEventListener("DOMContentLoaded", function () {
     const token = Cookies.get('Authorization');
     const host = "http://" + window.location.host;
