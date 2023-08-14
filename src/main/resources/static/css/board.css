@@ -450,9 +450,13 @@ body {
 }
 
 .user-menu-btn {
+    width: 80%;
     border-radius: 5px;
-    font-weight: bold;
-    margin: 5px auto 5px 20px;
+    /* font-weight: bold; */
+    background-color: #4d4c99;
+    color: #fff;
+    margin: 5px 30px 10px 30px;
+    border-color: transparent;
 }
 
 .cardForm {
@@ -804,7 +808,11 @@ Remove or comment-out the code block below to see how the browser will fall-back
     font-size: large;
     height: 50px;
     width: 250px;
-    background-color: #8080ff;
+    background-color: #4d4c99;
     border-radius: 0.3rem;
     transition: background-color 150ms;
+}
+
+.open-modal-btn {
+    height: 26px;
 }
