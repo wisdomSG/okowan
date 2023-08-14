@@ -28,8 +28,8 @@ public class BoardServiceImpl implements BoardService {
     private final UserService userService;
 
     @Override
-    public List<BoardResponseDto> getBoardList() {
-        List<Board> boardList = boardRepository.findAll();
+    public List<BoardResponseDto> getBoardList(User user) {
+        List<Board> boardList = userBoardRepository.getAllFindByUserId(user.getId());
         List<BoardResponseDto> boardResponseDtoList = boardList.stream()
                 .map(BoardResponseDto::new)
                 .toList();

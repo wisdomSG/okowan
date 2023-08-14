@@ -19,9 +19,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/okw/boards")
 public class BoardController {    // 전체 보드 조회
+
+    // 보드 리스트 조회
     @GetMapping
-    public ResponseEntity<List<BoardResponseDto>> getBoardList() {
-        List<BoardResponseDto> responseDto = boardService.getBoardList();
+    public ResponseEntity<List<BoardResponseDto>> getBoardList(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        List<BoardResponseDto> responseDto = boardService.getBoardList(userDetails.getUser());
         return ResponseEntity.ok().body(responseDto);
     }
 

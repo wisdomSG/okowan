@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 작업자 목록을 가져오는 함수
     function fetchWorkerList(response) {
         let boardId = response.boardId;
+        let workerId = response.workerId;
 
         $.ajax({
             type: 'GET',
@@ -204,6 +205,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     workerChoiceSelect.appendChild(option);
                 });
+
+                // 미리 선택할 작업자의 ID
+                const selectedWorkerId = workerId; // 예시로 1로 설정했습니다.
+
+                // 선택된 작업자를 옵션 중에서 찾아 선택하도록 설정
+                const selectedOption = workerChoiceSelect.querySelector(`option[value="${selectedWorkerId}"]`);
+                if (selectedOption) {
+                    selectedOption.selected = true;
+                }
             })
 
             .fail(function (error) {
@@ -253,7 +263,6 @@ document.addEventListener("DOMContentLoaded", function () {
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (response) {
-                alert('댓글이 성공적으로 수정되었습니다.');
                 window.location.reload();
             },
             error: function (error) {
@@ -305,13 +314,15 @@ function setCardData(response) {
         option.value = category.categoryId;
         option.textContent = category.title;
 
+        categoryChoiceElement.appendChild(option);
+
         const selectCategoryId = response.categoryId;
 
-        if (selectCategoryId) {
-            categoryChoiceElement.value = selectCategoryId;
-        }
+        const selectedOption = categoryChoiceElement.querySelector(`option[value="${selectCategoryId}"]`);
 
-        categoryChoiceElement.appendChild(option);
+        if (selectedOption) {
+            selectedOption.selected = true;
+        }
     });
 
     // 색상 선택(select) 엘리먼트 설정
@@ -424,7 +435,6 @@ function doneButton() {
         })
     })
         .done(function () {
-            alert("수정 완료");
             window.location.reload();
         })
         .fail(function (response) {
@@ -463,7 +473,6 @@ function updateDeadline() {
         }
     })
         .done(function(data) {
-            alert('데드라인이 업데이트되었습니다.');
             window.location.reload();
             // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
         })
@@ -496,7 +505,6 @@ function updateSelectedWorker() {
         }
     })
         .done(function(data) {
-            alert('작업자가 업데이트되었습니다.');
             window.location.reload();
             // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
         })
@@ -536,7 +544,6 @@ function uploadFiles() {
     })
         .done(function(data) {
             console.log(data);
-            alert('파일 업로드 완료');
             window.location.reload();
             // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
         })
