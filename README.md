@@ -16,6 +16,8 @@
 <img src="https://img.shields.io/badge/jQuery-0569EF?style=flat&logo=jquery&logoColor=white">
 <img src="https://img.shields.io/badge/Spring-6db33f?style=flat&logo=spring&logoColor=white">
 <img src="https://img.shields.io/badge/SpringBoot-6db33f?style=flat&logo=springBoot&logoColor=white">
+<img src="https://img.shields.io/badge/Spring Security-6db33f?style=flat&logo=SpringSecurity&logoColor=white">
+<img src="https://img.shields.io/badge/Thymeleaf-005f0f?style=flat&logo=Thymeleaf&logoColor=white">
 <img src="https://img.shields.io/badge/BootStrap-7952B3?style=flat&logo=bootstrap&logoColor=white">
 <img src="https://img.shields.io/badge/MySql-4479a1?style=flat&logo=mysql&logoColor=white">
 <img src="https://img.shields.io/badge/Redis-dc382d?style=flat&logo=Redis&logoColor=white">
