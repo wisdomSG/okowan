@@ -26,6 +26,8 @@
 ## 프로젝트 시연 영상
 <a href="">OKOWAN 기능 시연</a>
 
+[![이미지 텍스트](https://img.youtube.com/vi/HS4MhOUj6so/0.jpg)](https://www.youtube.com/watch?v=HS4MhOUj6so)
+
 ***
 ## 프로젝트 목적
 - 프로젝트에 팀원을 초대하여 할일을 생성하고 작업자를 할당하는 목적
