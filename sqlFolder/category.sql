@@ -1,0 +1,19 @@
+INSERT INTO okowan.categories (created_at, modified_at, order_stand, title, board_id)
+VALUES
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 'To do', 1),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, 'Done', 1),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, '웹 디자인', 1),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, '알림 기능', 2),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 2, '보안 강화', 2),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, '성능 최적화', 2),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, '데이터베이스 연동', 2);
+
+INSERT INTO okowan.categories (created_at, modified_at, order_stand, title, board_id)
+VALUES
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 'To do', 16),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 'Done', 16),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 5, '웹 디자인', 16),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 6, '알림 기능', 16),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 7, '보안 강화', 16),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, '성능 최적화', 16),
+    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 9, '데이터베이스 연동', 16);
