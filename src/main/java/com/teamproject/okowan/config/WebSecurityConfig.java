@@ -76,6 +76,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/okw/users/**").permitAll()
                         .requestMatchers("/okw/oauths/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/okw/view/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // swagger 허용
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 
