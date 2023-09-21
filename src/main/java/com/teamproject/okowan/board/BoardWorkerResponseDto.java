@@ -1,7 +1,6 @@
 package com.teamproject.okowan.board;
 
 import com.teamproject.okowan.entity.BoardRoleEnum;
-import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.userBoard.UserBoard;
 import lombok.Getter;
 import lombok.Setter;

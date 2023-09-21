@@ -30,7 +30,7 @@ public class Category extends TimeStamped {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Card> cardList = new ArrayList<>();
 
     @Builder

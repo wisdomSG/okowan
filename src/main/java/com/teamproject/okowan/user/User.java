@@ -43,7 +43,7 @@ public class User {
     private List<Alert> alertList = new ArrayList<>();
 
     @Builder
-    public User(String username, String password,String nickname, String introduction, OAuthProvider oAuthProvider) {
+    public User(String username, String password, String nickname, String introduction, OAuthProvider oAuthProvider) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;

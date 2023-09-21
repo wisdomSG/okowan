@@ -38,13 +38,16 @@ public class RoleCheckAop {
     private BoardService boardService;
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.updateCard(..))")
-    private  void updateCard() {}
+    private void updateCard() {
+    }
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.updateDeadLine(..))")
-    private  void updateDeadLine() {}
+    private void updateDeadLine() {
+    }
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.updateFileUpload(..))")
-    private  void updateFileUpload() {}
+    private void updateFileUpload() {
+    }
 
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.deleteCard(..))")
@@ -65,10 +68,11 @@ public class RoleCheckAop {
 
 
     @Pointcut("execution(* com.teamproject.okowan.card.CardService.deleteFile(..))")
-    private  void deleteFile() {}
+    private void deleteFile() {
+    }
 
     @Around("updateCard() || deleteCard() || updateDeadLine() || deleteFile() || updateFileUpload()")
-    public Object executeCardRoleCheck(ProceedingJoinPoint joinPoint) throws  Throwable {
+    public Object executeCardRoleCheck(ProceedingJoinPoint joinPoint) throws Throwable {
 
         // 1,2 번째 매개변수로 id, user값 가져오기
         Long id = (Long) joinPoint.getArgs()[0];

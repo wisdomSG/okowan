@@ -1,15 +1,14 @@
 package com.teamproject.okowan.oauth;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.teamproject.okowan.jwt.JwtUtil;
 import com.teamproject.okowan.oauth.kakao.KakaoLoginParams;
-import com.teamproject.okowan.security.UserDetailsImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -28,9 +27,9 @@ public class OAuthController {
     public String loginKakao(@RequestParam String code, HttpServletResponse response) throws UnsupportedEncodingException {
         KakaoLoginParams kakaoLoginParams = new KakaoLoginParams();
         kakaoLoginParams.setCode(code);
-        String token = oAuthLoginService.login(kakaoLoginParams,response);
+        String token = oAuthLoginService.login(kakaoLoginParams, response);
 
-        token = URLEncoder.encode(token,"utf-8").replaceAll("\\+", "%20");
+        token = URLEncoder.encode(token, "utf-8").replaceAll("\\+", "%20");
         Cookie cookie = new Cookie(JwtUtil.AUTHORIZATION_HEADER, token);
         cookie.setPath("/");
         response.addCookie(cookie); //브라우저 쿠키에 jwt 토큰 생성

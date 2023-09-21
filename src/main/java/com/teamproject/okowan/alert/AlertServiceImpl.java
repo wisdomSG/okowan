@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AlertServiceImpl implements AlertService{
+public class AlertServiceImpl implements AlertService {
     private final AlertRepository alertRepository;
 
     private final UserService userService;
@@ -43,7 +43,7 @@ public class AlertServiceImpl implements AlertService{
     public ApiResponseDto deleteAlerts(Long alertId, UserDetailsImpl userDetails) {
         Alert alert = findAlert(alertId);
 
-        if(alert.getUser().getId() != userDetails.getUser().getId()) {
+        if (alert.getUser().getId() != userDetails.getUser().getId()) {
             throw new IllegalArgumentException("알림 대상이 아닙니다.");
         }
 

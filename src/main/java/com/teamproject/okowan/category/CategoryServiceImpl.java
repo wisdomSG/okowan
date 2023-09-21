@@ -3,11 +3,7 @@ package com.teamproject.okowan.category;
 
 import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.board.Board;
-import com.teamproject.okowan.board.BoardRepository;
 import com.teamproject.okowan.board.BoardService;
-import com.teamproject.okowan.board.BoardServiceImpl;
-import com.teamproject.okowan.card.CardRepository;
-import com.teamproject.okowan.comment.CommentRepository;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import com.teamproject.okowan.user.User;
 import lombok.RequiredArgsConstructor;
@@ -53,19 +49,19 @@ public class CategoryServiceImpl implements CategoryService {
                 }));
             } else {
                 Long orderStand = categoryList.get(pos).getOrderStand();
-                categoryList.get(pos).setOrderStand(categoryList.get(pos+1).getOrderStand());
-                categoryList.get(pos+1).setOrderStand(orderStand);
+                categoryList.get(pos).setOrderStand(categoryList.get(pos + 1).getOrderStand());
+                categoryList.get(pos + 1).setOrderStand(orderStand);
             }
         } else if (move.equals("down")) {
             if (pos <= 0) {
-                categoryList.get(pos).setOrderStand(categoryList.get(categoryList.size()-1).getOrderStand()+1);
+                categoryList.get(pos).setOrderStand(categoryList.get(categoryList.size() - 1).getOrderStand() + 1);
                 categoryList.stream().forEach((categoryElement -> {
                     categoryElement.setOrderStand(categoryElement.getOrderStand() - 1);
                 }));
             } else {
                 Long orderStand = categoryList.get(pos).getOrderStand();
-                categoryList.get(pos).setOrderStand(categoryList.get(pos-1).getOrderStand());
-                categoryList.get(pos-1).setOrderStand(orderStand);
+                categoryList.get(pos).setOrderStand(categoryList.get(pos - 1).getOrderStand());
+                categoryList.get(pos - 1).setOrderStand(orderStand);
             }
         } else {
             throw new IllegalArgumentException("올바르지 않은 명령어입니다.");
@@ -104,7 +100,7 @@ public class CategoryServiceImpl implements CategoryService {
         Board board = category.getBoard();
 
         Integer pos = board.getCategoryList().indexOf(category);
-        if(pos < 0) {
+        if (pos < 0) {
             throw new IllegalArgumentException("존재하지 않는 카테고리입니다.");
         }
 

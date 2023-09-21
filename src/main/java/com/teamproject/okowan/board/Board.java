@@ -29,7 +29,7 @@ public class Board extends TimeStamped {
     @Column(nullable = false)
     private String description;
 
-//    @Column(nullable = false)
+    // @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ColorEnum color;
 
@@ -40,7 +40,7 @@ public class Board extends TimeStamped {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Card> cardList = new ArrayList<>();
 
-    @OneToMany (mappedBy = "board",  cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<UserBoard> userBoardList = new ArrayList<>();
     // User와 연관되어 있으므로 보드 삭제 시 함게 삭제되는 것 필요
 
@@ -50,6 +50,7 @@ public class Board extends TimeStamped {
         this.description = description;
         this.color = color;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }

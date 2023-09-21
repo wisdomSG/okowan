@@ -35,6 +35,7 @@ public class Comment {
     public void setCard(Card card) {
         this.card = card;
     }
+
     public void setUser(User user) {
         this.user = user;
     }

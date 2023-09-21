@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
 
         commentRepository.delete(comment);
 
-        return new ApiResponseDto("댓글 삭제 성공" , HttpStatus.OK.value());
+        return new ApiResponseDto("댓글 삭제 성공", HttpStatus.OK.value());
     }
 
     /* 댓글 찾기 */
@@ -75,7 +75,7 @@ public class CommentServiceImpl implements CommentService {
 
     /* Jwt UserDetails Null Check */
     public User checkUser(UserDetailsImpl userDetails) {
-        if(userDetails == null) {
+        if (userDetails == null) {
             throw new IllegalArgumentException("올바른 사용자가 아닙니다");
         }
         return userDetails.getUser();
@@ -83,7 +83,7 @@ public class CommentServiceImpl implements CommentService {
 
     /* check same user - comment */
     public void checkUserCommentOwner(Comment comment, User user) {
-        if(comment.getUser().getId() != user.getId()) {
+        if (comment.getUser().getId() != user.getId()) {
             throw new IllegalArgumentException("댓글 작성자가 아닙니다.");
         }
     }

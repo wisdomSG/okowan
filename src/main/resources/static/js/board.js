@@ -376,7 +376,7 @@ function moveCategory(categoryId, boardId, move, token) {
         headers: {"Authorization": token}
     })
         .done(function (response, status, xhr) {
-                getBoardContent(boardId);
+            getBoardContent(boardId);
         })
         .fail(function (response) {
             alert("카테고리 순서 이동 실패: " + response.responseJSON.msg);

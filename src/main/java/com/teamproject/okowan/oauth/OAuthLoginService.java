@@ -1,13 +1,11 @@
 package com.teamproject.okowan.oauth;
 
-import com.teamproject.okowan.aop.ApiResponseDto;
 import com.teamproject.okowan.jwt.JwtUtil;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +35,7 @@ public class OAuthLoginService {
     private User findOrCreateUser(OAuthInfoResponse oAuthInfoResponse) {
         Optional<User> user = userRepository.findByUsername(oAuthInfoResponse.getEmail());
         return user.isPresent() ?
-                user.get():
+                user.get() :
                 newUser(oAuthInfoResponse);
     }
 
