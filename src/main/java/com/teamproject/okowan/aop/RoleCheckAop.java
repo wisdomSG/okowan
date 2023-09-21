@@ -6,7 +6,7 @@ import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.card.CardService;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
-import com.teamproject.okowan.entity.BoardRoleEnum;
+import com.teamproject.okowan.common.BoardRoleEnum;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.userBoard.UserBoardRepository;

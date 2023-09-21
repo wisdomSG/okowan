@@ -1,6 +1,6 @@
 package com.teamproject.okowan.board;
 
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

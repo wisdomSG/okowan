@@ -21,7 +21,7 @@ public class OAuthLoginService {
     private final RequestOAuthInfoService requestOAuthInfoService;
     private final PasswordEncoder passwordEncoder;
 
-    private final String DEFAULT_INTRODUCE = "안녕하세요!";
+    private final String DEFAULT_INTRODUCTION = "안녕하세요!";
 
     public String login(OAuthLoginParams params, HttpServletResponse response) {
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
@@ -44,7 +44,7 @@ public class OAuthLoginService {
                 .username(oAuthInfoResponse.getEmail())
                 .nickname(oAuthInfoResponse.getNickname())
                 .password(passwordEncoder.encode(UUID.randomUUID().toString()))
-                .introduction(DEFAULT_INTRODUCE)
+                .introduction(DEFAULT_INTRODUCTION)
                 .oAuthProvider(oAuthInfoResponse.getOAuthProvider())
                 .build();
 

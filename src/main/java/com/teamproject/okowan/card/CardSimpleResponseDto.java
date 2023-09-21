@@ -1,6 +1,6 @@
 package com.teamproject.okowan.card;
 
-import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.common.ColorEnum;
 import lombok.Getter;
 
 import java.time.format.DateTimeFormatter;

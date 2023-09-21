@@ -2,8 +2,8 @@ package com.teamproject.okowan.board;
 
 import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.category.Category;
-import com.teamproject.okowan.entity.ColorEnum;
-import com.teamproject.okowan.entity.TimeStamped;
+import com.teamproject.okowan.common.ColorEnum;
+import com.teamproject.okowan.common.TimeStamped;
 import com.teamproject.okowan.userBoard.UserBoard;
 import jakarta.persistence.*;
 import lombok.Builder;

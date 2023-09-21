@@ -2,7 +2,7 @@ package com.teamproject.okowan.category;
 
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.card.Card;
-import com.teamproject.okowan.entity.TimeStamped;
+import com.teamproject.okowan.common.TimeStamped;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

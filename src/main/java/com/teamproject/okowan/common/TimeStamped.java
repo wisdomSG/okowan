@@ -1,4 +1,4 @@
-package com.teamproject.okowan.entity;
+package com.teamproject.okowan.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

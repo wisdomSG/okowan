@@ -1,7 +1,7 @@
 package com.teamproject.okowan.category;
 
 
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.board.BoardService;
 import com.teamproject.okowan.security.UserDetailsImpl;

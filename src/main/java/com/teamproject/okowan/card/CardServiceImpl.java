@@ -2,14 +2,14 @@ package com.teamproject.okowan.card;
 
 import com.teamproject.okowan.alert.AlertRequestDto;
 import com.teamproject.okowan.alert.AlertService;
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.awsS3.S3File;
 import com.teamproject.okowan.awsS3.S3FileRepository;
 import com.teamproject.okowan.awsS3.S3Service;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
-import com.teamproject.okowan.entity.BoardRoleEnum;
-import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.common.BoardRoleEnum;
+import com.teamproject.okowan.common.ColorEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
 import com.teamproject.okowan.userBoard.UserBoardRepository;

@@ -1,6 +1,6 @@
 package com.teamproject.okowan.comment;
 
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.card.CardRepository;
 import com.teamproject.okowan.security.UserDetailsImpl;

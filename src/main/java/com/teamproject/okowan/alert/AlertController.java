@@ -1,6 +1,6 @@
 package com.teamproject.okowan.alert;
 
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.teamproject.okowan.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

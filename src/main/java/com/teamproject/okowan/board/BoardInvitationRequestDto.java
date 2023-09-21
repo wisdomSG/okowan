@@ -1,6 +1,6 @@
 package com.teamproject.okowan.board;
 
-import com.teamproject.okowan.entity.BoardRoleEnum;
+import com.teamproject.okowan.common.BoardRoleEnum;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
 package com.teamproject.okowan.board;
 
-import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.common.ColorEnum;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 

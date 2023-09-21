@@ -4,7 +4,7 @@ import com.teamproject.okowan.awsS3.S3File;
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.comment.Comment;
-import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.common.ColorEnum;
 import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;

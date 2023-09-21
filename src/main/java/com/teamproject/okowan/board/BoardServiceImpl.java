@@ -1,11 +1,11 @@
 package com.teamproject.okowan.board;
 
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.card.Card;
 import com.teamproject.okowan.card.CardSimpleResponseDto;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryDetailResponseDto;
-import com.teamproject.okowan.entity.BoardRoleEnum;
+import com.teamproject.okowan.common.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
 import com.teamproject.okowan.userBoard.UserBoard;

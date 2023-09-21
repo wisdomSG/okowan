@@ -1,6 +1,6 @@
 package com.teamproject.okowan.card;
 
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.awsS3.S3Service;
 import com.teamproject.okowan.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
