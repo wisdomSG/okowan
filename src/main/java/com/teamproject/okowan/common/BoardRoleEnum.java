@@ -1,4 +1,4 @@
-package com.teamproject.okowan.entity;
+package com.teamproject.okowan.common;
 
 public enum BoardRoleEnum {
     VIEWER("조회만 가능 / 모든 작성,수정,삭제 불가능"),

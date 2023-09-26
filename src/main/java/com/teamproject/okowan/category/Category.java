@@ -2,7 +2,7 @@ package com.teamproject.okowan.category;
 
 import com.teamproject.okowan.board.Board;
 import com.teamproject.okowan.card.Card;
-import com.teamproject.okowan.entity.TimeStamped;
+import com.teamproject.okowan.common.TimeStamped;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class Category extends TimeStamped {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Card> cardList = new ArrayList<>();
 
     @Builder

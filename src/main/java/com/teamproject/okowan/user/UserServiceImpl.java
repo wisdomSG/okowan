@@ -1,6 +1,6 @@
 package com.teamproject.okowan.user;
 
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.jwt.JwtUtil;
 import com.teamproject.okowan.oauth.OAuthProvider;
 import jakarta.servlet.http.Cookie;

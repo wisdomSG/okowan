@@ -31,7 +31,7 @@ public class S3Service {
         for (MultipartFile file : files) {
 //            String fileName = file.getOriginalFilename();
             String fileName = UUID.randomUUID() + file.getOriginalFilename(); // fileName을 난수와 함께 저장
-            String fileUrl = S3FileUpload(file,fileName);
+            String fileUrl = S3FileUpload(file, fileName);
             fileNames.add(fileUrl);
         }
 
@@ -64,7 +64,7 @@ public class S3Service {
     }
 
 
-    public void deleteFile(String originalFilename)  {
+    public void deleteFile(String originalFilename) {
         String fileName = originalFilename.substring(originalFilename.lastIndexOf("/") + 1);
         amazonS3.deleteObject(bucket, fileName);
     }
@@ -72,7 +72,7 @@ public class S3Service {
     public ResponseEntity<UrlResource> downloadFile(String originalFilename) {
         UrlResource urlResource = new UrlResource(amazonS3.getUrl(bucket, originalFilename));
 
-        String contentDisposition = "attachment; filename=\"" +  originalFilename + "\"";
+        String contentDisposition = "attachment; filename=\"" + originalFilename + "\"";
 
         // header에 CONTENT_DISPOSITION 설정을 통해 클릭 시 다운로드 진행
         return ResponseEntity.ok()

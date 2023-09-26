@@ -1,4 +1,4 @@
-package com.teamproject.okowan.entity;
+package com.teamproject.okowan.common;
 
 public enum ColorEnum {
     RED("Red color"),

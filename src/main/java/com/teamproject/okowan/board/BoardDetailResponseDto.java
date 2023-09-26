@@ -1,10 +1,7 @@
 package com.teamproject.okowan.board;
 
-import com.teamproject.okowan.card.CardResponseDto;
 import com.teamproject.okowan.category.CategoryDetailResponseDto;
-import com.teamproject.okowan.category.CategoryResponseDto;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;

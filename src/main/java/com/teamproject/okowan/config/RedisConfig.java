@@ -1,4 +1,4 @@
-package com.teamproject.okowan.redis;
+package com.teamproject.okowan.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;

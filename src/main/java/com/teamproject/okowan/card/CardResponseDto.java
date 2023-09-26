@@ -2,7 +2,7 @@ package com.teamproject.okowan.card;
 
 import com.teamproject.okowan.category.CategoryResponseDto;
 import com.teamproject.okowan.comment.CommentResponseDto;
-import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.common.ColorEnum;
 import lombok.Getter;
 import lombok.Setter;
 

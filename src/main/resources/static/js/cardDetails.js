@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $.ajax({
             type: 'DELETE',
-            url: "/okw/cards/"+lastPart +"/files/" + fileId,
+            url: "/okw/cards/" + lastPart + "/files/" + fileId,
             headers: {
                 'Authorization': token
             }
@@ -416,6 +416,7 @@ let urlParts = currentURL.split("/");
 
 // 배열에서 마지막 요소를 가져옵니다.
 let lastPart = urlParts[urlParts.length - 1];
+
 function doneButton() {
     let cardTitle = $("#cardTitle").val();
     let description = $("#description").val();
@@ -424,7 +425,7 @@ function doneButton() {
 
     $.ajax({
         type: "PUT",
-        url:"/okw/cards/" + lastPart,
+        url: "/okw/cards/" + lastPart,
         headers: {'Authorization': token},
         contentType: "application/json",
         data: JSON.stringify({
@@ -449,8 +450,6 @@ doneButtons.forEach(function (button) {
 });
 
 
-
-
 // 선택한 데드라인을 서버에 업데이트하는 함수
 function updateDeadline() {
     const selectedYear = document.getElementById('year').value;
@@ -472,11 +471,11 @@ function updateDeadline() {
             'Authorization': token
         }
     })
-        .done(function(data) {
+        .done(function (data) {
             window.location.reload();
             // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
         })
-        .fail(function(error) {
+        .fail(function (error) {
             console.error('데드라인 업데이트 오류:', error);
         });
 }
@@ -484,7 +483,6 @@ function updateDeadline() {
 // "done-deadline-btn" 버튼에 대한 이벤트 리스너
 const doneDeadlineButton = document.querySelector('.update-deadline-btn');
 doneDeadlineButton.addEventListener('click', updateDeadline);
-
 
 
 // 선택한 작업자를 서버에 업데이트하는 함수
@@ -504,11 +502,11 @@ function updateSelectedWorker() {
             'Authorization': token
         }
     })
-        .done(function(data) {
+        .done(function (data) {
             window.location.reload();
             // 업데이트 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
         })
-        .fail(function(error) {
+        .fail(function (error) {
             console.error('작업자 업데이트 오류:', error);
         });
 }
@@ -542,16 +540,15 @@ function uploadFiles() {
             'Authorization': token
         }
     })
-        .done(function(data) {
+        .done(function (data) {
             console.log(data);
             window.location.reload();
             // 업로드 이후에 필요한 UI 업데이트나 새로고침 처리 등을 진행할 수 있습니다.
         })
-        .fail(function(error) {
+        .fail(function (error) {
             console.error('파일 업로드 오류:', error);
         });
 }
-
 
 
 // 댓글 생성
@@ -567,7 +564,7 @@ function createComment() {
     // 서버로 AJAX POST 요청을 보냅니다.
     $.ajax({
         type: "POST",
-        url:`/okw/comments/`+ lastPart, // 적절한 엔드포인트 URL로 대체합니다.
+        url: `/okw/comments/` + lastPart, // 적절한 엔드포인트 URL로 대체합니다.
         headers: {'Authorization': token},
         contentType: "application/json",
         data: JSON.stringify(data),

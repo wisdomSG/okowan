@@ -2,14 +2,14 @@ package com.teamproject.okowan.card;
 
 import com.teamproject.okowan.alert.AlertRequestDto;
 import com.teamproject.okowan.alert.AlertService;
-import com.teamproject.okowan.aop.ApiResponseDto;
+import com.teamproject.okowan.common.ApiResponseDto;
 import com.teamproject.okowan.awsS3.S3File;
 import com.teamproject.okowan.awsS3.S3FileRepository;
 import com.teamproject.okowan.awsS3.S3Service;
 import com.teamproject.okowan.category.Category;
 import com.teamproject.okowan.category.CategoryService;
-import com.teamproject.okowan.entity.BoardRoleEnum;
-import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.common.BoardRoleEnum;
+import com.teamproject.okowan.common.ColorEnum;
 import com.teamproject.okowan.user.User;
 import com.teamproject.okowan.user.UserService;
 import com.teamproject.okowan.userBoard.UserBoardRepository;
@@ -49,12 +49,12 @@ public class CardServiceImpl implements CardService {
 
         userBoardRepository.getRoleFindByUserIdAndBoardId(user.getId(), category.getBoard().getBoardId())
                 .ifPresent(role -> {
-                    if(role != BoardRoleEnum.OWNER && role != BoardRoleEnum.EDITOR) {
+                    if (role != BoardRoleEnum.OWNER && role != BoardRoleEnum.EDITOR) {
                         throw new IllegalArgumentException("Card의 관한 권한이 없습니다.");
                     }
                 });
 
-        Card card = new Card(requestDto.getTitle(),"설명을 변경해주세요", ColorEnum.RED,category, user);
+        Card card = new Card(requestDto.getTitle(), "설명을 변경해주세요", ColorEnum.RED, category, user);
 
         cardRepository.save(card);
 
@@ -126,7 +126,7 @@ public class CardServiceImpl implements CardService {
     public ApiResponseDto deleteCard(Long id, User user) {
         Card card = findCard(id);
 
-        for(S3File s3File : card.getS3FileList()) {
+        for (S3File s3File : card.getS3FileList()) {
             s3Service.deleteFile(s3File.getFileName());
         }
 

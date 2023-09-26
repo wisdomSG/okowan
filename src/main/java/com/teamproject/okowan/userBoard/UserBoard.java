@@ -1,7 +1,7 @@
 package com.teamproject.okowan.userBoard;
 
 import com.teamproject.okowan.board.Board;
-import com.teamproject.okowan.entity.BoardRoleEnum;
+import com.teamproject.okowan.common.BoardRoleEnum;
 import com.teamproject.okowan.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;

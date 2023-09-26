@@ -18,7 +18,7 @@ public class S3File {
     @Column(length = 255)
     private String fileName;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cardId", nullable = false)
     private Card card;
 

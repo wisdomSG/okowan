@@ -1,5 +1,6 @@
 package com.teamproject.okowan.aop;
 
+import com.teamproject.okowan.common.ApiResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

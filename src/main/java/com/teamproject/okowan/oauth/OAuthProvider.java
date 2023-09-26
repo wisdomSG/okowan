@@ -15,7 +15,7 @@ public enum OAuthProvider {
     }
 
     public static class OAuth {
-        public static final String ORIGIN = "TELLRO";
+        public static final String ORIGIN = "OKOWAN";
         public static final String KAKAO = "KAKAO";
     }
 }

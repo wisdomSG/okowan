@@ -1,6 +1,6 @@
 package com.teamproject.okowan.card;
 
-import com.teamproject.okowan.entity.ColorEnum;
+import com.teamproject.okowan.common.ColorEnum;
 import lombok.Getter;
 
 import java.time.format.DateTimeFormatter;
@@ -21,7 +21,7 @@ public class CardSimpleResponseDto {
 
         // LocalDateTime을 "yyyy-MM-dd HH:mm" 형식의 문자열로 변환하여 저장
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:00");
-        if(card.getDeadline() != null) {
+        if (card.getDeadline() != null) {
             this.deadline = card.getDeadline().format(formatter);
         } else {
             this.deadline = "";

@@ -7,5 +7,5 @@ import java.util.List;
 @Repository
 public interface CardRepositoryQuery {
 
-    List<Card> getCardFindByTitleList (String keyword);
+    List<Card> getCardFindByTitleList(String keyword);
 }

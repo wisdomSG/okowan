@@ -1,4 +1,4 @@
-package com.teamproject.okowan.aop;
+package com.teamproject.okowan.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
