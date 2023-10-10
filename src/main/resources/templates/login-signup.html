@@ -37,8 +37,10 @@
         <div class="login-form">
             <h1>로그인</h1>
             <div class="social-container">
-                <a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=' + ${@environment.getProperty('oauth.kakao.client-id')} + '&redirect_uri=http://localhost:8080/okw/oauths/callback/kakao&response_type=code'}"
+                <a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=' + ${@environment.getProperty('oauth.kakao.client_id')} + '&redirect_uri=http://localhost:8080/okw/oauths/callback/kakao&response_type=code'}"
                    style="background-image: url('/images/kakaotalk_sharing_btn_small.png')"></a>
+                <a th:href="@{'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + ${@environment.getProperty('oauth.naver.client_id')} + '&state=' + ${@environment.getProperty('oauth.naver.state')} + '&redirect_uri=http://localhost:8080/okw/oauths/callback/naver'}"
+                   style="background-image: url('/images/naver_btn.png')"></a>
             </div>
             <span>or use your account</span>
             <input type="email" id="login-email" placeholder="Email"/>
