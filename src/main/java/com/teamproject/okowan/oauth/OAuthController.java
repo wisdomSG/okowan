@@ -2,6 +2,7 @@ package com.teamproject.okowan.oauth;
 
 import com.teamproject.okowan.jwt.JwtUtil;
 import com.teamproject.okowan.oauth.kakao.KakaoLoginParams;
+import com.teamproject.okowan.oauth.naver.NaverLoginParams;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,20 @@ public class OAuthController {
         Cookie cookie = new Cookie(JwtUtil.AUTHORIZATION_HEADER, token);
         cookie.setPath("/");
         response.addCookie(cookie); //브라우저 쿠키에 jwt 토큰 생성
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/callback/naver")
+    public String loginNaver(@RequestParam String code, HttpServletResponse response) throws UnsupportedEncodingException {
+        NaverLoginParams naverLoginParams = new NaverLoginParams();
+        naverLoginParams.setCode(code);
+        String token = oAuthLoginService.login(naverLoginParams, response);
+
+        token = URLEncoder.encode(token, "utf-8").replaceAll("\\+", "%20");
+        Cookie cookie = new Cookie(JwtUtil.AUTHORIZATION_HEADER, token);
+        cookie.setPath("/");
+        response.addCookie(cookie);
 
         return "redirect:/";
     }
